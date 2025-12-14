@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,82 +10,47 @@
   --neon2:#9b6cff;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
-html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff}
+html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff}/* ---------- NAVBAR (LIQUID GLASS) ---------- */ .navbar{ position:fixed; top:0;left:0; width:100%; z-index:9999; display:flex; justify-content:space-between; align-items:center; padding:18px 60px; background:rgba(10,12,24,.45); backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%); border-bottom:1px solid rgba(255,255,255,.12); } .nav-logo{ font-size:28px; font-weight:900; letter-spacing:4px; } .nav-links{ list-style:none; display:flex; gap:36px; } .nav-links a{ text-decoration:none; color:#eef1ff; font-weight:600; opacity:.8; transition:.35s ease; } .nav-links a:hover{ opacity:1; color:var(--neon1); text-shadow:0 0 12px rgba(94,231,255,.8); }
 
-section{width:100%;position:relative}
-.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+section{width:100%;position:relative} .fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
 
-/* ---------- NEON TRANSITION ---------- */
-.animated-bg{
-  background:radial-gradient(circle at 20% 20%,#0b1a3a,#05060c 60%),
-             radial-gradient(circle at 80% 80%,#2a0d3f,transparent 60%);
-  overflow:hidden;
-}
-.animated-bg::before{
-  content:"";
-  position:absolute;inset:0;
-  background:linear-gradient(120deg,transparent 40%,rgba(94,231,255,.08),transparent 60%);
-  animation:flow 6s linear infinite;
-}
-@keyframes flow{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+/* ---------- NEON TRANSITION ---------- */ .animated-bg{ background: radial-gradient(circle at 20% 20%,#0b1a3a,#05060c 60%), radial-gradient(circle at 80% 80%,#2a0d3f,transparent 60%); overflow:hidden; } .animated-bg::before{ content:""; position:absolute;inset:0; background:linear-gradient(120deg,transparent 40%,rgba(94,231,255,.08),transparent 60%); animation:flow 6s linear infinite; } @keyframes flow{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 
-/* ---------- IMAGE SECTIONS ---------- */
-.image-bg{
-  background-size:cover;
-  background-position:center;
-}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
-.content{position:relative;z-index:2;max-width:900px;padding:40px}
+/* ---------- IMAGE SECTIONS ---------- */ .image-bg{ background-size:cover; background-position:center; } .overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)} .content{position:relative;z-index:2;max-width:900px;padding:40px}
 
-/* ---------- HERO ---------- */
-.hero h1{font-size:120px;font-weight:900;letter-spacing:6px}
-.hero p{font-size:26px;margin-top:16px;opacity:.85}
-.hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000}
+/* ---------- HERO ---------- */ .hero h1{font-size:120px;font-weight:900;letter-spacing:6px} .hero p{font-size:26px;margin-top:16px;opacity:.85} .hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000}
 
-/* ---------- PRODUCT BOX ---------- */
-.box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:50px;backdrop-filter:blur(14px);transition:.4s}
-.box:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(94,231,255,.25)}
-.box h2{font-size:42px}
-.box p{margin-top:16px;font-size:20px;opacity:.9}
-.box a,.box button{margin-top:26px;display:inline-block;padding:14px 30px;border-radius:30px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#000;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+/* ---------- PRODUCT BOX ---------- */ .box{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15); border-radius:26px; padding:50px; backdrop-filter:blur(14px); transition:.4s } .box:hover{transform:scale(1.04);box-shadow:0 0 26px rgba(94,231,255,.25)} .box h2{font-size:42px} .box p{margin-top:16px;font-size:20px;opacity:.9} .box a,.box button{ margin-top:26px; display:inline-block; padding:14px 30px; border-radius:30px; background:linear-gradient(90deg,var(--neon1),var(--neon2)); color:#000; text-decoration:none; font-weight:700; border:none; cursor:pointer }
 
-/* ---------- CONTACT ---------- */
-.contact form{display:flex;flex-direction:column;gap:18px;margin-top:30px}
-.contact input,.contact textarea{background:#0b0f1a;border:1px solid #333;color:#fff;padding:14px;border-radius:12px}
+/* ---------- CONTACT ---------- */ .contact form{display:flex;flex-direction:column;gap:18px;margin-top:30px} .contact input,.contact textarea{background:#0b0f1a;border:1px solid #333;color:#fff;padding:14px;border-radius:12px}
 
-footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
-</style>
+footer{text-align:center;padding:30px;font-size:14px;opacity:.6} </style>
+
 </head>
-<body>
-
-<!-- HERO (IMAGE) -->
-<section class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
+<body><!-- NAVBAR --><nav class="navbar">
+  <div class="nav-logo">BEETA</div>
+  <ul class="nav-links">
+    <li><a href="#top">Home</a></li>
+    <li><a href="#beetaos">Beeta OS</a></li>
+    <li><a href="#apps">Apps</a></li>
+    <li><a href="#proton">Proton</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav><!-- HERO --><section id="top" class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
   <div class="overlay"></div>
   <div class="content">
     <h1>BEETA</h1>
     <p>For Human</p>
     <button onclick="document.getElementById('beetaos').scrollIntoView()">Explore our ecosystem</button>
   </div>
-</section>
-
-<!-- NEON TRANSITION -->
-<section class="fullscreen animated-bg"></section>
-
-<!-- BEETA OS (IMAGE) -->
-<section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
+</section><section class="fullscreen animated-bg"></section><!-- BEETA OS --><section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta OS</h2>
     <p>An all‑in‑one Linux OS for gamers, professionals, and everyday users</p>
     <a href="https://osbeeta.netlify.app" target="_blank">Learn more</a>
   </div>
-</section>
-
-<!-- NEON TRANSITION -->
-<section class="fullscreen animated-bg"></section>
-
-<!-- APPS (IMAGE) -->
-<section class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
+</section><section class="fullscreen animated-bg"></section><!-- APPS --><section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Apps of Beeta OS</h2>
@@ -97,14 +62,8 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
       <button type="submit">Add BeeCreator to Wishlist</button>
     </form>
   </div>
-</section>
-
-<!-- NEON TRANSITION -->
-<section class="fullscreen animated-bg"></section>
-
-<!-- PROTON (IMAGE) -->
-<section class="fullscreen image-bg" style="background-image:url('car.jpeg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
-  <div class="overlay" style="background:rgba(0,0,0,0.2)"></div>
+</section><section class="fullscreen animated-bg"></section><!-- PROTON --><section id="proton" class="fullscreen image-bg" style="background-image:url('car.jpeg')">
+  <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Proton</h2>
     <p>A fully autonomous electric vehicle designed to serve humanity from day one</p>
@@ -114,15 +73,7 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
       <button type="submit">Subscribe for Updates</button>
     </form>
   </div>
-</section>
-
-<!-- NEON TRANSITION -->
-<section class="fullscreen animated-bg"></section>
-
-<section class="fullscreen animated-bg"></section>
-
-<!-- CONTACT (NEON ONLY) -->
-<section class="fullscreen animated-bg contact">
+</section><section class="fullscreen animated-bg"></section><!-- CONTACT --><section id="contact" class="fullscreen animated-bg contact">
   <div class="content">
     <h2>Contact Beeta</h2>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
@@ -131,9 +82,5 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
       <button type="submit">Send</button>
     </form>
   </div>
-</section>
-
-<footer>© Beeta® 2025</footer>
-
-</body>
+</section><footer>© Beeta® 2025</footer></body>
 </html>
