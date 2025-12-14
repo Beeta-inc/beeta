@@ -12,11 +12,10 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
 html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff}
 
-/* ---------- GLOBAL ---------- */
 section{width:100%;position:relative}
 .fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
 
-/* ---------- ANIMATED BG ---------- */
+/* ---------- NEON TRANSITION ---------- */
 .animated-bg{
   background:radial-gradient(circle at 20% 20%,#0b1a3a,#05060c 60%),
              radial-gradient(circle at 80% 80%,#2a0d3f,transparent 60%);
@@ -35,106 +34,93 @@ section{width:100%;position:relative}
   background-size:cover;
   background-position:center;
 }
-.overlay{
-  position:absolute;inset:0;
-  background:rgba(0,0,0,.55);
-}
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
 .content{position:relative;z-index:2;max-width:900px;padding:40px}
 
 /* ---------- HERO ---------- */
 .hero h1{font-size:120px;font-weight:900;letter-spacing:6px}
 .hero p{font-size:26px;margin-top:16px;opacity:.85}
-.hero button{
-  margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
-  border:none;border-radius:40px;cursor:pointer;color:#000
-}
+.hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000}
 
 /* ---------- PRODUCT BOX ---------- */
-.box{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:26px;padding:50px;
-  backdrop-filter:blur(14px);
-  transition:.4s
-}
-.box:hover{transform:scale(1.04);box-shadow:0 0 40px rgba(94,231,255,.25)}
+.box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:50px;backdrop-filter:blur(14px);transition:.4s}
+.box:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(94,231,255,.25)}
 .box h2{font-size:42px}
 .box p{margin-top:16px;font-size:20px;opacity:.9}
-.box a,.box button{
-  margin-top:26px;display:inline-block;padding:14px 30px;border-radius:30px;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
-  color:#000;text-decoration:none;font-weight:700;border:none;cursor:pointer
-}
-
-/* ---------- SPACING ZONE ---------- */
-.spacer{min-height:100vh}
+.box a,.box button{margin-top:26px;display:inline-block;padding:14px 30px;border-radius:30px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#000;text-decoration:none;font-weight:700;border:none;cursor:pointer}
 
 /* ---------- CONTACT ---------- */
 .contact form{display:flex;flex-direction:column;gap:18px;margin-top:30px}
-.contact input,.contact textarea{
-  background:#0b0f1a;border:1px solid #333;color:#fff;
-  padding:14px;border-radius:12px
-}
+.contact input,.contact textarea{background:#0b0f1a;border:1px solid #333;color:#fff;padding:14px;border-radius:12px}
 
 footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
+<!-- HERO (IMAGE) -->
 <section class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
   <div class="overlay"></div>
   <div class="content">
     <h1>BEETA</h1>
     <p>For Human</p>
-    <button onclick="document.getElementById('ecosystem').scrollIntoView()">Explore our ecosystem</button>
+    <button onclick="document.getElementById('beetaos').scrollIntoView()">Explore our ecosystem</button>
   </div>
 </section>
 
-<!-- TRANSITION -->
+<!-- NEON TRANSITION -->
 <section class="fullscreen animated-bg"></section>
 
-<!-- ECOSYSTEM -->
-<section id="ecosystem" class="fullscreen animated-bg">
+<!-- BEETA OS (IMAGE) -->
+<section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
+  <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta OS</h2>
-    <p>An all-in-one Linux OS for everyone</p>
+    <p>An all-in-one Linux OS for gamers, professionals, and everyday users</p>
     <a href="https://osbeeta.netlify.app" target="_blank">Learn more</a>
   </div>
 </section>
 
-<!-- OS IMAGE -->
-<section class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')"><div class="overlay"></div></section>
+<!-- NEON TRANSITION -->
+<section class="fullscreen animated-bg"></section>
 
-<!-- APPS -->
-<section class="fullscreen animated-bg">
+<!-- APPS (IMAGE) -->
+<section class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
+  <div class="overlay"></div>
   <div class="content box">
-    <h2>Beeta OS Apps</h2>
-    <p>Explore powerful applications built for Beeta</p>
+    <h2>Apps of Beeta OS</h2>
+    <p>Lightweight, powerful, and developer-focused tools</p>
     <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a><br><br>
-    <button onclick="alert('Subscribed via Formspree')">BeeCreator – Coming Soon</button>
+    <form action="https://formspree.io/f/mdkqlogb" method="POST">
+      <input type="hidden" name="product" value="BeeCreator Wishlist">
+      <input type="email" name="email" placeholder="Your email" required>
+      <button type="submit">Add BeeCreator to Wishlist</button>
+    </form>
   </div>
 </section>
 
-<!-- APPS IMAGE -->
-<section class="fullscreen image-bg" style="background-image:url('apps.jpeg')"><div class="overlay"></div></section>
+<!-- NEON TRANSITION -->
+<section class="fullscreen animated-bg"></section>
 
-<!-- PROTON -->
-<section class="fullscreen animated-bg">
+<!-- PROTON (IMAGE) -->
+<section class="fullscreen image-bg" style="background-image:url('cars.jpeg')">
+  <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Proton</h2>
-    <p>A fully automated EV built to serve humanity from day one</p>
-    <button onclick="alert('Subscribed via Formspree')">Subscribe</button>
+    <p>A fully autonomous electric vehicle designed to serve humanity from day one</p>
+    <form action="https://formspree.io/f/mdkqlogb" method="POST">
+      <input type="hidden" name="product" value="Beeta Proton Interest">
+      <input type="email" name="email" placeholder="Your email" required>
+      <button type="submit">Subscribe for Updates</button>
+    </form>
   </div>
 </section>
 
-<!-- PROTON IMAGE -->
-<section class="fullscreen image-bg" style="background-image:url('cars.jpeg')"><div class="overlay"></div></section>
+<!-- NEON TRANSITION -->
+<section class="fullscreen animated-bg"></section>
 
-<!-- CONTACT -->
-<section class="fullscreen image-bg contact" style="background-image:url('earth1.jpeg')">
-  <div class="overlay"></div>
+<!-- CONTACT (NEON ONLY) -->
+<section class="fullscreen animated-bg contact">
   <div class="content">
     <h2>Contact Beeta</h2>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
