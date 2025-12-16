@@ -37,9 +37,18 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 
 /* ---------- RESPONSIVE SCALING ---------- */ @media (max-width:1200px){ .hero h1{font-size:90px} .box{padding:40px} } @media (max-width:900px){ .navbar{padding:14px 28px} .nav-links{gap:22px} .hero h1{font-size:72px} .hero p{font-size:22px} .box h2{font-size:34px} .box p{font-size:18px} } @media (max-width:700px){ .nav-links{display:none} .hero h1{font-size:56px} .hero p{font-size:20px} .hero button{padding:14px 28px;font-size:16px} .box{padding:32px} } @media (max-width:480px){ .hero h1{font-size:44px;letter-spacing:3px} .hero p{font-size:18px} .content{padding:24px} .box h2{font-size:28px} }
 
+/* ---------- MENU BAR ---------- */ .navbar{ position:fixed;top:20px;left:50%;transform:translateX(-50%); display:flex;gap:28px;padding:14px 34px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); backdrop-filter:blur(18px); border-radius:60px;z-index:999; } .navbar a{ color:#eef1ff;text-decoration:none;font-weight:600;font-size:15px; position:relative;padding:6px 2px;transition:.3s } .navbar a::after{ content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px; background:linear-gradient(90deg,var(--neon1),var(--neon2));transition:.3s } .navbar a:hover{color:#fff} .navbar a:hover::after{width:100%}
+
+@media(max-width:900px){ .hero h1{font-size:64px} .box{padding:32px} .navbar{gap:16px;padding:12px 22px} }
+
 </style>
 </head>
-<body><!-- NAVBAR --><nav class="navbar">
+<body><nav class="navbar">
+  <a href="#top">Home</a>
+  <a href="#ecosystem">Ecosystem</a>
+  <a href="#beetaos">Beeta OS</a>
+  <a href="#contact">Contact</a>
+</nav><!-- NAVBAR --><nav class="navbar">
   <div class="nav-logo">BEETA</div>
   <ul class="nav-links">
     <li><a href="#top">Home</a></li>
