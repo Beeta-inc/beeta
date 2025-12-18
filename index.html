@@ -9,7 +9,10 @@
   --neon2:#9b6cff;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
-html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff}/* ---------- NAVBAR (LIQUID GLASS) ---------- */ .navbar{ position:fixed; top:0;left:0; width:100%; z-index:9999; display:flex; justify-content:space-between; align-items:center; padding:18px 60px; background:rgba(10,12,24,.45); backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%); border-bottom:1px solid rgba(255,255,255,.12); } .nav-logo{ font-size:28px; font-weight:900; letter-spacing:4px; } .nav-links{ list-style:none; display:flex; gap:36px; } .nav-links a{ text-decoration:none; color:#eef1ff; font-weight:600; opacity:.8; transition:.35s ease; } .nav-links a:hover{ opacity:1; color:var(--neon1); text-shadow:0 0 12px rgba(94,231,255,.8); }
+html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff;overflow:hidden}
+body.loaded{overflow:auto}/* ---------- SPLASH SCREEN ---------- */ #splash{ position:fixed; inset:0; background:radial-gradient(circle at center,#0a1b3a,#05060c 70%); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:10000; transition:opacity 1s ease,visibility 1s ease; } #splash.hide{opacity:0;visibility:hidden} .splash-logo{ width:120px; margin-bottom:20px; animation:pulse 2s infinite ease-in-out } #splash h1{ font-size:64px; letter-spacing:6px; background:linear-gradient(90deg,var(--neon1),var(--neon2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; } @keyframes pulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+/* ---------- NAVBAR (LIQUID GLASS) ---------- */ .navbar{ position:fixed; top:0;left:0; width:100%; z-index:9999; display:flex; justify-content:space-between; align-items:center; padding:18px 60px; background:rgba(10,12,24,.45); backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%); border-bottom:1px solid rgba(255,255,255,.12); } .nav-logo{ font-size:28px; font-weight:900; letter-spacing:4px; } .nav-links{ list-style:none; display:flex; gap:36px; } .nav-links a{ text-decoration:none; color:#eef1ff; font-weight:600; opacity:.8; transition:.35s ease; } .nav-links a:hover{ opacity:1; color:var(--neon1); text-shadow:0 0 12px rgba(94,231,255,.8); }
 
 section{width:100%;position:relative} .fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
 
@@ -45,7 +48,10 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 
 </style>
 </head>
-<body><nav class="navbar">
+<body><!-- SPLASH SCREEN --><div id="splash">
+  <img src="logo.png" alt="Beeta Logo" class="splash-logo">
+  <h1>BEETA</h1>
+</div><nav class="navbar">
   <a href="#top">Home</a>
   <a href="#ecosystem">Ecosystem</a>
   <a href="#beetaos">Beeta OS</a>
@@ -148,5 +154,13 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
       <button type="submit">Send</button>
     </form>
   </div>
-</section><footer>© Beeta® 2025</footer></body>
+</section><footer>© Beeta® 2025</footer><script>
+  window.addEventListener('load', () => {
+    const splash = document.getElementById('splash');
+    setTimeout(() => {
+      splash.classList.add('hide');
+      document.body.classList.add('loaded');
+    }, 2200);
+  });
+</script></body>
 </html>
