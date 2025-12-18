@@ -10,7 +10,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
 html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff;overflow:auto}
-body.loaded{overflow:auto}/* ---------- SPLASH SCREEN ---------- */ #splash{ position:fixed; inset:0; background: radial-gradient(circle at 30% 30%, #0a1b3a, #05060c 70%), radial-gradient(circle at 70% 70%, #2a0f45, transparent 60%); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:10000; animation:bgShift 6s linear infinite; transition:opacity 1.2s ease,visibility 1.2s ease; } #splash.hide{opacity:0;visibility:hidden;pointer-events:none} @keyframes bgShift{ 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(360deg)} } #splash.hide{opacity:0;visibility:hidden} .splash-logo{ width:140px; margin-bottom:24px; animation:logoFloat 3s ease-in-out infinite, glowPulse 2.4s ease-in-out infinite; } @keyframes logoFloat{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} } @keyframes glowPulse{ 0%,100%{filter:drop-shadow(0 0 12px rgba(94,231,255,.6))} 50%{filter:drop-shadow(0 0 26px rgba(155,108,255,.9))} } #splash h1{ font-size:72px; letter-spacing:8px; margin-top:10px; animation:textReveal 2.2s ease forwards; background:linear-gradient(90deg,var(--neon1),var(--neon2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; } @keyframes textReveal{ from{opacity:0;transform:translateY(30px) scale(.95)} to{opacity:1;transform:translateY(0) scale(1)} } @keyframes pulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+body.loaded{overflow:auto}/* ---------- SPLASH SCREEN ---------- */ #splash{ position:fixed; inset:0; background: radial-gradient(circle at 30% 30%, #0a1b3a, #05060c 70%), radial-gradient(circle at 70% 70%, #2a0f45, transparent 60%); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:10000; } #splash.hide{ opacity:0; visibility:hidden; pointer-events:none; transition:opacity .6s ease, visibility .6s ease; } #splash.hide{opacity:0;visibility:hidden;pointer-events:none} @keyframes bgShift{ 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(360deg)} } #splash.hide{opacity:0;visibility:hidden} .splash-logo{ width:140px; margin-bottom:24px; animation:logoFloat 3s ease-in-out infinite, glowPulse 2.4s ease-in-out infinite; } @keyframes logoFloat{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} } @keyframes glowPulse{ 0%,100%{filter:drop-shadow(0 0 12px rgba(94,231,255,.6))} 50%{filter:drop-shadow(0 0 26px rgba(155,108,255,.9))} } #splash h1{ font-size:72px; letter-spacing:8px; margin-top:10px; animation:textReveal 2.2s ease forwards; background:linear-gradient(90deg,var(--neon1),var(--neon2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; } @keyframes textReveal{ from{opacity:0;transform:translateY(30px) scale(.95)} to{opacity:1;transform:translateY(0) scale(1)} } @keyframes pulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
 
 /* ---------- NAVBAR (LIQUID GLASS) ---------- */ .navbar{ position:fixed; top:0;left:0; width:100%; z-index:9999; display:flex; justify-content:space-between; align-items:center; padding:18px 60px; background:rgba(10,12,24,.45); backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%); border-bottom:1px solid rgba(255,255,255,.12); } .nav-logo{ font-size:28px; font-weight:900; letter-spacing:4px; } .nav-links{ list-style:none; display:flex; gap:36px; } .nav-links a{ text-decoration:none; color:#eef1ff; font-weight:600; opacity:.8; transition:.35s ease; } .nav-links a:hover{ opacity:1; color:var(--neon1); text-shadow:0 0 12px rgba(94,231,255,.8); }
 
@@ -48,7 +48,7 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 
 </style>
 </head>
-<body><!-- SPLASH SCREEN --><div id="splash">
+<body><!-- SPLASH SCREEN --><div id="splash" style="pointer-events:auto">
   <img src="logo.png" alt="Beeta Logo" class="splash-logo">
   <h1>BEETA</h1>
 </div><nav class="navbar">
@@ -155,8 +155,17 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
     </form>
   </div>
 </section><footer>© Beeta® 2025</footer><script>
-  window.addEventListener('load', () => {
+  // HARD SPLASH TIMEOUT (2.5s – NO DEPENDENCIES)
+setTimeout(() => {
   const splash = document.getElementById('splash');
+  if (!splash) return;
+  splash.classList.add('hide');
+
+  // hard remove
+  setTimeout(() => {
+    if (splash.parentNode) splash.parentNode.removeChild(splash);
+  }, 700);
+}, 2500);
   if (!splash) return;
 
   // hide splash
