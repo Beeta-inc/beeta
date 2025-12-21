@@ -107,12 +107,13 @@ body.loaded{overflow:auto}
   text-shadow:0 0 12px rgba(94,231,255,.8);
 }
 
-section{width:100%;position:relative}
+section{width:100%;position:relative;min-height:100vh;}
 .fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
 
 /* tighter spacing between image sections */
 .animated-bg{
-  min-height:45vh;
+  height:30vh; /* spacer only, not full screen */
+  min-height:30vh;
 }
 
 /* ---------- CINEMATIC AURORA + PARTICLE ENERGY FIELD ---------- */
@@ -181,13 +182,9 @@ section{width:100%;position:relative}
 /* FULLSCREEN BACKGROUND VIDEO SUPPORT */
 .image-bg video{
   position:absolute;
-  top:50%;
-  left:50%;
-  min-width:100%;
-  min-height:100%;
-  width:auto;
-  height:auto;
-  transform:translate(-50%,-50%);
+  inset:0;
+  width:100%;
+  height:100%;
   object-fit:cover;
   z-index:0;
 }
