@@ -514,5 +514,22 @@ setTimeout(() => {
 }, 2000);
 </script>
 
+<script>
+// HARD KILL SPLASH AFTER 2 SECONDS (NO CONDITIONS)
+(function(){
+  const killSplash = () => {
+    const splash = document.getElementById('splash');
+    document.body.style.overflow = 'auto';
+    if(splash){
+      splash.style.opacity = '0';
+      setTimeout(()=>{ splash.remove(); }, 300);
+    }
+  };
+  // absolute fail-safe
+  setTimeout(killSplash, 2000);
+  // secondary safety (in case timeout throttled)
+  window.addEventListener('load', () => setTimeout(killSplash, 500));
+})();
+</script>
 </body>
 </html>
