@@ -10,29 +10,27 @@
   --neon2:#9b6cff;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
-html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff}
+html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff;overflow-x:hidden}
 
 /* ---------- SPLASH SCREEN ---------- */
 #splash{
-  position:fixed;top:0;left:0;width:100%;height:100vh;
-  background:#05060c;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:99999;
+  position:fixed;
+  inset:0;
+  background:#05060c;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+  color:#5ee7ff;
+  animation:fadeOut 2.5s forwards;
+  animation-delay:2.5s;
 }
-#splash img{
-  width:200px;height:200px;animation:logoAnim 2.5s ease-in-out;
-}
-#splash h1{
-  color:#eef1ff;font-size:48px;margin-top:20px;animation:textAnim 2.5s ease-in-out;
-}
-@keyframes logoAnim{
-  0%{transform:scale(0);opacity:0;}
-  50%{transform:scale(1.1);opacity:1;}
-  100%{transform:scale(1);opacity:1;}
-}
-@keyframes textAnim{
-  0%{opacity:0;transform:translateY(20px);}
-  50%{opacity:1;transform:translateY(-10px);}
-  100%{opacity:1;transform:translateY(0);}
-}
+#splash img{width:150px;margin-bottom:20px;animation:logoPulse 2.5s infinite alternate}
+#splash h1{font-size:64px;font-weight:900;letter-spacing:4px;animation:fadeInText 2s forwards}
+@keyframes fadeOut{100%{opacity:0;visibility:hidden}}
+@keyframes logoPulse{0%{transform:scale(1)}100%{transform:scale(1.1)}}
+@keyframes fadeInText{0%{opacity:0}100%{opacity:1}}
 
 /* ---------- NAVBAR (LIQUID GLASS) ---------- */
 .navbar{
@@ -55,17 +53,18 @@ html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff}
 .navbar a:hover{color:#fff}
 .navbar a:hover::after{width:100%}
 
-/* ---------- GENERAL ---------- */
+/* ---------- HERO ---------- */
 section{width:100%;position:relative}
 .fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
 .image-bg{background-size:cover;background-position:center}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
 .content{position:relative;z-index:2;max-width:900px;padding:40px}
+
 .hero h1{font-size:120px;font-weight:900;letter-spacing:6px}
 .hero p{font-size:26px;margin-top:16px;opacity:.85}
 .hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000}
 
-/* ---------- BOXES ---------- */
+/* ---------- PRODUCT BOX ---------- */
 .box{
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.15);
@@ -75,7 +74,7 @@ section{width:100%;position:relative}
   transition:.4s
 }
 .box:hover{transform:scale(1.04);box-shadow:0 0 26px rgba(94,231,255,.25)}
-.box h2{font-size:42px}
+.box h2,h3{font-size:42px}
 .box p{margin-top:16px;font-size:20px;opacity:.9}
 .box a,.box button{
   margin-top:26px;
@@ -96,35 +95,60 @@ section{width:100%;position:relative}
 
 footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 
-/* ---------- ANIMATED SPACERS ---------- */
+/* ---------- CINEMATIC AURORA + PARTICLE ENERGY FIELD ---------- */
 .animated-bg{
   position:relative;
   width:100%;
   min-height:30vh;
-  background: #05060c;
   overflow:hidden;
+  background:
+    radial-gradient(circle at 30% 30%, #0a1b3a, #05060c 60%),
+    radial-gradient(circle at 70% 70%, #2a0f45, transparent 60%),
+    linear-gradient(180deg,#04050f,#050716,#04050f);
 }
 .animated-bg::before{
   content:"";
   position:absolute;
   inset:0;
   background-image:
-    radial-gradient(2px 2px at 15% 20%, rgba(94,231,255,.8), transparent 40%),
-    radial-gradient(1.5px 1.5px at 35% 70%, rgba(155,108,255,.7), transparent 40%),
-    radial-gradient(1px 1px at 60% 40%, rgba(94,231,255,.6), transparent 40%),
-    radial-gradient(2px 2px at 80% 25%, rgba(155,108,255,.6), transparent 40%);
-  animation:floatParticles 20s linear infinite;
+    radial-gradient(2px 2px at 15% 20%, rgba(94,231,255,.9), transparent 40%),
+    radial-gradient(1.5px 1.5px at 35% 70%, rgba(155,108,255,.9), transparent 40%),
+    radial-gradient(1px 1px at 60% 40%, rgba(94,231,255,.8), transparent 40%),
+    radial-gradient(2px 2px at 80% 25%, rgba(155,108,255,.8), transparent 40%),
+    radial-gradient(1px 1px at 25% 85%, rgba(94,231,255,.7), transparent 40%);
+  animation:floatParticles 26s linear infinite;
 }
-@keyframes floatParticles{
-  from{transform:translateY(0);}
-  to{transform:translateY(-100px);}
+.animated-bg::after{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background:
+    conic-gradient(from 180deg at 50% 50%,
+      rgba(94,231,255,.25),
+      transparent 30%,
+      rgba(155,108,255,.25),
+      transparent 60%,
+      rgba(94,231,255,.25));
+  filter:blur(80px);
+  animation:auroraSpin 18s linear infinite;
 }
+@keyframes floatParticles{from{transform:translateY(0)}to{transform:translateY(-160px)}}
+@keyframes auroraSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
 /* ---------- RESPONSIVE ---------- */
-@media (max-width:1200px){.hero h1{font-size:90px}.box{padding:40px}}
-@media (max-width:900px){.navbar{gap:16px;padding:12px 22px}.hero h1{font-size:64px}.box{padding:32px}}
-@media (max-width:700px){.nav-links{display:none}.hero h1{font-size:56px}.hero p{font-size:20px}.hero button{padding:14px 28px;font-size:16px}.box{padding:32px}}
-@media (max-width:480px){.hero h1{font-size:44px;letter-spacing:3px}.hero p{font-size:18px}.content{padding:24px}.box h2{font-size:28px}}
+@media(max-width:1200px){.hero h1{font-size:90px}.box{padding:40px}}
+@media(max-width:900px){.navbar{gap:16px;padding:12px 22px}.hero h1{font-size:72px}.hero p{font-size:22px}.box h2,h3{font-size:34px}.box p{font-size:18px}}
+@media(max-width:700px){.nav-links{display:none}.hero h1{font-size:56px}.hero p{font-size:20px}.hero button{padding:14px 28px;font-size:16px}.box{padding:32px}}
+@media(max-width:480px){.hero h1{font-size:44px;letter-spacing:3px}.hero p{font-size:18px}.content{padding:24px}.box h2,h3{font-size:28px}}
+
+/* ---------- VIDEO BACKGROUND ---------- */
+.video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+/* ---------- MENU ---------- */
+.nav-logo{font-size:28px;font-weight:900;letter-spacing:4px}
+.nav-links{list-style:none;display:flex;gap:36px}
+.nav-links a{text-decoration:none;color:#eef1ff;font-weight:600;opacity:.8;transition:.35s ease}
+.nav-links a:hover{opacity:1;color:var(--neon1);text-shadow:0 0 12px rgba(94,231,255,.8)}
 </style>
 </head>
 <body>
@@ -132,21 +156,21 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 <!-- SPLASH -->
 <div id="splash">
   <img src="logo.png" alt="Beeta Logo">
-  <h1>Welcome to Beeta</h1>
+  <h1>BEETA</h1>
 </div>
-<script>
-setTimeout(()=>{document.getElementById('splash').style.display='none'},2500);
-</script>
 
 <!-- NAVBAR -->
 <nav class="navbar">
-  <a href="#top">Home</a>
-  <a href="#ecosystem">Ecosystem</a>
-  <a href="#beetaos">Beeta OS</a>
-  <a href="#apps">Apps</a>
-  <a href="#notebooks">Notebooks</a>
-  <a href="#proton">Proton</a>
-  <a href="#contact">Contact</a>
+  <div class="nav-logo">BEETA</div>
+  <ul class="nav-links">
+    <li><a href="#top">Home</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#beetaos">Beeta OS</a></li>
+    <li><a href="#apps">Apps</a></li>
+    <li><a href="#notebooks">Beeta Notebooks</a></li>
+    <li><a href="#proton">Proton</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -158,8 +182,6 @@ setTimeout(()=>{document.getElementById('splash').style.display='none'},2500);
     <button onclick="document.getElementById('ecosystem').scrollIntoView()">Explore our ecosystem</button>
   </div>
 </section>
-
-<section class="fullscreen animated-bg"></section>
 
 <!-- ECOSYSTEM HUB -->
 <section id="ecosystem" class="fullscreen animated-bg">
@@ -237,10 +259,10 @@ setTimeout(()=>{document.getElementById('splash').style.display='none'},2500);
 
 <section class="fullscreen animated-bg"></section>
 
-<!-- PROTON -->
-<section id="proton" class="fullscreen image-bg">
-  <video autoplay muted loop playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">
-    <source src="car.mp4" type="video/mp4">
+<!-- PROTON VIDEO -->
+<section id="proton" class="fullscreen">
+  <video class="video-bg" autoplay muted loop playsinline>
+    <source src="proton.mp4" type="video/mp4">
   </video>
   <div class="overlay"></div>
   <div class="content box">
@@ -269,6 +291,11 @@ setTimeout(()=>{document.getElementById('splash').style.display='none'},2500);
 </section>
 
 <footer>© Beeta® 2025</footer>
+
+<script>
+// Splash removal after 2.5s
+setTimeout(()=>{document.getElementById('splash').style.display='none'},2500);
+</script>
 
 </body>
 </html>
