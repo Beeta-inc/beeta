@@ -10,66 +10,8 @@
   --neon2:#9b6cff;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
-html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff;overflow:auto}
-body.loaded{overflow:auto}
+html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff}
 
-/* ---------- SPLASH SCREEN ---------- */
-#splash{
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 30% 30%, #0a1b3a, #05060c 70%),
-    radial-gradient(circle at 70% 70%, #2a0f45, transparent 60%);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:10000;
-}
-#splash.hide{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .6s ease, visibility .6s ease;
-}
-#splash.hide{opacity:0;visibility:hidden;pointer-events:none}
-@keyframes bgShift{
-  0%{filter:hue-rotate(0deg)}
-  100%{filter:hue-rotate(360deg)}
-}
-#splash.hide{opacity:0;visibility:hidden}
-.splash-logo{
-  width:140px;
-  margin-bottom:24px;
-  animation:logoFloat 3s ease-in-out infinite, glowPulse 2.4s ease-in-out infinite;
-}
-@keyframes logoFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-14px)}
-}
-@keyframes glowPulse{
-  0%,100%{filter:drop-shadow(0 0 12px rgba(94,231,255,.6))}
-  50%{filter:drop-shadow(0 0 26px rgba(155,108,255,.9))}
-}
-#splash h1{
-  font-size:72px;
-  letter-spacing:8px;
-  margin-top:10px;
-  animation:textReveal 2.2s ease forwards;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-@keyframes textReveal{
-  from{opacity:0;transform:translateY(30px) scale(.95)}
-  to{opacity:1;transform:translateY(0) scale(1)}
-}
-@keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.08)}
-}
-
-/* ---------- NAVBAR (LIQUID GLASS) ---------- */
 .navbar{
   position:fixed;
   top:0;left:0;
@@ -107,251 +49,43 @@ body.loaded{overflow:auto}
   text-shadow:0 0 12px rgba(94,231,255,.8);
 }
 
-section{width:100%;position:relative;min-height:100vh;}
-.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
-
-/* tighter spacing between image sections */
-.animated-bg{
-  height:30vh; /* spacer only, not full screen */
-  min-height:30vh;
-}
-
-/* ---------- CINEMATIC AURORA + PARTICLE ENERGY FIELD ---------- */
-.animated-bg{
-  min-height:45vh;
-  background:
-    radial-gradient(circle at 30% 30%, #0a1b3a, #05060c 60%),
-    radial-gradient(circle at 70% 70%, #2a0f45, transparent 60%),
-    linear-gradient(180deg,#04050f,#050716,#04050f);
-  overflow:hidden;
-}
-
-/* floating particles */
-.animated-bg::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:
-    radial-gradient(2px 2px at 15% 20%, rgba(94,231,255,.9), transparent 40%),
-    radial-gradient(1.5px 1.5px at 35% 70%, rgba(155,108,255,.9), transparent 40%),
-    radial-gradient(1px 1px at 60% 40%, rgba(94,231,255,.8), transparent 40%),
-    radial-gradient(2px 2px at 80% 25%, rgba(155,108,255,.8), transparent 40%),
-    radial-gradient(1px 1px at 25% 85%, rgba(94,231,255,.7), transparent 40%);
-  animation:floatParticles 26s linear infinite;
-}
-
-/* aurora light waves */
-.animated-bg::after{
-  content:"";
-  position:absolute;
-  inset:-30%;
-  background:
-    conic-gradient(from 180deg at 50% 50%,
-      rgba(94,231,255,.25),
-      transparent 30%,
-      rgba(155,108,255,.25),
-      transparent 60%,
-      rgba(94,231,255,.25));
-  filter:blur(80px);
-  animation:auroraSpin 18s linear infinite;
-}
-
-@keyframes floatParticles{
-  from{transform:translateY(0)}
-  to{transform:translateY(-160px)}
-}
-
-@keyframes auroraSpin{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(360deg)}
-}
-  to{opacity:.8}
-}
-  to{transform:rotate(360deg)}
-}
-
-/* ---------- IMAGE SECTIONS ---------- */
+section{width:100%;position:relative;min-height:100vh}
+.fullscreen{display:flex;align-items:center;justify-content:center;text-align:center}
 .image-bg{
-  position:relative;
+  background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  background-size:cover;
-  overflow:hidden;
-}
-
-/* FULLSCREEN BACKGROUND VIDEO SUPPORT */
-.image-bg video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:0;
+  position:relative;
 }
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
 .content{position:relative;z-index:2;max-width:900px;padding:40px}
-
-/* ---------- HERO ---------- */
 .hero h1{font-size:120px;font-weight:900;letter-spacing:6px}
 .hero p{font-size:26px;margin-top:16px;opacity:.85}
 .hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000}
-
-/* ---------- PRODUCT BOX ---------- */
-.box{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:26px;
-  padding:50px;
-  backdrop-filter:blur(14px);
-  transition:.4s
-}
+.box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:50px;backdrop-filter:blur(14px);transition:.4s}
 .box:hover{transform:scale(1.04);box-shadow:0 0 26px rgba(94,231,255,.25)}
 .box h2{font-size:42px}
 .box p{margin-top:16px;font-size:20px;opacity:.9}
-.box a,.box button{
-  margin-top:26px;
-  display:inline-block;
-  padding:14px 30px;
-  border-radius:30px;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
-  color:#000;
-  text-decoration:none;
-  font-weight:700;
-  border:none;
-  cursor:pointer
-}
-
-/* ---------- CONTACT ---------- */
+.box a,.box button{margin-top:26px;display:inline-block;padding:14px 30px;border-radius:30px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#000;text-decoration:none;font-weight:700;border:none;cursor:pointer}
 .contact form{display:flex;flex-direction:column;gap:18px;margin-top:30px}
 .contact input,.contact textarea{background:#0b0f1a;border:1px solid #333;color:#fff;padding:14px;border-radius:12px}
-
 footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
-
-/* ---------- RESPONSIVE SCALING ---------- */
-@media (max-width:1200px){
-  .hero h1{font-size:90px}
-  .box{padding:40px}
-}
-@media (max-width:900px){
-  .navbar{padding:14px 28px}
-  .nav-links{gap:22px}
-  .hero h1{font-size:72px}
-  .hero p{font-size:22px}
-  .box h2{font-size:34px}
-  .box p{font-size:18px}
-}
-@media (max-width:700px){
-  .nav-links{display:none}
-  .hero h1{font-size:56px}
-  .hero p{font-size:20px}
-  .hero button{padding:14px 28px;font-size:16px}
-  .box{padding:32px}
-}
-@media (max-width:480px){
-  .hero h1{font-size:44px;letter-spacing:3px}
-  .hero p{font-size:18px}
-  .content{padding:24px}
-  .box h2{font-size:28px}
-}
-
-
-
-/* ---------- MENU BAR ---------- */
-.navbar{
-  position:fixed;top:20px;left:50%;transform:translateX(-50%);
-  display:flex;gap:28px;padding:14px 34px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.18);
-  backdrop-filter:blur(18px);
-  border-radius:60px;z-index:999;
-}
-.navbar a{
-  color:#eef1ff;text-decoration:none;font-weight:600;font-size:15px;
-  position:relative;padding:6px 2px;transition:.3s
-}
-.navbar a::after{
-  content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));transition:.3s
-}
-.navbar a:hover{color:#fff}
-.navbar a:hover::after{width:100%}
-
-@media(max-width:900px){
-  .hero h1{font-size:64px}
-  .box{padding:32px}
-  .navbar{gap:16px;padding:12px 22px}
-}
-
-
-/* ---------- SPLASH SCREEN ---------- */
-#splash{
-  position:fixed;
-  inset:0;
-  background:#05060c;
-  z-index:100000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-.splash-inner{text-align:center;position:relative}
-.splash-logo{
-  font-size:72px;
-  font-weight:900;
-  letter-spacing:6px;
-  color:var(--neon1);
-  animation:pulse 1.4s ease-in-out infinite
-}
-.splash-ring{
-  position:absolute;
-  inset:-40px;
-  border-radius:50%;
-  border:2px solid rgba(94,231,255,.35);
-  animation:spin 2s linear infinite
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
 </style>
 </head>
 <body>
 
-<!-- SPLASH SCREEN -->
-<div id="splash">
-  <div class="splash-inner">
-    <div class="splash-logo">BEETA</div>
-    <div class="splash-ring"></div>
-  </div>
-</div>
-
-
-<!-- SPLASH SCREEN -->
-<div id="splash" style="pointer-events:auto">
-  <img src="logo.png" alt="Beeta Logo" class="splash-logo">
-  <h1>BEETA</h1>
-</div>
-
-<nav class="navbar">
-  <a href="#top">Home</a>
-  <a href="#ecosystem">Ecosystem</a>
-  <a href="#beetaos">Beeta OS</a>
-  <a href="#notebooks">Notebooks</a>
-  <a href="#contact">Contact</a>
-</nav>
-
-<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-logo">BEETA</div>
   <ul class="nav-links">
     <li><a href="#top">Home</a></li>
     <li><a href="#beetaos">Beeta OS</a></li>
-    <li><a href="#notebooks">Notebooks</a></li>
     <li><a href="#apps">Apps</a></li>
+    <li><a href="#notebooks">Beeta Notebooks</a></li>
     <li><a href="#proton">Proton</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="top" class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
   <div class="overlay"></div>
   <div class="content">
@@ -361,56 +95,47 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
-<!-- ECOSYSTEM HUB -->
-<section id="ecosystem" class="fullscreen animated-bg">
-  <div class="content" style="max-width:1200px">
-    <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px">
-      <div class="box">
-        <h3>Beeta OS</h3>
-        <p>All‑in‑one Linux OS for everyone</p>
-        <a href="https://osbeeta.netlify.app" target="_blank">Explore</a>
-      </div>
-      <div class="box">
-        <h3>Beeta Notebooks</h3>
-        <p>Premium Linux-first laptops optimized for Beeta OS</p>
-        <a href="#notebooks">Learn More</a>
-      </div>
-      <div class="box">
-        <h3>Beeta OS Apps</h3>
-        <p>Lightweight tools & creators ecosystem</p>
-        <a href="#apps">View Apps</a>
-      </div>
-      <div class="box">
-        <h3>Beeta Proton</h3>
-        <p>Autonomous electric mobility platform</p>
-        <a href="#proton">Learn More</a>
-      </div>
+<section id="ecosystem" class="fullscreen image-bg" style="background-color:#05060c">
+  <div class="content box">
+    <h2>Our Ecosystem</h2>
+    <div class="box">
+      <h3>Beeta OS</h3>
+      <p>All-in-one Linux OS for everyone</p>
+      <a href="https://osbeeta.netlify.app" target="_blank">Explore</a>
+    </div>
+    <div class="box">
+      <h3>Beeta Notebooks</h3>
+      <p>Premium Linux-first laptops optimized for Beeta OS</p>
+      <a href="#notebooks">Learn More</a>
+    </div>
+    <div class="box">
+      <h3>Beeta OS Apps</h3>
+      <p>Lightweight tools & creators ecosystem</p>
+      <a href="#apps">View Apps</a>
+    </div>
+    <div class="box">
+      <h3>Beeta Proton</h3>
+      <p>Autonomous electric mobility platform</p>
+      <a href="#proton">Learn More</a>
     </div>
   </div>
 </section>
 
-<section class="fullscreen animated-bg"></section>
-
-<!-- BEETA OS -->
 <section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta OS</h2>
-    <p>An all‑in‑one Linux OS for gamers, professionals, and everyday users</p>
+    <p>An all-in-one Linux OS for gamers, professionals, and everyday users</p>
     <a href="https://osbeeta.netlify.app" target="_blank">Learn more</a>
   </div>
 </section>
 
-<section class="fullscreen animated-bg"></section>
-
-<!-- APPS -->
 <section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Apps of Beeta OS</h2>
-    <p>Lightweight, powerful, and developer‑focused tools</p>
-    <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a><br><br>
+    <p>Lightweight, powerful, and developer-focused tools</p>
+    <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
       <input type="hidden" name="product" value="BeeCreator Wishlist">
       <input type="email" name="email" placeholder="Your email" required>
@@ -419,9 +144,6 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
-<section class="fullscreen animated-bg"></section>
-
-<!-- NOTEBOOKS -->
 <section id="notebooks" class="fullscreen image-bg" style="background-image:url('laptop.jpg')">
   <div class="overlay"></div>
   <div class="content box">
@@ -435,14 +157,7 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
-<section class="fullscreen animated-bg"></section>
-
-<!-- PROTON -->
-<section id="proton" class="fullscreen image-bg">
-  <!-- VIDEO BACKGROUND -->
-  <video autoplay muted loop playsinline class="bg-video">
-    <source src="car.mp4" type="video/mp4">
-  </video>
+<section id="proton" class="fullscreen image-bg" style="background-image:url('car.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Proton</h2>
@@ -455,9 +170,8 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="fullscreen animated-bg contact">
-  <div class="content">
+<section id="contact" class="fullscreen image-bg" style="background-color:#05060c">
+  <div class="content contact">
     <h2>Contact Beeta</h2>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
       <input type="email" name="email" placeholder="Your email" required>
@@ -469,71 +183,5 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 
 <footer>© Beeta® 2025</footer>
 
-<script>
-  // HARD SPLASH TIMEOUT (2.5s – NO DEPENDENCIES)
-setTimeout(() => {
-  const splash = document.getElementById('splash');
-  if (!splash) return;
-  splash.classList.add('hide');
-
-  // hard remove
-  setTimeout(() => {
-    if (splash.parentNode) splash.parentNode.removeChild(splash);
-  }, 700);
-}, 2500);
-  if (!splash) return;
-
-  // hide splash
-  setTimeout(() => {
-    splash.classList.add('hide');
-  }, 2600);
-
-  // failsafe: fully remove splash so it can never block
-  setTimeout(() => {
-    if (splash.parentNode) splash.parentNode.removeChild(splash);
-  }, 4200);
-});
-  setTimeout(() => {
-    splash.classList.add('hide');
-  }, 2600);
-});
-    setTimeout(() => {
-      splash.classList.add('hide');
-      document.body.classList.add('loaded');
-    }, 2200);
-  });
-</script>
-
-
-<script>
-// HARD KILL SPLASH — NO CONDITIONS
-setTimeout(() => {
-  const splash = document.getElementById('splash');
-  if (splash) {
-    splash.style.opacity = '0';
-    splash.style.transition = 'opacity 0.4s ease';
-    setTimeout(() => splash.remove(), 400);
-  }
-  document.body.style.overflow = 'auto';
-}, 2000);
-</script>
-
-<script>
-// HARD KILL SPLASH AFTER 2 SECONDS (NO CONDITIONS)
-(function(){
-  const killSplash = () => {
-    const splash = document.getElementById('splash');
-    document.body.style.overflow = 'auto';
-    if(splash){
-      splash.style.opacity = '0';
-      setTimeout(()=>{ splash.remove(); }, 300);
-    }
-  };
-  // absolute fail-safe
-  setTimeout(killSplash, 2000);
-  // secondary safety (in case timeout throttled)
-  window.addEventListener('load', () => setTimeout(killSplash, 500));
-})();
-</script>
 </body>
 </html>
