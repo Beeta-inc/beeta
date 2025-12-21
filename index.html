@@ -12,80 +12,144 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
 html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff}
 
-.navbar{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  z-index:9999;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 60px;
-  background:rgba(10,12,24,.45);
-  backdrop-filter:blur(18px) saturate(160%);
-  -webkit-backdrop-filter:blur(18px) saturate(160%);
-  border-bottom:1px solid rgba(255,255,255,.12);
+/* ---------- SPLASH SCREEN ---------- */
+#splash{
+  position:fixed;top:0;left:0;width:100%;height:100vh;
+  background:#05060c;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:99999;
 }
-.nav-logo{
-  font-size:28px;
-  font-weight:900;
-  letter-spacing:4px;
+#splash img{
+  width:200px;height:200px;animation:logoAnim 2.5s ease-in-out;
 }
-.nav-links{
-  list-style:none;
-  display:flex;
-  gap:36px;
+#splash h1{
+  color:#eef1ff;font-size:48px;margin-top:20px;animation:textAnim 2.5s ease-in-out;
 }
-.nav-links a{
-  text-decoration:none;
-  color:#eef1ff;
-  font-weight:600;
-  opacity:.8;
-  transition:.35s ease;
+@keyframes logoAnim{
+  0%{transform:scale(0);opacity:0;}
+  50%{transform:scale(1.1);opacity:1;}
+  100%{transform:scale(1);opacity:1;}
 }
-.nav-links a:hover{
-  opacity:1;
-  color:var(--neon1);
-  text-shadow:0 0 12px rgba(94,231,255,.8);
+@keyframes textAnim{
+  0%{opacity:0;transform:translateY(20px);}
+  50%{opacity:1;transform:translateY(-10px);}
+  100%{opacity:1;transform:translateY(0);}
 }
 
-section{width:100%;position:relative;min-height:100vh}
-.fullscreen{display:flex;align-items:center;justify-content:center;text-align:center}
-.image-bg{
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  position:relative;
+/* ---------- NAVBAR (LIQUID GLASS) ---------- */
+.navbar{
+  position:fixed;
+  top:20px;left:50%;transform:translateX(-50%);
+  display:flex;gap:28px;padding:14px 34px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.18);
+  backdrop-filter:blur(18px);
+  border-radius:60px;z-index:999;
 }
+.navbar a{
+  color:#eef1ff;text-decoration:none;font-weight:600;font-size:15px;
+  position:relative;padding:6px 2px;transition:.3s
+}
+.navbar a::after{
+  content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;
+  background:linear-gradient(90deg,var(--neon1),var(--neon2));transition:.3s
+}
+.navbar a:hover{color:#fff}
+.navbar a:hover::after{width:100%}
+
+/* ---------- GENERAL ---------- */
+section{width:100%;position:relative}
+.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+.image-bg{background-size:cover;background-position:center}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
 .content{position:relative;z-index:2;max-width:900px;padding:40px}
 .hero h1{font-size:120px;font-weight:900;letter-spacing:6px}
 .hero p{font-size:26px;margin-top:16px;opacity:.85}
 .hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000}
-.box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:50px;backdrop-filter:blur(14px);transition:.4s}
+
+/* ---------- BOXES ---------- */
+.box{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:26px;
+  padding:50px;
+  backdrop-filter:blur(14px);
+  transition:.4s
+}
 .box:hover{transform:scale(1.04);box-shadow:0 0 26px rgba(94,231,255,.25)}
 .box h2{font-size:42px}
 .box p{margin-top:16px;font-size:20px;opacity:.9}
-.box a,.box button{margin-top:26px;display:inline-block;padding:14px 30px;border-radius:30px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#000;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+.box a,.box button{
+  margin-top:26px;
+  display:inline-block;
+  padding:14px 30px;
+  border-radius:30px;
+  background:linear-gradient(90deg,var(--neon1),var(--neon2));
+  color:#000;
+  text-decoration:none;
+  font-weight:700;
+  border:none;
+  cursor:pointer
+}
+
+/* ---------- CONTACT ---------- */
 .contact form{display:flex;flex-direction:column;gap:18px;margin-top:30px}
 .contact input,.contact textarea{background:#0b0f1a;border:1px solid #333;color:#fff;padding:14px;border-radius:12px}
+
 footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
+
+/* ---------- ANIMATED SPACERS ---------- */
+.animated-bg{
+  position:relative;
+  width:100%;
+  min-height:30vh;
+  background: #05060c;
+  overflow:hidden;
+}
+.animated-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(2px 2px at 15% 20%, rgba(94,231,255,.8), transparent 40%),
+    radial-gradient(1.5px 1.5px at 35% 70%, rgba(155,108,255,.7), transparent 40%),
+    radial-gradient(1px 1px at 60% 40%, rgba(94,231,255,.6), transparent 40%),
+    radial-gradient(2px 2px at 80% 25%, rgba(155,108,255,.6), transparent 40%);
+  animation:floatParticles 20s linear infinite;
+}
+@keyframes floatParticles{
+  from{transform:translateY(0);}
+  to{transform:translateY(-100px);}
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1200px){.hero h1{font-size:90px}.box{padding:40px}}
+@media (max-width:900px){.navbar{gap:16px;padding:12px 22px}.hero h1{font-size:64px}.box{padding:32px}}
+@media (max-width:700px){.nav-links{display:none}.hero h1{font-size:56px}.hero p{font-size:20px}.hero button{padding:14px 28px;font-size:16px}.box{padding:32px}}
+@media (max-width:480px){.hero h1{font-size:44px;letter-spacing:3px}.hero p{font-size:18px}.content{padding:24px}.box h2{font-size:28px}}
 </style>
 </head>
 <body>
 
+<!-- SPLASH -->
+<div id="splash">
+  <img src="logo.png" alt="Beeta Logo">
+  <h1>Welcome to Beeta</h1>
+</div>
+<script>
+setTimeout(()=>{document.getElementById('splash').style.display='none'},2500);
+</script>
+
+<!-- NAVBAR -->
 <nav class="navbar">
-  <div class="nav-logo">BEETA</div>
-  <ul class="nav-links">
-    <li><a href="#top">Home</a></li>
-    <li><a href="#beetaos">Beeta OS</a></li>
-    <li><a href="#apps">Apps</a></li>
-    <li><a href="#notebooks">Beeta Notebooks</a></li>
-    <li><a href="#proton">Proton</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <a href="#top">Home</a>
+  <a href="#ecosystem">Ecosystem</a>
+  <a href="#beetaos">Beeta OS</a>
+  <a href="#apps">Apps</a>
+  <a href="#notebooks">Notebooks</a>
+  <a href="#proton">Proton</a>
+  <a href="#contact">Contact</a>
 </nav>
 
+<!-- HERO -->
 <section id="top" class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
   <div class="overlay"></div>
   <div class="content">
@@ -95,32 +159,40 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
-<section id="ecosystem" class="fullscreen image-bg" style="background-color:#05060c">
-  <div class="content box">
-    <h2>Our Ecosystem</h2>
-    <div class="box">
-      <h3>Beeta OS</h3>
-      <p>All-in-one Linux OS for everyone</p>
-      <a href="https://osbeeta.netlify.app" target="_blank">Explore</a>
-    </div>
-    <div class="box">
-      <h3>Beeta Notebooks</h3>
-      <p>Premium Linux-first laptops optimized for Beeta OS</p>
-      <a href="#notebooks">Learn More</a>
-    </div>
-    <div class="box">
-      <h3>Beeta OS Apps</h3>
-      <p>Lightweight tools & creators ecosystem</p>
-      <a href="#apps">View Apps</a>
-    </div>
-    <div class="box">
-      <h3>Beeta Proton</h3>
-      <p>Autonomous electric mobility platform</p>
-      <a href="#proton">Learn More</a>
+<section class="fullscreen animated-bg"></section>
+
+<!-- ECOSYSTEM HUB -->
+<section id="ecosystem" class="fullscreen animated-bg">
+  <div class="content" style="max-width:1200px">
+    <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px">
+      <div class="box">
+        <h3>Beeta OS</h3>
+        <p>All-in-one Linux OS for everyone</p>
+        <a href="https://osbeeta.netlify.app" target="_blank">Explore</a>
+      </div>
+      <div class="box">
+        <h3>Beeta Notebooks</h3>
+        <p>Premium Linux-first laptops optimized for Beeta OS</p>
+        <a href="#notebooks">Learn More</a>
+      </div>
+      <div class="box">
+        <h3>Beeta OS Apps</h3>
+        <p>Lightweight tools & creators ecosystem</p>
+        <a href="#apps">View Apps</a>
+      </div>
+      <div class="box">
+        <h3>Beeta Proton</h3>
+        <p>Autonomous electric mobility platform</p>
+        <a href="#proton">Learn More</a>
+      </div>
     </div>
   </div>
 </section>
 
+<section class="fullscreen animated-bg"></section>
+
+<!-- BEETA OS -->
 <section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
@@ -130,12 +202,15 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
+<section class="fullscreen animated-bg"></section>
+
+<!-- APPS -->
 <section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Apps of Beeta OS</h2>
     <p>Lightweight, powerful, and developer-focused tools</p>
-    <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a>
+    <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a><br><br>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
       <input type="hidden" name="product" value="BeeCreator Wishlist">
       <input type="email" name="email" placeholder="Your email" required>
@@ -144,6 +219,9 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
+<section class="fullscreen animated-bg"></section>
+
+<!-- NOTEBOOKS -->
 <section id="notebooks" class="fullscreen image-bg" style="background-image:url('laptop.jpg')">
   <div class="overlay"></div>
   <div class="content box">
@@ -157,7 +235,13 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
-<section id="proton" class="fullscreen image-bg" style="background-image:url('car.jpeg')">
+<section class="fullscreen animated-bg"></section>
+
+<!-- PROTON -->
+<section id="proton" class="fullscreen image-bg">
+  <video autoplay muted loop playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+    <source src="car-video.mp4" type="video/mp4">
+  </video>
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Proton</h2>
@@ -170,8 +254,11 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
   </div>
 </section>
 
-<section id="contact" class="fullscreen image-bg" style="background-color:#05060c">
-  <div class="content contact">
+<section class="fullscreen animated-bg"></section>
+
+<!-- CONTACT -->
+<section id="contact" class="fullscreen animated-bg contact">
+  <div class="content">
     <h2>Contact Beeta</h2>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
       <input type="email" name="email" placeholder="Your email" required>
