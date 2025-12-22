@@ -1,18 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="google-site-verification" content="hmANTM6WzM86iIqTx6-acob9w8AJggQOs-YD4ojFayU" />
+<meta name="google-site-verification" content="hmANTM6WzM86iIqTx6-acob9w8AJggQOs-YD4ojFayU">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Beeta Technologies develops cutting-edge technology: Beeta OS, Beeta Notebooks, Beeta Proton EV, and more.">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Beeta Technologies – OS, Notebooks & EVs">
-<meta property="og:description" content="Beeta Technologies builds operating systems, devices, and autonomous electric mobility.">
-<meta property="og:image" content="https://beetatechnologies.pages.dev/logo.png">
-<meta property="og:url" content="https://beetatechnologies.pages.dev">
-<meta property="og:type" content="website">
 
 <title>Beeta Technologies</title>
 
@@ -22,8 +14,19 @@
   --neon2:#9b6cff;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif}
-html,body{background:#05060c;color:#eef1ff;overflow-x:hidden;scroll-behavior:smooth}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter','Segoe UI',sans-serif;
+}
+
+html,body{
+  background:#05060c;
+  color:#eef1ff;
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+}
 
 /* ---------- SPLASH ---------- */
 #splash{
@@ -35,14 +38,25 @@ html,body{background:#05060c;color:#eef1ff;overflow-x:hidden;scroll-behavior:smo
   align-items:center;
   justify-content:center;
   z-index:10000;
-  animation:fadeOut 2.5s forwards;
-  animation-delay:2.5s;
+  animation:splashOut 2.5s forwards;
 }
-#splash img{width:150px;margin-bottom:20px;animation:pulse 2s infinite alternate}
-#splash h1{font-size:56px;letter-spacing:4px}
+#splash img{
+  width:150px;
+  animation:pulse 1.2s infinite alternate;
+}
+#splash h1{
+  margin-top:20px;
+  font-size:48px;
+  letter-spacing:4px;
+}
 
-@keyframes fadeOut{to{opacity:0;visibility:hidden}}
-@keyframes pulse{to{transform:scale(1.1)}}
+@keyframes pulse{
+  from{transform:scale(1)}
+  to{transform:scale(1.1)}
+}
+@keyframes splashOut{
+  100%{opacity:0;visibility:hidden}
+}
 
 /* ---------- NAVBAR ---------- */
 .navbar{
@@ -51,34 +65,78 @@ html,body{background:#05060c;color:#eef1ff;overflow-x:hidden;scroll-behavior:smo
   left:50%;
   transform:translateX(-50%);
   display:flex;
-  gap:26px;
+  align-items:center;
+  gap:28px;
   padding:14px 34px;
-  background:rgba(255,255,255,.08);
+  background:rgba(255,255,255,0.08);
   backdrop-filter:blur(18px);
   border-radius:60px;
   z-index:999;
 }
-.navbar a{color:#fff;text-decoration:none;font-weight:600;opacity:.85}
-.navbar a:hover{opacity:1;color:var(--neon1)}
+.navbar a{
+  color:#eef1ff;
+  text-decoration:none;
+  font-weight:600;
+  position:relative;
+}
+.navbar a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--neon1),var(--neon2));
+  transition:.3s;
+}
+.navbar a:hover::after{width:100%}
 
 /* ---------- SECTIONS ---------- */
-section{position:relative;width:100%}
-.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center}
-.image-bg{background-size:cover;background-position:center}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
-.content{position:relative;z-index:2;padding:40px;max-width:1100px}
+section{
+  width:100%;
+  position:relative;
+}
+.fullscreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.image-bg{
+  background-size:cover;
+  background-position:center;
+}
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+}
+.content{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+  padding:40px;
+}
 
 /* ---------- HERO ---------- */
-.hero h1{font-size:110px;font-weight:900}
-.hero p{font-size:26px;margin-top:16px}
+.hero h1{
+  font-size:96px;
+  font-weight:900;
+  letter-spacing:6px;
+}
+.hero p{
+  font-size:24px;
+  margin-top:16px;
+}
 .hero button{
-  margin-top:36px;
-  padding:16px 38px;
-  border-radius:40px;
+  margin-top:40px;
+  padding:16px 36px;
   font-size:18px;
   font-weight:700;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
   border:none;
+  border-radius:40px;
+  background:linear-gradient(90deg,var(--neon1),var(--neon2));
   cursor:pointer;
 }
 
@@ -89,43 +147,37 @@ section{position:relative;width:100%}
   border-radius:26px;
   padding:50px;
   backdrop-filter:blur(14px);
+  transition:.4s;
 }
-.box h2,.box h3{font-size:42px}
-.box p{margin-top:14px;font-size:20px}
-.box a,.box button{
-  margin-top:24px;
-  display:inline-block;
-  padding:14px 30px;
-  border-radius:30px;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
-  color:#000;
-  font-weight:700;
-  border:none;
-  text-decoration:none;
+.box:hover{
+  transform:scale(1.04);
+  box-shadow:0 0 26px rgba(94,231,255,.25);
 }
 
-/* ---------- ANIMATED BG ---------- */
+/* ---------- ANIMATED SPACER ---------- */
 .animated-bg{
+  min-height:30vh;
   background:
     radial-gradient(circle at 30% 30%, #0a1b3a, #05060c 60%),
     radial-gradient(circle at 70% 70%, #2a0f45, transparent 60%);
+  position:relative;
   overflow:hidden;
 }
 .animated-bg::after{
   content:"";
   position:absolute;
   inset:-30%;
-  background:conic-gradient(
-    from 180deg,
-    rgba(94,231,255,.25),
-    transparent 30%,
-    rgba(155,108,255,.25),
-    transparent 60%
-  );
+  background:conic-gradient(from 180deg,
+    rgba(94,231,255,.3),
+    transparent,
+    rgba(155,108,255,.3),
+    transparent);
   filter:blur(90px);
   animation:spin 18s linear infinite;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
 
 /* ---------- VIDEO ---------- */
 .video-bg{
@@ -138,46 +190,61 @@ section{position:relative;width:100%}
 }
 
 /* ---------- CONTACT ---------- */
-.contact form{display:flex;flex-direction:column;gap:16px;margin-top:24px}
-.contact input,.contact textarea{
+.contact form{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  margin-top:30px;
+}
+.contact input,
+.contact textarea{
   padding:14px;
   border-radius:12px;
   border:1px solid #333;
   background:#0b0f1a;
   color:#fff;
 }
+.contact button{
+  padding:14px;
+  border-radius:30px;
+  border:none;
+  background:linear-gradient(90deg,var(--neon1),var(--neon2));
+  font-weight:700;
+}
 
-/* ---------- X ICON ---------- */
+/* ---------- X LINK ---------- */
 .x-link{
-  display:flex;
-  align-items:center;
-  gap:12px;
   margin-top:40px;
-  font-size:28px;
+  display:flex;
+  justify-content:center;
 }
 .x-link a{
-  color:#fff;
-  text-decoration:none;
-  font-weight:800;
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.3s;
 }
-.x-link a:hover{color:var(--neon1)}
+.x-link svg{
+  width:48px;
+  height:48px;
+  fill:#eef1ff;
+}
+.x-link a:hover svg{
+  fill:var(--neon1);
+  transform:scale(1.1);
+}
 
-/* ---------- FOOTER ---------- */
 footer{
   text-align:center;
   padding:30px;
-  font-size:14px;
-  opacity:.7;
+  opacity:.6;
 }
-footer a{color:var(--neon1);text-decoration:none}
 
 /* ---------- RESPONSIVE ---------- */
-@media(max-width:900px){
-  .hero h1{font-size:70px}
-  .box{padding:32px}
-}
-@media(max-width:480px){
-  .hero h1{font-size:46px}
+@media(max-width:768px){
+  .hero h1{font-size:56px}
 }
 </style>
 </head>
@@ -190,7 +257,7 @@ footer a{color:var(--neon1);text-decoration:none}
   <h1>Beeta Technologies</h1>
 </div>
 
-<!-- NAV -->
+<!-- NAVBAR -->
 <nav class="navbar">
   <a href="#top">Home</a>
   <a href="#ecosystem">Ecosystem</a>
@@ -207,7 +274,7 @@ footer a{color:var(--neon1);text-decoration:none}
   <div class="content">
     <h1>Beeta Technologies</h1>
     <p>Building operating systems, devices, and electric mobility for humanity</p>
-    <button onclick="document.getElementById('ecosystem').scrollIntoView()">Explore Ecosystem</button>
+    <button onclick="document.getElementById('ecosystem').scrollIntoView()">Explore our ecosystem</button>
   </div>
 </section>
 
@@ -216,10 +283,12 @@ footer a{color:var(--neon1);text-decoration:none}
   <div class="content">
     <div class="box">
       <h2>Our Ecosystem</h2>
-      <p>Beeta OS · Notebooks · Apps · Proton EV</p>
+      <p>Beeta OS · Notebooks · Apps · Proton</p>
     </div>
   </div>
 </section>
+
+<section class="animated-bg"></section>
 
 <!-- BEETA OS -->
 <section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
@@ -227,27 +296,32 @@ footer a{color:var(--neon1);text-decoration:none}
   <div class="content box">
     <h2>Beeta OS</h2>
     <p>All-in-one Linux OS for everyone</p>
-    <a href="https://osbeeta.netlify.app" target="_blank">Learn More</a>
   </div>
 </section>
+
+<section class="animated-bg"></section>
 
 <!-- APPS -->
 <section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
-    <h2>Apps of Beeta OS</h2>
-    <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a>
+    <h2>Beeta OS Apps</h2>
+    <p>Lightweight, developer-focused tools</p>
   </div>
 </section>
+
+<section class="animated-bg"></section>
 
 <!-- NOTEBOOKS -->
 <section id="notebooks" class="fullscreen image-bg" style="background-image:url('laptop.jpg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Notebooks</h2>
-    <p>Linux-first performance laptops</p>
+    <p>Linux-first premium laptops</p>
   </div>
 </section>
+
+<section class="animated-bg"></section>
 
 <!-- PROTON -->
 <section id="proton" class="fullscreen">
@@ -261,36 +335,37 @@ footer a{color:var(--neon1);text-decoration:none}
   </div>
 </section>
 
+<section class="animated-bg"></section>
+
 <!-- CONTACT -->
 <section id="contact" class="fullscreen animated-bg contact">
-  <div class="content box">
+  <div class="content">
     <h2>Contact Beeta</h2>
 
-    <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" name="email" placeholder="Your email" required>
-      <textarea name="message" rows="4" placeholder="Message"></textarea>
+    <form>
+      <input type="email" placeholder="Your email" required>
+      <textarea placeholder="Message"></textarea>
       <button type="submit">Send</button>
     </form>
 
     <!-- X LINK -->
     <div class="x-link">
-      <span>❌</span>
-      <a href="https://twitter.com/Nbh_beeta" target="_blank">
-        Follow us on X
+      <a href="https://x.com/BeetaTech" target="_blank" aria-label="BeetaTech on X">
+        <!-- Official X logo -->
+        <svg viewBox="0 0 24 24">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H15.95l-5.38-7.034-6.155 7.034H1.107l7.73-8.835L.684 2.25H7.73l4.865 6.429z"/>
+        </svg>
       </a>
     </div>
+
   </div>
 </section>
 
-<footer>
-  © Beeta® 2025 ·
-  <a href="https://twitter.com/Nbh_beeta" target="_blank">X @Nbh_beeta</a>
-</footer>
+<footer>© Beeta® 2025</footer>
 
 <script>
 setTimeout(()=>{
-  const s=document.getElementById("splash");
-  if(s) s.remove();
+  document.getElementById('splash').remove();
 },2500);
 </script>
 
