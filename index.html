@@ -8,93 +8,98 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-html,body{background:#000;color:#fff;scroll-behavior:smooth}
+:root{
+  --neon1:#5ee7ff;
+  --neon2:#9b6cff;
+  --dark:#05060c;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
+html,body{background:var(--dark);color:#eef1ff;scroll-behavior:smooth}
 
 /* ---------- SPLASH ---------- */
 #splash{
   position:fixed;inset:0;
-  background:radial-gradient(circle,#1a1a2e,#000);
+  background:radial-gradient(circle,#101224,#05060c);
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  z-index:5000;
-  animation:splashFade 2.5s forwards;
+  z-index:9999;
 }
-#splash img{width:120px;animation:pulse 1.6s infinite}
-#splash h1{margin-top:20px;font-size:38px}
+#splash img{width:140px;animation:pulse 1.8s infinite}
+#splash h1{margin-top:24px;font-size:44px;letter-spacing:4px}
 @keyframes pulse{50%{transform:scale(1.08)}}
-@keyframes splashFade{
-  0%,80%{opacity:1}
-  100%{opacity:0;visibility:hidden}
-}
 
-/* ---------- NAV (GLASS) ---------- */
+/* ---------- NAV ---------- */
 .navbar{
-  position:fixed;top:0;width:100%;
-  display:flex;justify-content:space-between;
-  padding:14px 40px;
-  backdrop-filter:blur(16px);
-  background:rgba(255,255,255,0.06);
-  border-bottom:1px solid rgba(255,255,255,.15);
+  position:fixed;top:20px;left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:28px;
+  padding:14px 36px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:60px;
   z-index:1000;
 }
-.nav-links{list-style:none;display:flex;gap:22px}
-.nav-links a{text-decoration:none;color:#fff}
-.nav-links a:hover{color:#5ee7ff}
+.navbar a{
+  color:#eef1ff;text-decoration:none;
+  font-weight:600;font-size:15px;
+  position:relative;
+}
+.navbar a::after{
+  content:"";position:absolute;left:0;bottom:-6px;
+  width:0;height:2px;
+  background:linear-gradient(90deg,var(--neon1),var(--neon2));
+  transition:.3s;
+}
+.navbar a:hover::after{width:100%}
 
 /* ---------- SECTIONS ---------- */
+section{position:relative;width:100%}
 .fullscreen{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:120px 20px;
-  position:relative;
+  padding:140px 24px;
+  text-align:center;
 }
-.content{text-align:center;z-index:2}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
-
 .image-bg{
   background-size:cover;
   background-position:center;
-  background-repeat:no-repeat;
 }
-
-/* ---------- GLASS BOX ---------- */
-.glass{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(18px);
-  border:1px solid rgba(255,255,255,0.18);
-  box-shadow:0 0 40px rgba(94,231,255,.15);
+.overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.55);
+  pointer-events:none;
 }
-
-/* ---------- SPACER ---------- */
-.spacer{
-  min-height:70vh;
-  background:
-    radial-gradient(circle at 20% 30%,#5ee7ff33,transparent 40%),
-    radial-gradient(circle at 80% 60%,#9b6cff33,transparent 40%),
-    linear-gradient(120deg,#050510,#000);
-  animation:flow 10s linear infinite;
-}
-@keyframes flow{
-  0%{background-position:0% 0%}
-  100%{background-position:100% 100%}
-}
+.content{position:relative;z-index:2;max-width:1100px}
 
 /* ---------- HERO ---------- */
-.hero h1{font-size:64px}
-.hero p{margin-top:20px;font-size:20px;max-width:700px}
+.hero h1{
+  font-size:110px;
+  font-weight:900;
+  letter-spacing:6px;
+}
+.hero p{
+  margin-top:20px;
+  font-size:26px;
+  opacity:.85;
+}
 
 /* ---------- BUTTON ---------- */
-.cta-btn{
-  padding:14px 36px;
-  border:none;border-radius:40px;
-  font-weight:800;cursor:pointer;
-  background:linear-gradient(120deg,#5ee7ff,#9b6cff,#ff6fd8);
+.cta{
+  margin-top:40px;
+  padding:16px 42px;
+  font-size:18px;
+  font-weight:800;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  background:linear-gradient(120deg,var(--neon1),var(--neon2),#ff6fd8);
   background-size:300% 300%;
   animation:grad 6s ease infinite;
-  box-shadow:0 0 25px #5ee7ff88;
+  box-shadow:0 0 30px rgba(94,231,255,.45);
 }
 @keyframes grad{
   0%{background-position:0% 50%}
@@ -102,14 +107,29 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
   100%{background-position:0% 50%}
 }
 
-/* ---------- VIDEO ---------- */
-.video-bg{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  object-fit:cover;
+/* ---------- GLASS BOX ---------- */
+.glass{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(20px);
+  border-radius:28px;
+  padding:50px;
+  box-shadow:0 0 40px rgba(94,231,255,.18);
 }
 
-/* ---------- 3D TILT ---------- */
+/* ---------- ECOSYSTEM ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:36px;
+}
+.card{
+  padding:36px;
+  border-radius:26px;
+  transition:.4s;
+}
+
+/* ---------- 3D TILT (CLICK SAFE) ---------- */
 .tilt{
   transform-style:preserve-3d;
   transition:transform .2s ease, box-shadow .2s ease;
@@ -118,6 +138,7 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
 .tilt::after{
   content:"";
   position:absolute;inset:0;
+  pointer-events:none;
   background:radial-gradient(circle at var(--x) var(--y),
     rgba(255,255,255,.25),
     transparent 45%);
@@ -126,31 +147,35 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
 }
 .tilt:hover::after{opacity:1}
 
-/* ---------- ECOSYSTEM ---------- */
-.eco-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
+/* ---------- SPACER ---------- */
+.spacer{
+  min-height:70vh;
+  background:
+    radial-gradient(circle at 20% 30%,#5ee7ff33,transparent 40%),
+    radial-gradient(circle at 80% 60%,#9b6cff33,transparent 40%),
+    linear-gradient(120deg,#05060c,#000);
+  animation:flow 10s linear infinite;
 }
-.eco-card{
-  padding:30px;
-  border-radius:22px;
-}
-
-/* ---------- CONTENT BOX ---------- */
-.box{
-  padding:40px;
-  border-radius:24px;
-  max-width:520px;
-  display:flex;
-  flex-direction:column;
-  gap:18px; /* 🔴 FIXES OVERLAP */
+@keyframes flow{
+  0%{background-position:0% 0%}
+  100%{background-position:100% 100%}
 }
 
-/* ---------- FORMS ---------- */
+/* ---------- VIDEO ---------- */
+.video-bg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  pointer-events:none;
+}
+
+/* ---------- CONTACT ---------- */
 input,textarea{
-  width:100%;padding:12px;
-  border:none;border-radius:10px;
+  width:100%;
+  margin-top:14px;
+  padding:14px;
+  border-radius:12px;
+  border:none;
 }
 
 /* ---------- FOOTER ---------- */
@@ -158,14 +183,18 @@ footer{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px 40px;
+  padding:26px 40px;
+  opacity:.8;
 }
-.x-link{font-size:28px;color:#fff}
+.x-link{
+  font-size:28px;
+  color:#fff;
+}
 .x-link:hover{color:#1DA1F2}
 
-@media(max-width:768px){
-  .hero h1{font-size:42px}
-  .nav-links{display:none}
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:900px){
+  .hero h1{font-size:70px}
 }
 </style>
 </head>
@@ -175,21 +204,18 @@ footer{
 <!-- SPLASH -->
 <div id="splash">
   <img src="logo.png">
-  <h1>Beeta</h1>
+  <h1>Beeta Technologies</h1>
 </div>
 
 <!-- NAV -->
 <nav class="navbar">
-  <strong>Beeta Technologies</strong>
-  <ul class="nav-links">
-    <li><a href="#top">Home</a></li>
-    <li><a href="#ecosystem">Ecosystem</a></li>
-    <li><a href="#beetaos">OS</a></li>
-    <li><a href="#apps">Apps</a></li>
-    <li><a href="#notebooks">Notebooks</a></li>
-    <li><a href="#proton">Proton</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <a href="#top">Home</a>
+  <a href="#ecosystem">Ecosystem</a>
+  <a href="#beetaos">OS</a>
+  <a href="#apps">Apps</a>
+  <a href="#notebooks">Notebooks</a>
+  <a href="#proton">Proton</a>
+  <a href="#contact">Contact</a>
 </nav>
 
 <!-- HERO -->
@@ -197,20 +223,20 @@ footer{
   <div class="overlay"></div>
   <div class="content">
     <h1>Beeta Technologies</h1>
-    <p>Building operating systems, devices, and electric mobility for humanity</p><br>
-    <button class="cta-btn" onclick="ecosystem.scrollIntoView()">Explore our ecosystem</button>
+    <p>Operating systems, devices, and electric mobility for humanity</p>
+    <button class="cta" onclick="ecosystem.scrollIntoView()">Explore Ecosystem</button>
   </div>
 </section>
 
 <!-- ECOSYSTEM -->
 <section id="ecosystem" class="fullscreen">
-  <div class="content" style="max-width:1100px">
-    <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
-    <div class="eco-grid">
-      <div class="eco-card glass tilt"><h3>Beeta OS</h3><p>Unified Linux experience</p></div>
-      <div class="eco-card glass tilt"><h3>Beeta Notebooks</h3><p>Linux-first laptops</p></div>
-      <div class="eco-card glass tilt"><h3>Beeta Apps</h3><p>Developer ecosystem</p></div>
-      <div class="eco-card glass tilt"><h3>Beeta Proton</h3><p>Autonomous EV</p></div>
+  <div class="content">
+    <h2 style="font-size:52px;margin-bottom:50px">Our Ecosystem</h2>
+    <div class="grid">
+      <a href="https://osbeeta.netlify.app" class="card glass tilt"><h3>Beeta OS</h3></a>
+      <a href="#notebooks" class="card glass tilt"><h3>Beeta Notebooks</h3></a>
+      <a href="#apps" class="card glass tilt"><h3>Beeta OS Apps</h3></a>
+      <a href="#proton" class="card glass tilt"><h3>Beeta Proton</h3></a>
     </div>
   </div>
 </section>
@@ -220,22 +246,21 @@ footer{
 <!-- BEETA OS -->
 <section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
-  <div class="content box glass tilt">
+  <div class="content glass tilt">
     <h2>Beeta OS</h2>
-    <p>All-in-one Linux OS</p>
-    <a href="https://osbeeta.netlify.app" target="_blank" class="cta-btn">Explore</a>
+    <button class="cta" onclick="window.open('https://osbeeta.netlify.app')">Explore</button>
   </div>
 </section>
 
 <div class="spacer"></div>
 
-<!-- APPS (FIXED) -->
+<!-- APPS -->
 <section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
-  <div class="content box glass tilt">
+  <div class="content glass tilt">
     <h2>Beeta OS Apps</h2>
-    <a href="https://nbheditor.netlify.app" target="_blank" class="cta-btn">NBH Editor</a>
-    <button class="cta-btn">Add BeeCreator to Wishlist</button>
+    <button class="cta" onclick="window.open('https://nbheditor.netlify.app')">NBH Editor</button>
+    <button class="cta">Add BeeCreator to Wishlist</button>
   </div>
 </section>
 
@@ -244,9 +269,9 @@ footer{
 <!-- NOTEBOOKS -->
 <section id="notebooks" class="fullscreen image-bg" style="background-image:url('laptop.jpg')">
   <div class="overlay"></div>
-  <div class="content box glass tilt">
+  <div class="content glass tilt">
     <h2>Beeta Notebooks</h2>
-    <button class="cta-btn">Subscribe</button>
+    <button class="cta">Subscribe for Updates</button>
   </div>
 </section>
 
@@ -258,9 +283,9 @@ footer{
     <source src="car.mp4" type="video/mp4">
   </video>
   <div class="overlay"></div>
-  <div class="content box glass tilt">
+  <div class="content glass tilt">
     <h2>Beeta Proton</h2>
-    <button class="cta-btn">Subscribe</button>
+    <button class="cta">Subscribe</button>
   </div>
 </section>
 
@@ -268,11 +293,11 @@ footer{
 
 <!-- CONTACT -->
 <section id="contact" class="fullscreen">
-  <div class="content box glass tilt">
+  <div class="content glass tilt">
     <h2>Contact Beeta</h2>
     <input type="email" placeholder="Your email">
     <textarea rows="4" placeholder="Message"></textarea>
-    <button class="cta-btn">Send</button>
+    <button class="cta">Send</button>
   </div>
 </section>
 
@@ -284,23 +309,24 @@ footer{
 </footer>
 
 <script>
-setTimeout(()=>document.getElementById('splash').remove(),2500);
+setTimeout(()=>document.getElementById('splash').remove(),2600);
 
-// 3D tilt
+// 3D tilt (desktop only)
 if(!('ontouchstart' in window)){
-  document.querySelectorAll('.tilt').forEach(card=>{
-    card.addEventListener('mousemove',e=>{
-      const r=card.getBoundingClientRect();
+  document.querySelectorAll('.tilt').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect();
       const x=e.clientX-r.left;
       const y=e.clientY-r.top;
-      const rx=((y/r.height)-.5)*-14;
-      const ry=((x/r.width)-.5)*14;
-      card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`;
-      card.style.setProperty('--x',`${x}px`);
-      card.style.setProperty('--y',`${y}px`);
+      el.style.transform=
+        `rotateX(${((y/r.height)-.5)*-12}deg)
+         rotateY(${((x/r.width)-.5)*12}deg)
+         scale(1.05)`;
+      el.style.setProperty('--x',`${x}px`);
+      el.style.setProperty('--y',`${y}px`);
     });
-    card.addEventListener('mouseleave',()=>{
-      card.style.transform='rotateX(0) rotateY(0) scale(1)';
+    el.addEventListener('mouseleave',()=>{
+      el.style.transform='rotateX(0) rotateY(0) scale(1)';
     });
   });
 }
