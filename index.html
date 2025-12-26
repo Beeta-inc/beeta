@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,99 +6,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beeta Technologies</title>
 
-<!-- X LOGO -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
-html,body{
-  background:#000;
-  color:#fff;
-  scroll-behavior:smooth;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+html,body{background:#000;color:#fff;scroll-behavior:smooth}
 
 /* ---------- SPLASH ---------- */
 #splash{
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at center,#1a1a2e,#000);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
+  position:fixed;inset:0;
+  background:radial-gradient(circle,#1a1a2e,#000);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   z-index:5000;
   animation:splashFade 2.5s forwards;
 }
-#splash img{
-  width:120px;
-  animation:pulse 1.5s infinite;
-}
-#splash h1{
-  margin-top:20px;
-  font-size:38px;
-  letter-spacing:2px;
-}
-@keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.08)}
-}
+#splash img{width:120px;animation:pulse 1.6s infinite}
+#splash h1{margin-top:20px;font-size:38px}
+@keyframes pulse{50%{transform:scale(1.08)}}
 @keyframes splashFade{
-  0%{opacity:1}
-  80%{opacity:1}
+  0%,80%{opacity:1}
   100%{opacity:0;visibility:hidden}
 }
 
-/* ---------- NAVBAR ---------- */
+/* ---------- NAV ---------- */
 .navbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  z-index:1000;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  position:fixed;top:0;width:100%;
+  display:flex;justify-content:space-between;
   padding:14px 40px;
   backdrop-filter:blur(14px);
   background:rgba(0,0,0,.55);
+  z-index:1000;
 }
-.nav-logo{font-weight:800;font-size:20px}
 .nav-links{list-style:none;display:flex;gap:22px}
-.nav-links a{
-  color:#fff;
-  text-decoration:none;
-}
+.nav-links a{text-decoration:none;color:#fff}
 .nav-links a:hover{color:#5ee7ff}
 
 /* ---------- SECTIONS ---------- */
 .fullscreen{
   min-height:100vh;
-  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:120px 20px;
+  position:relative;
 }
 .content{text-align:center;z-index:2}
-.overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  z-index:1;
-}
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
 
-/* ---------- IMAGE BG ---------- */
+/* ---------- BG ---------- */
 .image-bg{
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
 }
 
-/* ---------- ANIMATED SPACER ---------- */
+/* ---------- SPACER ---------- */
 .spacer{
   min-height:70vh;
   background:
@@ -113,8 +77,8 @@ html,body{
 }
 
 /* ---------- HERO ---------- */
-.hero h1{font-size:64px;margin-bottom:20px}
-.hero p{font-size:20px;max-width:700px;margin:auto}
+.hero h1{font-size:64px}
+.hero p{margin-top:20px;font-size:20px;max-width:700px}
 
 /* ---------- BOX ---------- */
 .box{
@@ -123,18 +87,15 @@ html,body{
   border-radius:22px;
   backdrop-filter:blur(12px);
   max-width:520px;
-  margin:auto;
 }
-.box h2{font-size:42px;margin-bottom:15px}
-.box p{font-size:17px;margin-bottom:20px}
+.box h2{font-size:42px}
+.box p{margin:15px 0}
 
 /* ---------- BUTTON ---------- */
 .cta-btn{
   padding:14px 36px;
-  border:none;
-  border-radius:40px;
-  font-weight:800;
-  cursor:pointer;
+  border:none;border-radius:40px;
+  font-weight:800;cursor:pointer;
   background:linear-gradient(120deg,#5ee7ff,#9b6cff,#ff6fd8);
   background-size:300% 300%;
   animation:grad 6s ease infinite;
@@ -149,21 +110,33 @@ html,body{
 
 /* ---------- VIDEO ---------- */
 .video-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+  position:absolute;inset:0;
+  width:100%;height:100%;
   object-fit:cover;
-  z-index:0;
+}
+
+/* ---------- ECOSYSTEM GRID ---------- */
+.eco-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+.eco-card{
+  background:rgba(0,0,0,.6);
+  padding:30px;
+  border-radius:20px;
+  transition:.4s;
+}
+.eco-card:hover{
+  transform:translateY(-8px) scale(1.05);
+  box-shadow:0 0 30px #5ee7ff88;
 }
 
 /* ---------- FORMS ---------- */
 input,textarea{
-  width:100%;
-  padding:12px;
+  width:100%;padding:12px;
+  border:none;border-radius:10px;
   margin:10px 0;
-  border-radius:10px;
-  border:none;
 }
 
 /* ---------- FOOTER ---------- */
@@ -172,15 +145,10 @@ footer{
   justify-content:space-between;
   align-items:center;
   padding:20px 40px;
-  background:#000;
 }
-.x-link{
-  font-size:28px;
-  color:#fff;
-}
+.x-link{font-size:28px;color:#fff}
 .x-link:hover{color:#1DA1F2}
 
-/* ---------- RESPONSIVE ---------- */
 @media(max-width:768px){
   .hero h1{font-size:42px}
   .nav-links{display:none}
@@ -192,16 +160,17 @@ footer{
 
 <!-- SPLASH -->
 <div id="splash">
-  <img src="logo.png" alt="Beeta Logo">
+  <img src="logo.png">
   <h1>Beeta</h1>
 </div>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav class="navbar">
-  <div class="nav-logo">Beeta Technologies</div>
+  <div><strong>Beeta Technologies</strong></div>
   <ul class="nav-links">
     <li><a href="#top">Home</a></li>
-    <li><a href="#beetaos">Beeta OS</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#beetaos">OS</a></li>
     <li><a href="#apps">Apps</a></li>
     <li><a href="#notebooks">Notebooks</a></li>
     <li><a href="#proton">Proton</a></li>
@@ -215,16 +184,43 @@ footer{
   <div class="content">
     <h1>Beeta Technologies</h1>
     <p>Building operating systems, devices, and electric mobility for humanity</p><br>
-    <button class="cta-btn" onclick="document.getElementById('beetaos').scrollIntoView()">Explore our ecosystem</button>
+    <button class="cta-btn" onclick="ecosystem.scrollIntoView()">Explore our ecosystem</button>
   </div>
 </section>
+
+<!-- ECOSYSTEM -->
+<section id="ecosystem" class="fullscreen">
+  <div class="content" style="max-width:1100px">
+    <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <h3>Beeta OS</h3>
+        <p>Unified Linux experience</p>
+      </div>
+      <div class="eco-card">
+        <h3>Beeta Notebooks</h3>
+        <p>Linux-first premium laptops</p>
+      </div>
+      <div class="eco-card">
+        <h3>Beeta OS Apps</h3>
+        <p>Developer-focused tools</p>
+      </div>
+      <div class="eco-card">
+        <h3>Beeta Proton</h3>
+        <p>Autonomous EV platform</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
 
 <!-- BEETA OS -->
 <section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta OS</h2>
-    <p>All-in-one Linux OS for everyone</p>
+    <p>All-in-one Linux OS</p>
     <a href="https://osbeeta.netlify.app" target="_blank" class="cta-btn">Explore</a>
   </div>
 </section>
@@ -236,10 +232,9 @@ footer{
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta OS Apps</h2>
-    <p>Developer-first tools</p>
     <a href="https://nbheditor.netlify.app" target="_blank" class="cta-btn">NBH Editor</a><br><br>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" name="email" placeholder="Your email" required>
+      <input type="email" placeholder="Your email" required>
       <button class="cta-btn">Add BeeCreator to Wishlist</button>
     </form>
   </div>
@@ -252,10 +247,9 @@ footer{
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Notebooks</h2>
-    <p>Premium Linux-first laptops</p>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" name="email" placeholder="Your email" required>
-      <button class="cta-btn">Subscribe for Updates</button>
+      <input type="email" placeholder="Your email" required>
+      <button class="cta-btn">Subscribe</button>
     </form>
   </div>
 </section>
@@ -270,10 +264,9 @@ footer{
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Proton</h2>
-    <p>Autonomous electric mobility platform</p>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" name="email" placeholder="Your email" required>
-      <button class="cta-btn">Subscribe for Updates</button>
+      <input type="email" placeholder="Your email" required>
+      <button class="cta-btn">Subscribe</button>
     </form>
   </div>
 </section>
@@ -281,18 +274,17 @@ footer{
 <div class="spacer"></div>
 
 <!-- CONTACT -->
-<section id="contact" class="fullscreen animated-bg">
+<section id="contact" class="fullscreen">
   <div class="content box">
     <h2>Contact Beeta</h2>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" name="email" placeholder="Your email" required>
-      <textarea name="message" rows="4" placeholder="Message"></textarea>
-      <button class="cta-btn">Send Message</button>
+      <input type="email" placeholder="Your email" required>
+      <textarea rows="4" placeholder="Message"></textarea>
+      <button class="cta-btn">Send</button>
     </form>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div>© Beeta® 2025</div>
   <a class="x-link" href="https://x.com/BeetaTech" target="_blank">
@@ -301,7 +293,7 @@ footer{
 </footer>
 
 <script>
-setTimeout(()=>{document.getElementById('splash').remove()},2500);
+setTimeout(()=>document.getElementById('splash').remove(),2500);
 </script>
 
 </body>
