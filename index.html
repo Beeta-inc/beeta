@@ -28,13 +28,14 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
   100%{opacity:0;visibility:hidden}
 }
 
-/* ---------- NAV ---------- */
+/* ---------- NAV (GLASS) ---------- */
 .navbar{
   position:fixed;top:0;width:100%;
   display:flex;justify-content:space-between;
   padding:14px 40px;
-  backdrop-filter:blur(14px);
-  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(16px);
+  background:rgba(255,255,255,0.06);
+  border-bottom:1px solid rgba(255,255,255,.15);
   z-index:1000;
 }
 .nav-links{list-style:none;display:flex;gap:22px}
@@ -57,6 +58,14 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
+}
+
+/* ---------- GLASS BOX ---------- */
+.glass{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 0 40px rgba(94,231,255,.15);
 }
 
 /* ---------- SPACER ---------- */
@@ -100,7 +109,7 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
   object-fit:cover;
 }
 
-/* ---------- 3D TILT BASE ---------- */
+/* ---------- 3D TILT ---------- */
 .tilt{
   transform-style:preserve-3d;
   transition:transform .2s ease, box-shadow .2s ease;
@@ -124,28 +133,24 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
   gap:30px;
 }
 .eco-card{
-  background:rgba(0,0,0,.65);
   padding:30px;
   border-radius:22px;
-  box-shadow:0 0 30px #000;
-}
-.eco-card:hover{
-  box-shadow:0 0 45px #5ee7ff88;
 }
 
-/* ---------- PRODUCT BOX ---------- */
+/* ---------- CONTENT BOX ---------- */
 .box{
-  background:rgba(0,0,0,.65);
   padding:40px;
   border-radius:24px;
   max-width:520px;
+  display:flex;
+  flex-direction:column;
+  gap:18px; /* 🔴 FIXES OVERLAP */
 }
 
 /* ---------- FORMS ---------- */
 input,textarea{
   width:100%;padding:12px;
   border:none;border-radius:10px;
-  margin:10px 0;
 }
 
 /* ---------- FOOTER ---------- */
@@ -175,7 +180,7 @@ footer{
 
 <!-- NAV -->
 <nav class="navbar">
-  <div><strong>Beeta Technologies</strong></div>
+  <strong>Beeta Technologies</strong>
   <ul class="nav-links">
     <li><a href="#top">Home</a></li>
     <li><a href="#ecosystem">Ecosystem</a></li>
@@ -202,10 +207,10 @@ footer{
   <div class="content" style="max-width:1100px">
     <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
     <div class="eco-grid">
-      <div class="eco-card tilt"><h3>Beeta OS</h3><p>Unified Linux experience</p></div>
-      <div class="eco-card tilt"><h3>Beeta Notebooks</h3><p>Linux-first laptops</p></div>
-      <div class="eco-card tilt"><h3>Beeta Apps</h3><p>Developer ecosystem</p></div>
-      <div class="eco-card tilt"><h3>Beeta Proton</h3><p>Autonomous EV</p></div>
+      <div class="eco-card glass tilt"><h3>Beeta OS</h3><p>Unified Linux experience</p></div>
+      <div class="eco-card glass tilt"><h3>Beeta Notebooks</h3><p>Linux-first laptops</p></div>
+      <div class="eco-card glass tilt"><h3>Beeta Apps</h3><p>Developer ecosystem</p></div>
+      <div class="eco-card glass tilt"><h3>Beeta Proton</h3><p>Autonomous EV</p></div>
     </div>
   </div>
 </section>
@@ -215,7 +220,7 @@ footer{
 <!-- BEETA OS -->
 <section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
-  <div class="content box tilt">
+  <div class="content box glass tilt">
     <h2>Beeta OS</h2>
     <p>All-in-one Linux OS</p>
     <a href="https://osbeeta.netlify.app" target="_blank" class="cta-btn">Explore</a>
@@ -224,12 +229,12 @@ footer{
 
 <div class="spacer"></div>
 
-<!-- APPS -->
+<!-- APPS (FIXED) -->
 <section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
-  <div class="content box tilt">
+  <div class="content box glass tilt">
     <h2>Beeta OS Apps</h2>
-    <a href="https://nbheditor.netlify.app" target="_blank" class="cta-btn">NBH Editor</a><br><br>
+    <a href="https://nbheditor.netlify.app" target="_blank" class="cta-btn">NBH Editor</a>
     <button class="cta-btn">Add BeeCreator to Wishlist</button>
   </div>
 </section>
@@ -239,7 +244,7 @@ footer{
 <!-- NOTEBOOKS -->
 <section id="notebooks" class="fullscreen image-bg" style="background-image:url('laptop.jpg')">
   <div class="overlay"></div>
-  <div class="content box tilt">
+  <div class="content box glass tilt">
     <h2>Beeta Notebooks</h2>
     <button class="cta-btn">Subscribe</button>
   </div>
@@ -253,7 +258,7 @@ footer{
     <source src="car.mp4" type="video/mp4">
   </video>
   <div class="overlay"></div>
-  <div class="content box tilt">
+  <div class="content box glass tilt">
     <h2>Beeta Proton</h2>
     <button class="cta-btn">Subscribe</button>
   </div>
@@ -263,7 +268,7 @@ footer{
 
 <!-- CONTACT -->
 <section id="contact" class="fullscreen">
-  <div class="content box tilt">
+  <div class="content box glass tilt">
     <h2>Contact Beeta</h2>
     <input type="email" placeholder="Your email">
     <textarea rows="4" placeholder="Message"></textarea>
@@ -279,10 +284,9 @@ footer{
 </footer>
 
 <script>
-// SPLASH REMOVE
 setTimeout(()=>document.getElementById('splash').remove(),2500);
 
-// 3D TILT EFFECT
+// 3D tilt
 if(!('ontouchstart' in window)){
   document.querySelectorAll('.tilt').forEach(card=>{
     card.addEventListener('mousemove',e=>{
