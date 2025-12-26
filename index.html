@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,16 +7,18 @@
 <meta name="description" content="Beeta Technologies develops cutting-edge technology: Beeta OS, Beeta Notebooks, Beeta Proton EV, and more. Discover our innovations today.">
 <title>Beeta Technologies</title>
 
-<!-- Open Graph -->
+<!-- Open Graph / Social -->
 <meta property="og:title" content="Beeta Technologies – Innovative OS, Notebooks, EVs & More">
 <meta property="og:description" content="Beeta Technologies develops cutting-edge technology: Beeta OS, Beeta Notebooks, Beeta Proton EV, and more. Discover our innovations today.">
-<meta property="og:image" content="logo.png">
+<meta property="og:image" content="https://beetatechnologies.pages.dev/logo.png">
 <meta property="og:url" content="https://beetatechnologies.pages.dev">
 <meta property="og:type" content="website">
 
-<!-- Three.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/controls/OrbitControls.js"></script>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+
+<!-- Three.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.156.0/build/three.min.js"></script>
 
 <style>
 :root{
@@ -25,68 +28,69 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
 html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff;overflow-x:hidden}
 
-/* ---------- SPLASH SCREEN ---------- */
+/* SPLASH SCREEN */
 #splash{
-  position:fixed; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#05060c; z-index:10000; color:#5ee7ff;
+  position:fixed; inset:0; background:#05060c; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  z-index:10000; color:#5ee7ff; animation:fadeOut 2.5s forwards; animation-delay:2.5s;
 }
 #splash img{width:150px;margin-bottom:20px;animation:logoPulse 2.5s infinite alternate}
 #splash h1{font-size:64px;font-weight:900;letter-spacing:4px;animation:fadeInText 2s forwards}
+@keyframes fadeOut{100%{opacity:0;visibility:hidden}}
 @keyframes logoPulse{0%{transform:scale(1)}100%{transform:scale(1.1)}}
 @keyframes fadeInText{0%{opacity:0}100%{opacity:1}}
 
-/* ---------- NAVBAR ---------- */
+/* NAVBAR */
 .navbar{
   position:fixed; top:20px; left:50%; transform:translateX(-50%);
-  display:flex; gap:28px; padding:14px 34px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18);
-  backdrop-filter:blur(18px); border-radius:60px; z-index:999;
+  display:flex; gap:28px; padding:14px 34px; background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.18); backdrop-filter:blur(18px); border-radius:60px; z-index:999;
 }
-.navbar a{color:#eef1ff;text-decoration:none;font-weight:600;font-size:15px; position:relative; padding:6px 2px; transition:.3s}
-.navbar a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:linear-gradient(90deg,var(--neon1),var(--neon2));transition:.3s}
-.navbar a:hover{color:#fff}
-.navbar a:hover::after{width:100%}
+.nav-logo{font-size:28px;font-weight:900;letter-spacing:4px;color:#eef1ff}
+.nav-links{list-style:none;display:flex;gap:36px}
+.nav-links a{text-decoration:none;color:#eef1ff;font-weight:600;opacity:.8;transition:.35s ease}
+.nav-links a:hover{opacity:1;color:var(--neon1);text-shadow:0 0 12px rgba(94,231,255,.8)}
 
-/* ---------- HERO ---------- */
+/* HERO / SECTIONS */
 section{width:100%;position:relative}
-.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
 .image-bg{background-size:cover;background-position:center}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
-.content{position:relative;z-index:2;max-width:900px;padding:40px}
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:1}
+.content{position:relative;z-index:2;max-width:900px;padding:40px;background:rgba(255,255,255,0.05);border-radius:20px;backdrop-filter:blur(12px);transition:0.4s}
 
+/* HERO TEXT */
 .hero h1{font-size:120px;font-weight:900;letter-spacing:6px}
 .hero p{font-size:26px;margin-top:16px;opacity:.85}
-.hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000;transition:.3s}
+.hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000;transition:.35s}
 .hero button:hover{transform:scale(1.05)}
 
-/* ---------- BOXES ---------- */
-.box{
-  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15); border-radius:26px;
-  padding:50px; backdrop-filter:blur(14px); transition:.4s; cursor:grab;
-}
-.box:hover{transform:scale(1.04);box-shadow:0 0 26px rgba(94,231,255,.25)}
+/* PRODUCT BOX */
+.box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:50px;backdrop-filter:blur(14px);transition:.4s;cursor:pointer;transform-style:preserve-3d;}
+.box:hover{transform:scale(1.04) rotateX(2deg) rotateY(3deg);box-shadow:0 0 26px rgba(94,231,255,.25);}
 .box h2,h3{font-size:42px}
 .box p{margin-top:16px;font-size:20px;opacity:.9}
-.box a,.box button{
-  margin-top:26px; display:inline-block; padding:14px 30px; border-radius:30px;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2)); color:#000; text-decoration:none; font-weight:700; border:none; cursor:pointer;
-  transition:.3s;
-}
+.box a,.box button{margin-top:26px;display:inline-block;padding:14px 30px;border-radius:30px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#000;text-decoration:none;font-weight:700;border:none;cursor:pointer;transition:.35s}
 .box a:hover,.box button:hover{transform:scale(1.05)}
 
-/* ---------- CONTACT ---------- */
+/* CONTACT */
 .contact form{display:flex;flex-direction:column;gap:18px;margin-top:30px}
 .contact input,.contact textarea{background:#0b0f1a;border:1px solid #333;color:#fff;padding:14px;border-radius:12px}
-.contact .x-link{position:absolute;right:40px;bottom:20px;font-size:48px;color:#1DA1F2;text-decoration:none}
+.contact button{background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#000;border:none;font-weight:700;padding:14px 28px;border-radius:24px;cursor:pointer;transition:.35s}
+.contact button:hover{transform:scale(1.05)}
 
-/* ---------- FOOTER ---------- */
-footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
+footer{text-align:center;padding:30px;font-size:14px;opacity:.6;position:relative;z-index:2}
 
-/* ---------- VIDEO ---------- */
-.video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1}
+/* X LOGO CONTACT */
+#x-contact{position:absolute;right:30px;bottom:30px;font-size:48px;color:#1da1f2;text-decoration:none;transition:.35s;z-index:2}
+#x-contact:hover{transform:scale(1.1)}
 
-/* ---------- 3D Tilt ---------- */
-.tilt{perspective:1000px}
-.tilt-inner{transform-style:preserve-3d; transition: transform 0.3s ease;}
-.tilt:hover .tilt-inner{transform:rotateY(8deg) rotateX(8deg);}
+/* VIDEO BACKGROUND */
+.video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+
+/* RESPONSIVE */
+@media(max-width:1200px){.hero h1{font-size:90px}.box{padding:40px}}
+@media(max-width:900px){.navbar{gap:16px;padding:12px 22px}.hero h1{font-size:72px}.hero p{font-size:22px}.box h2,h3{font-size:34px}.box p{font-size:18px}}
+@media(max-width:700px){.nav-links{display:none}.hero h1{font-size:56px}.hero p{font-size:20px}.hero button{padding:14px 28px;font-size:16px}.box{padding:32px}}
+@media(max-width:480px){.hero h1{font-size:44px;letter-spacing:3px}.hero p{font-size:18px}.content{padding:24px}.box h2,h3{font-size:28px}}
 </style>
 </head>
 <body>
@@ -112,7 +116,8 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 </nav>
 
 <!-- HERO -->
-<section id="top" class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
+<section id="top" class="fullscreen hero">
+  <canvas id="heroCanvas"></canvas>
   <div class="overlay"></div>
   <div class="content">
     <h1>Beeta Technologies</h1>
@@ -123,36 +128,29 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 
 <!-- ECOSYSTEM HUB -->
 <section id="ecosystem" class="fullscreen">
+  <canvas id="ecosystemCanvas"></canvas>
   <div class="content" style="max-width:1200px">
     <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px">
-      <div class="box tilt">
-        <div class="tilt-inner">
-          <h3>Beeta OS</h3>
-          <p>All-in-one Linux OS for everyone</p>
-          <a href="https://osbeeta.netlify.app" target="_blank">Explore</a>
-        </div>
+      <div class="box">
+        <h3>Beeta OS</h3>
+        <p>All-in-one Linux OS for everyone</p>
+        <a href="https://osbeeta.netlify.app" target="_blank">Explore</a>
       </div>
-      <div class="box tilt">
-        <div class="tilt-inner">
-          <h3>Beeta Notebooks</h3>
-          <p>Premium Linux-first laptops optimized for Beeta OS</p>
-          <a href="#notebooks">Learn More</a>
-        </div>
+      <div class="box">
+        <h3>Beeta Notebooks</h3>
+        <p>Premium Linux-first laptops optimized for Beeta OS</p>
+        <a href="#notebooks">Learn More</a>
       </div>
-      <div class="box tilt">
-        <div class="tilt-inner">
-          <h3>Beeta OS Apps</h3>
-          <p>Lightweight tools & creators ecosystem</p>
-          <a href="#apps">View Apps</a>
-        </div>
+      <div class="box">
+        <h3>Beeta OS Apps</h3>
+        <p>Lightweight tools & creators ecosystem</p>
+        <a href="#apps">View Apps</a>
       </div>
-      <div class="box tilt">
-        <div class="tilt-inner">
-          <h3>Beeta Proton</h3>
-          <p>Autonomous electric mobility platform</p>
-          <a href="#proton">Learn More</a>
-        </div>
+      <div class="box">
+        <h3>Beeta Proton</h3>
+        <p>Autonomous electric mobility platform</p>
+        <a href="#proton">Learn More</a>
       </div>
     </div>
   </div>
@@ -216,7 +214,8 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
 
 <!-- CONTACT -->
 <section id="contact" class="fullscreen contact">
-  <div class="content box">
+  <canvas id="contactCanvas"></canvas>
+  <div class="content">
     <h2>Contact Beeta</h2>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
       <input type="email" name="email" placeholder="Your email" required>
@@ -224,25 +223,53 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6}
       <button type="submit">Send</button>
     </form>
   </div>
-  <a href="https://x.com/BeetaTech" class="x-link" target="_blank">X</a>
+  <a href="https://x.com/BeetaTech" id="x-contact" target="_blank">X</a>
 </section>
 
 <footer>© Beeta® 2025</footer>
 
 <script>
-// Splash removal after 2.5s
+// Splash removal
 setTimeout(()=>{document.getElementById('splash').style.display='none'},2500);
 
-// 3D tilt mouse effect for all boxes
-document.querySelectorAll('.tilt').forEach(box=>{
-  box.addEventListener('mousemove', e=>{
-    const rect=box.getBoundingClientRect();
-    const x=((e.clientX-rect.left)/rect.width-0.5)*20;
-    const y=((e.clientY-rect.top)/rect.height-0.5)*20;
-    box.querySelector('.tilt-inner').style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`;
-  });
-  box.addEventListener('mouseleave', ()=>{box.querySelector('.tilt-inner').style.transform='rotateY(0deg) rotateX(0deg)'});
-});
+/* -------------------- THREE.JS GLOBAL SETUP -------------------- */
+function initWebGLCanvas(id) {
+  const canvas = document.getElementById(id);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  
+  // Particles
+  const geometry = new THREE.BufferGeometry();
+  const particles = 1000;
+  const positions = [];
+  for(let i=0;i<particles;i++){
+    positions.push((Math.random()-0.5)*50);
+    positions.push((Math.random()-0.5)*50);
+    positions.push((Math.random()-0.5)*50);
+  }
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+  const material = new THREE.PointsMaterial({color:0x5ee7ff,size:0.1,transparent:true});
+  const pointCloud = new THREE.Points(geometry, material);
+  scene.add(pointCloud);
+  
+  camera.position.z=20;
+  
+  function animate(){
+    requestAnimationFrame(animate);
+    pointCloud.rotation.y +=0.0005;
+    pointCloud.rotation.x +=0.0005;
+    renderer.render(scene,camera);
+  }
+  animate();
+}
+
+initWebGLCanvas('heroCanvas');
+initWebGLCanvas('ecosystemCanvas');
+initWebGLCanvas('contactCanvas');
+
 </script>
+
 </body>
 </html>
