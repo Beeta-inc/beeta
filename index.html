@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +53,6 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
 .content{text-align:center;z-index:2}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
 
-/* ---------- BG ---------- */
 .image-bg{
   background-size:cover;
   background-position:center;
@@ -67,7 +65,6 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
   background:
     radial-gradient(circle at 20% 30%,#5ee7ff33,transparent 40%),
     radial-gradient(circle at 80% 60%,#9b6cff33,transparent 40%),
-    radial-gradient(circle at 50% 80%,#ff6fd833,transparent 40%),
     linear-gradient(120deg,#050510,#000);
   animation:flow 10s linear infinite;
 }
@@ -80,17 +77,6 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
 .hero h1{font-size:64px}
 .hero p{margin-top:20px;font-size:20px;max-width:700px}
 
-/* ---------- BOX ---------- */
-.box{
-  background:rgba(0,0,0,.6);
-  padding:40px;
-  border-radius:22px;
-  backdrop-filter:blur(12px);
-  max-width:520px;
-}
-.box h2{font-size:42px}
-.box p{margin:15px 0}
-
 /* ---------- BUTTON ---------- */
 .cta-btn{
   padding:14px 36px;
@@ -101,7 +87,6 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
   animation:grad 6s ease infinite;
   box-shadow:0 0 25px #5ee7ff88;
 }
-.cta-btn:hover{transform:scale(1.08)}
 @keyframes grad{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
@@ -115,21 +100,45 @@ html,body{background:#000;color:#fff;scroll-behavior:smooth}
   object-fit:cover;
 }
 
-/* ---------- ECOSYSTEM GRID ---------- */
+/* ---------- 3D TILT BASE ---------- */
+.tilt{
+  transform-style:preserve-3d;
+  transition:transform .2s ease, box-shadow .2s ease;
+  position:relative;
+}
+.tilt::after{
+  content:"";
+  position:absolute;inset:0;
+  background:radial-gradient(circle at var(--x) var(--y),
+    rgba(255,255,255,.25),
+    transparent 45%);
+  opacity:0;
+  transition:.3s;
+}
+.tilt:hover::after{opacity:1}
+
+/* ---------- ECOSYSTEM ---------- */
 .eco-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:30px;
 }
 .eco-card{
-  background:rgba(0,0,0,.6);
+  background:rgba(0,0,0,.65);
   padding:30px;
-  border-radius:20px;
-  transition:.4s;
+  border-radius:22px;
+  box-shadow:0 0 30px #000;
 }
 .eco-card:hover{
-  transform:translateY(-8px) scale(1.05);
-  box-shadow:0 0 30px #5ee7ff88;
+  box-shadow:0 0 45px #5ee7ff88;
+}
+
+/* ---------- PRODUCT BOX ---------- */
+.box{
+  background:rgba(0,0,0,.65);
+  padding:40px;
+  border-radius:24px;
+  max-width:520px;
 }
 
 /* ---------- FORMS ---------- */
@@ -193,22 +202,10 @@ footer{
   <div class="content" style="max-width:1100px">
     <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
     <div class="eco-grid">
-      <div class="eco-card">
-        <h3>Beeta OS</h3>
-        <p>Unified Linux experience</p>
-      </div>
-      <div class="eco-card">
-        <h3>Beeta Notebooks</h3>
-        <p>Linux-first premium laptops</p>
-      </div>
-      <div class="eco-card">
-        <h3>Beeta OS Apps</h3>
-        <p>Developer-focused tools</p>
-      </div>
-      <div class="eco-card">
-        <h3>Beeta Proton</h3>
-        <p>Autonomous EV platform</p>
-      </div>
+      <div class="eco-card tilt"><h3>Beeta OS</h3><p>Unified Linux experience</p></div>
+      <div class="eco-card tilt"><h3>Beeta Notebooks</h3><p>Linux-first laptops</p></div>
+      <div class="eco-card tilt"><h3>Beeta Apps</h3><p>Developer ecosystem</p></div>
+      <div class="eco-card tilt"><h3>Beeta Proton</h3><p>Autonomous EV</p></div>
     </div>
   </div>
 </section>
@@ -218,7 +215,7 @@ footer{
 <!-- BEETA OS -->
 <section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
-  <div class="content box">
+  <div class="content box tilt">
     <h2>Beeta OS</h2>
     <p>All-in-one Linux OS</p>
     <a href="https://osbeeta.netlify.app" target="_blank" class="cta-btn">Explore</a>
@@ -230,13 +227,10 @@ footer{
 <!-- APPS -->
 <section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
-  <div class="content box">
+  <div class="content box tilt">
     <h2>Beeta OS Apps</h2>
     <a href="https://nbheditor.netlify.app" target="_blank" class="cta-btn">NBH Editor</a><br><br>
-    <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" placeholder="Your email" required>
-      <button class="cta-btn">Add BeeCreator to Wishlist</button>
-    </form>
+    <button class="cta-btn">Add BeeCreator to Wishlist</button>
   </div>
 </section>
 
@@ -245,12 +239,9 @@ footer{
 <!-- NOTEBOOKS -->
 <section id="notebooks" class="fullscreen image-bg" style="background-image:url('laptop.jpg')">
   <div class="overlay"></div>
-  <div class="content box">
+  <div class="content box tilt">
     <h2>Beeta Notebooks</h2>
-    <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" placeholder="Your email" required>
-      <button class="cta-btn">Subscribe</button>
-    </form>
+    <button class="cta-btn">Subscribe</button>
   </div>
 </section>
 
@@ -262,12 +253,9 @@ footer{
     <source src="car.mp4" type="video/mp4">
   </video>
   <div class="overlay"></div>
-  <div class="content box">
+  <div class="content box tilt">
     <h2>Beeta Proton</h2>
-    <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" placeholder="Your email" required>
-      <button class="cta-btn">Subscribe</button>
-    </form>
+    <button class="cta-btn">Subscribe</button>
   </div>
 </section>
 
@@ -275,13 +263,11 @@ footer{
 
 <!-- CONTACT -->
 <section id="contact" class="fullscreen">
-  <div class="content box">
+  <div class="content box tilt">
     <h2>Contact Beeta</h2>
-    <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="email" placeholder="Your email" required>
-      <textarea rows="4" placeholder="Message"></textarea>
-      <button class="cta-btn">Send</button>
-    </form>
+    <input type="email" placeholder="Your email">
+    <textarea rows="4" placeholder="Message"></textarea>
+    <button class="cta-btn">Send</button>
   </div>
 </section>
 
@@ -293,7 +279,27 @@ footer{
 </footer>
 
 <script>
+// SPLASH REMOVE
 setTimeout(()=>document.getElementById('splash').remove(),2500);
+
+// 3D TILT EFFECT
+if(!('ontouchstart' in window)){
+  document.querySelectorAll('.tilt').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=e.clientX-r.left;
+      const y=e.clientY-r.top;
+      const rx=((y/r.height)-.5)*-14;
+      const ry=((x/r.width)-.5)*14;
+      card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`;
+      card.style.setProperty('--x',`${x}px`);
+      card.style.setProperty('--y',`${y}px`);
+    });
+    card.addEventListener('mouseleave',()=>{
+      card.style.transform='rotateX(0) rotateY(0) scale(1)';
+    });
+  });
+}
 </script>
 
 </body>
