@@ -190,10 +190,18 @@ section{position:relative;width:100%}
 
 /* SPACER */
 .animated-bg{
+  position:relative;
   min-height:30vh;
-  background:
-    radial-gradient(circle at 20% 30%, #0a1b3a, #05060c 60%),
-    radial-gradient(circle at 80% 70%, #2a0f45, transparent 60%);
+  background:#05060c;
+  overflow:hidden;
+}
+
+.webgl-canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
 }
 
 /* SLIDE ANIMATION */
@@ -230,7 +238,7 @@ footer{
   justify-content:center;align-items:center;
   padding:26px;opacity:.7
 }
-footer svg{width:26px;height:26px}
+footer svg{width:26px;height:26px;fill:#fff}
 
 @media(max-width:768px){
   .hero h1{font-size:48px}
@@ -392,17 +400,140 @@ footer svg{width:26px;height:26px}
   © Beeta® 2025
   <a href="https://x.com/BeetaTech" target="_blank">
     <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.24 2H21l-6.5 7.43L22 22h-6.6l-5.2-6.7L4.4 22H2l7-8.1L2 2h6.7l4.7 6.1L18.24 2z"/>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
     </svg>
   </a>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 setTimeout(()=>splash.remove(),2500)
 const obs=new IntersectionObserver(e=>{
   e.forEach(x=>x.target.classList.toggle('active',x.isIntersecting))
 },{threshold:.3})
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r))
+
+// Subtle Starfield WebGL Background
+function initWebGL(){
+  const sections = document.querySelectorAll('.animated-bg');
+  
+  sections.forEach(section => {
+    const canvas = document.createElement('canvas');
+    canvas.className = 'webgl-canvas';
+    section.insertBefore(canvas, section.firstChild);
+    
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, section.offsetWidth / section.offsetHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({canvas, alpha: true, antialias: true});
+    
+    renderer.setSize(section.offsetWidth, section.offsetHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.position.z = 5;
+    
+    // Create subtle starfield
+    const starCount = 600;
+    const positions = new Float32Array(starCount * 3);
+    const colors = new Float32Array(starCount * 3);
+    const sizes = new Float32Array(starCount);
+    
+    const color1 = new THREE.Color(0x5ee7ff);
+    const color2 = new THREE.Color(0x9b6cff);
+    
+    for(let i = 0; i < starCount; i++){
+      // Spread stars in depth
+      positions[i * 3] = (Math.random() - 0.5) * 30;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
+      
+      // Gradient colors
+      const mixColor = color1.clone().lerp(color2, Math.random());
+      colors[i * 3] = mixColor.r;
+      colors[i * 3 + 1] = mixColor.g;
+      colors[i * 3 + 2] = mixColor.b;
+      
+      // Varied sizes for depth
+      sizes[i] = Math.random() * 0.05 + 0.02;
+    }
+    
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    
+    const material = new THREE.PointsMaterial({
+      size: 0.05,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.6,
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true
+    });
+    
+    const stars = new THREE.Points(geometry, material);
+    scene.add(stars);
+    
+    // Add subtle glow orbs
+    const orbCount = 3;
+    const orbs = [];
+    
+    for(let i = 0; i < orbCount; i++){
+      const orbGeometry = new THREE.SphereGeometry(0.3, 16, 16);
+      const orbMaterial = new THREE.MeshBasicMaterial({
+        color: i % 2 === 0 ? 0x5ee7ff : 0x9b6cff,
+        transparent: true,
+        opacity: 0.15,
+        blending: THREE.AdditiveBlending
+      });
+      const orb = new THREE.Mesh(orbGeometry, orbMaterial);
+      orb.position.set(
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 5
+      );
+      orbs.push({mesh: orb, speed: Math.random() * 0.3 + 0.2});
+      scene.add(orb);
+    }
+    
+    // Smooth animation
+    let time = 0;
+    function animate(){
+      requestAnimationFrame(animate);
+      time += 0.001;
+      
+      // Very subtle rotation
+      stars.rotation.y = time * 0.05;
+      stars.rotation.x = Math.sin(time * 0.3) * 0.05;
+      
+      // Gentle star twinkle
+      const positions = stars.geometry.attributes.position.array;
+      for(let i = 0; i < starCount; i++){
+        const offset = Math.sin(time * 2 + i) * 0.002;
+        positions[i * 3 + 1] += offset;
+      }
+      stars.geometry.attributes.position.needsUpdate = true;
+      
+      // Floating orbs
+      orbs.forEach((orb, idx) => {
+        orb.mesh.position.y = Math.sin(time * orb.speed + idx) * 2;
+        orb.mesh.position.x = Math.cos(time * orb.speed * 0.7 + idx) * 3;
+        orb.mesh.rotation.x += 0.002;
+        orb.mesh.rotation.y += 0.003;
+      });
+      
+      renderer.render(scene, camera);
+    }
+    animate();
+    
+    // Handle resize
+    window.addEventListener('resize', () => {
+      camera.aspect = section.offsetWidth / section.offsetHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(section.offsetWidth, section.offsetHeight);
+    });
+  });
+}
+
+window.addEventListener('load', initWebGL);
 </script>
 
 </body>
