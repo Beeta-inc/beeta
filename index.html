@@ -3,158 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beeta Technologies</title>
+
+<!-- ===== SEO CORE ===== -->
+<title>Beeta Technologies | OS, Apps, Notebooks & Autonomous Mobility</title>
+<meta name="description" content="Beeta Technologies builds operating systems, apps, premium Linux notebooks, and autonomous electric mobility platforms for humanity.">
+<meta name="keywords" content="Beeta Technologies, Beeta OS, Linux OS, Beeta Notebooks, Beeta Proton, Autonomous EV, Open Source, Linux Hardware">
+<meta name="author" content="Beeta Technologies">
+
+<!-- ===== OPEN GRAPH ===== -->
+<meta property="og:title" content="Beeta Technologies">
+<meta property="og:description" content="Operating systems, devices, and electric mobility for humanity.">
+<meta property="og:image" content="earth1.jpeg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://beeta.tech">
+
+<!-- ===== X / TWITTER ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beeta Technologies">
+<meta name="twitter:description" content="Building OS, devices, and electric mobility for humanity.">
+<meta name="twitter:image" content="earth1.jpeg">
+<meta name="twitter:site" content="@BeetaTech">
 
 <style>
 :root{
   --neon1:#5ee7ff;
   --neon2:#9b6cff;
+  --glass:rgba(255,255,255,.08);
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif}
 html,body{background:#05060c;color:#eef1ff;scroll-behavior:smooth;overflow-x:hidden}
 
-/* ---------------- SPLASH ---------------- */
+/* SPLASH */
 #splash{
   position:fixed;inset:0;
   background:#05060c;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   z-index:99999;
-  animation:fadeOut 2.5s forwards;
-  animation-delay:2.5s;
 }
 #splash img{width:140px;margin-bottom:20px;animation:pulse 2s infinite}
-#splash h1{font-size:48px;letter-spacing:4px}
+#splash h1{font-size:46px;letter-spacing:4px}
+@keyframes pulse{50%{transform:scale(1.08)}}
 
-@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.08)}}
-@keyframes fadeOut{to{opacity:0;visibility:hidden}}
-
-/* ---------------- NAVBAR ---------------- */
+/* NAV */
 .navbar{
   position:fixed;top:20px;left:50%;
   transform:translateX(-50%);
-  padding:14px 32px;
-  display:flex;gap:28px;
-  background:rgba(255,255,255,.08);
+  padding:14px 34px;
+  display:flex;gap:26px;
+  background:var(--glass);
   backdrop-filter:blur(18px);
-  border:1px solid rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.15);
   border-radius:60px;
   z-index:999;
 }
-.navbar a{
-  color:#eef1ff;text-decoration:none;
-  font-weight:600;position:relative;
-}
-.navbar a::after{
-  content:"";position:absolute;left:0;bottom:-4px;
-  width:0;height:2px;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
-  transition:.3s;
-}
-.navbar a:hover::after{width:100%}
+.navbar a{color:#eef1ff;text-decoration:none;font-weight:600}
 
-/* ---------------- SECTIONS ---------------- */
-section{position:relative;width:100%}
-.fullscreen{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-.image-bg{
-  background-size:cover;
-  background-position:center;
-}
-.overlay{
-  position:absolute;inset:0;
-  background:rgba(0,0,0,.55);
-}
-.content{position:relative;z-index:2;max-width:900px;padding:40px}
-
-/* ---------------- HERO ---------------- */
-.hero h1{font-size:110px;font-weight:900}
-.hero p{font-size:24px;margin-top:16px;opacity:.85}
-.hero button{
-  margin-top:36px;
-  padding:16px 36px;
+/* BUTTON */
+.glow-btn{
+  margin-top:22px;
+  padding:14px 36px;
   border-radius:40px;
   border:none;
   font-weight:700;
   background:linear-gradient(90deg,var(--neon1),var(--neon2));
+  color:#000;
   cursor:pointer;
-}
-
-/* ---------------- GLASS BOX ---------------- */
-.box{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:26px;
-  padding:50px;
-  backdrop-filter:blur(14px);
+  box-shadow:0 0 25px rgba(94,231,255,.7);
   transition:.4s;
 }
-.box:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 30px rgba(94,231,255,.25);
+.glow-btn:hover{transform:translateY(-3px);box-shadow:0 0 45px rgba(155,108,255,.9)}
+
+section{position:relative;width:100%}
+.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center}
+.image-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.content{position:relative;z-index:2;max-width:1000px;padding:40px;text-align:center}
+
+/* GLASS */
+.box{
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:28px;
+  padding:50px;
+  backdrop-filter:blur(18px);
 }
 
-/* ---------------- ANIMATED SPACER ---------------- */
+/* HERO */
+.hero h1{font-size:92px;font-weight:900}
+.hero p{font-size:24px;margin-top:16px;opacity:.85}
+
+/* ANIMATED SPACER */
 .animated-bg{
-  min-height:35vh;
+  min-height:30vh;
   background:
-    radial-gradient(circle at 30% 30%, #0a1b3a, #05060c 60%),
-    radial-gradient(circle at 70% 70%, #2a0f45, transparent 60%);
-  overflow:hidden;
+    radial-gradient(circle at 20% 30%, #0a1b3a, #05060c 60%),
+    radial-gradient(circle at 80% 70%, #2a0f45, transparent 60%);
 }
 
-/* ---------------- PINNED SECTIONS ---------------- */
-.pin{overflow:hidden}
-.pin-inner{
-  width:100%;
-  transform:translateX(var(--start));
-  transition:transform .8s ease;
+/* SCROLL LOCK */
+.lock-inner{
+  position:sticky;top:0;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
 }
-.pin.active .pin-inner{transform:translateX(0)}
+.slide{transform:translateX(var(--from));transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.lock.active .slide{transform:translateX(0)}
 
-/* ---------------- ECOSYSTEM ---------------- */
-.eco-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:30px;
-}
-.eco-grid .box:hover{
-  transform:scale(1.05);
-}
+/* VIDEO */
+.video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
-/* ---------------- VIDEO BG ---------------- */
-.video-bg{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  object-fit:cover;
-  z-index:0;
-}
-
-/* ---------------- CONTACT ---------------- */
-.contact form{
-  display:flex;flex-direction:column;
-  gap:18px;margin-top:30px;
-}
-.contact input,.contact textarea{
-  background:#0b0f1a;
-  border:1px solid #333;
+/* FORMS */
+form{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+input,textarea{
   padding:14px;border-radius:12px;
-  color:#fff;
+  border:1px solid #333;background:#0b0f1a;color:#fff
 }
 
-/* ---------------- FOOTER ---------------- */
+/* FOOTER */
 footer{
-  text-align:center;
-  padding:24px;
-  font-size:14px;
-  opacity:.6;
+  display:flex;justify-content:center;gap:18px;
+  padding:26px;opacity:.7;align-items:center
 }
+footer a svg{width:26px;height:26px}
 </style>
 </head>
 
@@ -162,7 +133,7 @@ footer{
 
 <!-- SPLASH -->
 <div id="splash">
-  <img src="logo.png">
+  <img src="logo.png" alt="Beeta Logo">
   <h1>Beeta Technologies</h1>
 </div>
 
@@ -172,7 +143,7 @@ footer{
   <a href="#ecosystem">Ecosystem</a>
   <a href="#beetaos">Beeta OS</a>
   <a href="#apps">Apps</a>
-  <a href="#notebooks">Notebooks</a>
+  <a href="#notebooks">Beeta Notebooks</a>
   <a href="#proton">Proton</a>
   <a href="#contact">Contact</a>
 </nav>
@@ -181,102 +152,119 @@ footer{
 <section id="top" class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
   <div class="overlay"></div>
   <div class="content">
-    <h1>BEETA</h1>
-    <p>Technology for Humanity</p>
-    <button onclick="document.getElementById('ecosystem').scrollIntoView()">Explore our ecosystem</button>
+    <h1>Beeta Technologies</h1>
+    <p>Building operating systems, devices, and electric mobility for humanity</p>
+    <button class="glow-btn" onclick="document.getElementById('ecosystem').scrollIntoView()">Explore our ecosystem</button>
   </div>
 </section>
 
-<section class="animated-bg"></section>
-
-<!-- ECOSYSTEM (PINNED RIGHT) -->
-<section id="ecosystem" class="fullscreen pin" style="--start:100%">
-  <div class="pin-inner content">
-    <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
-    <div class="eco-grid">
-      <div class="box"><h3>Beeta OS</h3><p>Linux for everyone</p></div>
-      <div class="box"><h3>Apps</h3><p>Creator ecosystem</p></div>
-      <div class="box"><h3>Notebooks</h3><p>Linux-first laptops</p></div>
-      <div class="box"><h3>Proton</h3><p>Electric mobility</p></div>
-    </div>
+<!-- ECOSYSTEM -->
+<section id="ecosystem" class="fullscreen animated-bg">
+  <div class="content box">
+    <h2>Our Ecosystem</h2>
+    <p>Beeta OS • Apps • Notebooks • Proton</p>
   </div>
 </section>
 
 <section class="animated-bg"></section>
 
 <!-- BEETA OS -->
-<section id="beetaos" class="fullscreen image-bg pin" style="--start:-100%;background-image:url('beetaos.jpeg')">
+<section id="beetaos" class="fullscreen image-bg lock" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
-  <div class="pin-inner content box">
-    <h2>Beeta OS</h2>
-    <p>All-in-one Linux OS</p>
-    <a href="https://osbeeta.netlify.app" target="_blank">Learn more</a>
+  <div class="lock-inner">
+    <div class="content box slide" style="--from:-100%">
+      <h2>Beeta OS</h2>
+      <p>An all-in-one Linux OS for gamers, professionals, and everyday users</p>
+      <a href="https://osbeeta.netlify.app" target="_blank" class="glow-btn">Learn More</a>
+    </div>
   </div>
 </section>
 
 <section class="animated-bg"></section>
 
 <!-- APPS -->
-<section id="apps" class="fullscreen image-bg pin" style="--start:100%;background-image:url('apps.jpeg')">
+<section id="apps" class="fullscreen image-bg lock" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
-  <div class="pin-inner content box">
-    <h2>Beeta OS Apps</h2>
-    <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a>
+  <div class="lock-inner">
+    <div class="content box slide" style="--from:100%">
+      <h2>Apps of Beeta OS</h2>
+      <a href="https://nbheditor.netlify.app" target="_blank" class="glow-btn">NBH Editor</a>
+      <form>
+        <input type="email" placeholder="Your email">
+        <button class="glow-btn">Add BeeCreator to Wishlist</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <section class="animated-bg"></section>
 
 <!-- NOTEBOOKS -->
-<section id="notebooks" class="fullscreen image-bg pin" style="--start:-100%;background-image:url('laptop.jpg')">
+<section id="notebooks" class="fullscreen image-bg lock" style="background-image:url('laptop.jpg')">
   <div class="overlay"></div>
-  <div class="pin-inner content box">
-    <h2>Beeta Notebooks</h2>
-    <p>Coming Soon</p>
+  <div class="lock-inner">
+    <div class="content box slide" style="--from:-100%">
+      <h2>Beeta Notebooks</h2>
+      <p>Premium Linux-first laptops optimized for Beeta OS</p>
+      <form>
+        <input type="email" placeholder="Your email">
+        <button class="glow-btn">Subscribe for Updates</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <section class="animated-bg"></section>
 
-<!-- PROTON VIDEO -->
-<section id="proton" class="fullscreen pin" style="--start:100%">
-  <video class="video-bg" autoplay muted loop playsinline>
-    <source src="car.mp4" type="video/mp4">
-  </video>
-  <div class="overlay"></div>
-  <div class="pin-inner content box">
-    <h2>Beeta Proton</h2>
-    <p>Autonomous electric future</p>
+<!-- PROTON -->
+<section id="proton" class="fullscreen lock">
+  <div class="lock-inner">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="car.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="content box slide" style="--from:100%">
+      <h2>Beeta Proton</h2>
+      <p>A fully autonomous electric vehicle designed to serve humanity from day one</p>
+      <form>
+        <input type="email" placeholder="Your email">
+        <button class="glow-btn">Subscribe for Updates</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <section class="animated-bg"></section>
 
 <!-- CONTACT -->
-<section id="contact" class="fullscreen animated-bg contact">
-  <div class="content">
+<section id="contact" class="fullscreen animated-bg">
+  <div class="content box">
     <h2>Contact Beeta</h2>
     <form>
-      <input placeholder="Email">
+      <input type="email" placeholder="Your email">
       <textarea placeholder="Message"></textarea>
-      <button>Send</button>
+      <button class="glow-btn">Send</button>
     </form>
   </div>
 </section>
 
-<footer>© Beeta® 2025</footer>
+<footer>
+  © Beeta® 2025
+  <a href="https://x.com/BeetaTech" target="_blank" aria-label="Beeta on X">
+    <!-- Official X logo -->
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.24 2H21l-6.5 7.43L22 22h-6.6l-5.2-6.7L4.4 22H2l7-8.1L2 2h6.7l4.7 6.1L18.24 2z"/>
+    </svg>
+  </a>
+</footer>
 
 <script>
-/* splash kill */
-setTimeout(()=>{document.getElementById('splash').remove()},2500)
-
-/* pin activation */
-const pins=document.querySelectorAll('.pin')
-window.addEventListener('scroll',()=>{
-  pins.forEach(p=>{
-    const r=p.getBoundingClientRect()
-    if(r.top<window.innerHeight*0.6)p.classList.add('active')
-  })
+setTimeout(()=>document.getElementById('splash').remove(),2500)
+document.querySelectorAll('.lock').forEach(sec=>{
+  const io=new IntersectionObserver(e=>{
+    if(e[0].isIntersecting)sec.classList.add('active')
+  },{threshold:.3})
+  io.observe(sec)
 })
 </script>
 
