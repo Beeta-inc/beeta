@@ -1,96 +1,180 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Beeta Technologies develops cutting-edge technology: Beeta OS, Beeta Notebooks, Beeta Proton EV, and more. Discover our innovations today.">
 <title>Beeta Technologies</title>
 
-<!-- Open Graph / Social -->
-<meta property="og:title" content="Beeta Technologies – Innovative OS, Notebooks, EVs & More">
-<meta property="og:description" content="Beeta Technologies develops cutting-edge technology: Beeta OS, Beeta Notebooks, Beeta Proton EV, and more. Discover our innovations today.">
-<meta property="og:image" content="https://beetatechnologies.pages.dev/logo.png">
-<meta property="og:url" content="https://beetatechnologies.pages.dev">
-<meta property="og:type" content="website">
-
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
 
-<!-- Three.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.156.0/build/three.min.js"></script>
-
 <style>
-:root{
-  --neon1:#5ee7ff;
-  --neon2:#9b6cff;
-}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif}
-html,body{scroll-behavior:smooth;background:#05060c;color:#eef1ff;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+html,body{background:#05060c;color:#eef1ff;scroll-behavior:smooth}
 
-/* SPLASH SCREEN */
+/* SPLASH */
 #splash{
-  position:fixed; inset:0; background:#05060c; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  z-index:10000; color:#5ee7ff; animation:fadeOut 2.5s forwards; animation-delay:2.5s;
+  position:fixed; inset:0;
+  background:#05060c;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  z-index:9999;
 }
-#splash img{width:150px;margin-bottom:20px;animation:logoPulse 2.5s infinite alternate}
-#splash h1{font-size:64px;font-weight:900;letter-spacing:4px;animation:fadeInText 2s forwards}
-@keyframes fadeOut{100%{opacity:0;visibility:hidden}}
-@keyframes logoPulse{0%{transform:scale(1)}100%{transform:scale(1.1)}}
-@keyframes fadeInText{0%{opacity:0}100%{opacity:1}}
+#splash img{width:140px;animation:pulse 1.2s infinite alternate}
+#splash h1{margin-top:20px;font-size:52px;font-weight:900;letter-spacing:4px}
+@keyframes pulse{to{transform:scale(1.1)}}
 
 /* NAVBAR */
 .navbar{
-  position:fixed; top:20px; left:50%; transform:translateX(-50%);
-  display:flex; gap:28px; padding:14px 34px; background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.18); backdrop-filter:blur(18px); border-radius:60px; z-index:999;
+  position:fixed; top:20px; left:50%;
+  transform:translateX(-50%);
+  display:flex; align-items:center;
+  gap:36px;
+  padding:14px 36px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,.18);
+  z-index:1000;
 }
-.nav-logo{font-size:28px;font-weight:900;letter-spacing:4px;color:#eef1ff}
-.nav-links{list-style:none;display:flex;gap:36px}
-.nav-links a{text-decoration:none;color:#eef1ff;font-weight:600;opacity:.8;transition:.35s ease}
-.nav-links a:hover{opacity:1;color:var(--neon1);text-shadow:0 0 12px rgba(94,231,255,.8)}
+.nav-logo{font-size:22px;font-weight:900}
+.nav-links{list-style:none;display:flex;gap:26px}
+.nav-links a{
+  color:#eef1ff;text-decoration:none;
+  font-weight:600;opacity:.8;
+}
+.nav-links a:hover{opacity:1}
 
-/* HERO / SECTIONS */
-section{width:100%;position:relative}
-.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
-.image-bg{background-size:cover;background-position:center}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:1}
-.content{position:relative;z-index:2;max-width:900px;padding:40px;background:rgba(255,255,255,0.05);border-radius:20px;backdrop-filter:blur(12px);transition:0.4s}
+/* SECTIONS */
+section{position:relative}
+.fullscreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.image-bg{
+  background-size:cover;
+  background-position:center;
+}
+.overlay{
+  position:absolute; inset:0;
+  background:rgba(0,0,0,.55);
+}
+.content{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+  padding:40px;
+}
 
-/* HERO TEXT */
-.hero h1{font-size:120px;font-weight:900;letter-spacing:6px}
-.hero p{font-size:26px;margin-top:16px;opacity:.85}
-.hero button{margin-top:40px;padding:16px 36px;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:none;border-radius:40px;cursor:pointer;color:#000;transition:.35s}
-.hero button:hover{transform:scale(1.05)}
+/* HERO */
+.hero h1{font-size:92px;font-weight:900}
+.hero p{font-size:24px;margin-top:20px;opacity:.85}
+.hero button{
+  margin-top:40px;
+  padding:16px 36px;
+  font-size:18px;
+  font-weight:700;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  background:linear-gradient(90deg,#5ee7ff,#9b6cff);
+}
 
-/* PRODUCT BOX */
-.box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:50px;backdrop-filter:blur(14px);transition:.4s;cursor:pointer;transform-style:preserve-3d;}
-.box:hover{transform:scale(1.04) rotateX(2deg) rotateY(3deg);box-shadow:0 0 26px rgba(94,231,255,.25);}
-.box h2,h3{font-size:42px}
-.box p{margin-top:16px;font-size:20px;opacity:.9}
-.box a,.box button{margin-top:26px;display:inline-block;padding:14px 30px;border-radius:30px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#000;text-decoration:none;font-weight:700;border:none;cursor:pointer;transition:.35s}
-.box a:hover,.box button:hover{transform:scale(1.05)}
+/* GLASS BOX */
+.box{
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:24px;
+  padding:48px;
+  transition:.4s;
+}
+.box:hover{transform:translateY(-8px)}
+.box h2,.box h3{font-size:40px}
+.box p{margin-top:14px;font-size:20px;opacity:.9}
+.box a,.box button{
+  display:inline-block;
+  margin-top:26px;
+  padding:14px 30px;
+  border-radius:30px;
+  background:linear-gradient(90deg,#5ee7ff,#9b6cff);
+  color:#000;
+  text-decoration:none;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+}
+
+/* SPACING ANIMATION */
+.animated-bg{
+  min-height:45vh;
+  background:
+    radial-gradient(circle at 30% 30%,rgba(94,231,255,.12),transparent),
+    radial-gradient(circle at 70% 70%,rgba(155,108,255,.12),transparent);
+  animation:floatBG 8s infinite alternate ease-in-out;
+}
+@keyframes floatBG{
+  to{background-position:80% 20%,20% 80%}
+}
+
+/* VIDEO */
+.video-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+}
 
 /* CONTACT */
-.contact form{display:flex;flex-direction:column;gap:18px;margin-top:30px}
-.contact input,.contact textarea{background:#0b0f1a;border:1px solid #333;color:#fff;padding:14px;border-radius:12px}
-.contact button{background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#000;border:none;font-weight:700;padding:14px 28px;border-radius:24px;cursor:pointer;transition:.35s}
-.contact button:hover{transform:scale(1.05)}
+.contact form{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.contact input,.contact textarea{
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #333;
+  background:#0b0f1a;
+  color:#fff;
+}
+.contact button{
+  background:linear-gradient(90deg,#5ee7ff,#9b6cff);
+  border:none;
+  padding:14px;
+  border-radius:24px;
+  font-weight:700;
+}
 
-footer{text-align:center;padding:30px;font-size:14px;opacity:.6;position:relative;z-index:2}
-
-/* X LOGO CONTACT */
-#x-contact{position:absolute;right:30px;bottom:30px;font-size:48px;color:#1da1f2;text-decoration:none;transition:.35s;z-index:2}
-#x-contact:hover{transform:scale(1.1)}
-
-/* VIDEO BACKGROUND */
-.video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+/* FOOTER */
+footer{
+  padding:30px;
+  text-align:center;
+  opacity:.6;
+  position:relative;
+}
+#x-link{
+  position:absolute;
+  right:30px;
+  bottom:30px;
+  font-size:46px;
+  text-decoration:none;
+  color:#1da1f2;
+}
 
 /* RESPONSIVE */
-@media(max-width:1200px){.hero h1{font-size:90px}.box{padding:40px}}
-@media(max-width:900px){.navbar{gap:16px;padding:12px 22px}.hero h1{font-size:72px}.hero p{font-size:22px}.box h2,h3{font-size:34px}.box p{font-size:18px}}
-@media(max-width:700px){.nav-links{display:none}.hero h1{font-size:56px}.hero p{font-size:20px}.hero button{padding:14px 28px;font-size:16px}.box{padding:32px}}
-@media(max-width:480px){.hero h1{font-size:44px;letter-spacing:3px}.hero p{font-size:18px}.content{padding:24px}.box h2,h3{font-size:28px}}
+@media(max-width:900px){
+  .hero h1{font-size:64px}
+  .box h2,.box h3{font-size:32px}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hero h1{font-size:48px}
+}
 </style>
 </head>
 <body>
@@ -103,21 +187,20 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6;position:relativ
 
 <!-- NAVBAR -->
 <nav class="navbar">
-  <div class="nav-logo">Beeta Technologies</div>
+  <div class="nav-logo">Beeta</div>
   <ul class="nav-links">
     <li><a href="#top">Home</a></li>
     <li><a href="#ecosystem">Ecosystem</a></li>
-    <li><a href="#beetaos">Beeta OS</a></li>
+    <li><a href="#beetaos">OS</a></li>
     <li><a href="#apps">Apps</a></li>
-    <li><a href="#notebooks">Beeta Notebooks</a></li>
+    <li><a href="#notebooks">Notebooks</a></li>
     <li><a href="#proton">Proton</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<section id="top" class="fullscreen hero">
-  <canvas id="heroCanvas"></canvas>
+<section id="top" class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
   <div class="overlay"></div>
   <div class="content">
     <h1>Beeta Technologies</h1>
@@ -126,74 +209,54 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6;position:relativ
   </div>
 </section>
 
-<!-- ECOSYSTEM HUB -->
-<section id="ecosystem" class="fullscreen">
-  <canvas id="ecosystemCanvas"></canvas>
-  <div class="content" style="max-width:1200px">
+<!-- ECOSYSTEM -->
+<section id="ecosystem" class="fullscreen animated-bg">
+  <div class="content">
     <h2 style="font-size:52px;margin-bottom:40px">Our Ecosystem</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px">
-      <div class="box">
-        <h3>Beeta OS</h3>
-        <p>All-in-one Linux OS for everyone</p>
-        <a href="https://osbeeta.netlify.app" target="_blank">Explore</a>
-      </div>
-      <div class="box">
-        <h3>Beeta Notebooks</h3>
-        <p>Premium Linux-first laptops optimized for Beeta OS</p>
-        <a href="#notebooks">Learn More</a>
-      </div>
-      <div class="box">
-        <h3>Beeta OS Apps</h3>
-        <p>Lightweight tools & creators ecosystem</p>
-        <a href="#apps">View Apps</a>
-      </div>
-      <div class="box">
-        <h3>Beeta Proton</h3>
-        <p>Autonomous electric mobility platform</p>
-        <a href="#proton">Learn More</a>
-      </div>
+      <div class="box"><h3>Beeta OS</h3><p>Linux OS for everyone</p></div>
+      <div class="box"><h3>Beeta Notebooks</h3><p>Linux-first laptops</p></div>
+      <div class="box"><h3>Beeta Apps</h3><p>Creator ecosystem</p></div>
+      <div class="box"><h3>Beeta Proton</h3><p>Autonomous EV platform</p></div>
     </div>
   </div>
 </section>
+
+<section class="animated-bg"></section>
 
 <!-- BEETA OS -->
 <section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta OS</h2>
-    <p>An all-in-one Linux OS for gamers, professionals, and everyday users</p>
+    <p>All-in-one Linux OS</p>
     <a href="https://osbeeta.netlify.app" target="_blank">Learn more</a>
   </div>
 </section>
+
+<section class="animated-bg"></section>
 
 <!-- APPS -->
 <section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
   <div class="overlay"></div>
   <div class="content box">
-    <h2>Apps of Beeta OS</h2>
-    <p>Lightweight, powerful, and developer-focused tools</p>
-    <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a><br><br>
-    <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="hidden" name="product" value="BeeCreator Wishlist">
-      <input type="email" name="email" placeholder="Your email" required>
-      <button type="submit">Add BeeCreator to Wishlist</button>
-    </form>
+    <h2>Beeta OS Apps</h2>
+    <a href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a>
   </div>
 </section>
+
+<section class="animated-bg"></section>
 
 <!-- NOTEBOOKS -->
 <section id="notebooks" class="fullscreen image-bg" style="background-image:url('laptop.jpg')">
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Notebooks</h2>
-    <p>High-performance laptops built for Beeta OS — clean design, powerful hardware, and deep OS-level optimization.</p>
-    <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="hidden" name="product" value="Beeta Notebooks Interest">
-      <input type="email" name="email" placeholder="Your email" required>
-      <button type="submit">Subscribe for Updates</button>
-    </form>
+    <p>Premium Linux laptops</p>
   </div>
 </section>
+
+<section class="animated-bg"></section>
 
 <!-- PROTON -->
 <section id="proton" class="fullscreen">
@@ -203,72 +266,29 @@ footer{text-align:center;padding:30px;font-size:14px;opacity:.6;position:relativ
   <div class="overlay"></div>
   <div class="content box">
     <h2>Beeta Proton</h2>
-    <p>A fully autonomous electric vehicle designed to serve humanity from day one</p>
-    <form action="https://formspree.io/f/mdkqlogb" method="POST">
-      <input type="hidden" name="product" value="Beeta Proton Interest">
-      <input type="email" name="email" placeholder="Your email" required>
-      <button type="submit">Subscribe for Updates</button>
-    </form>
+    <p>Autonomous electric mobility</p>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="fullscreen contact">
-  <canvas id="contactCanvas"></canvas>
+<section id="contact" class="fullscreen animated-bg contact">
   <div class="content">
     <h2>Contact Beeta</h2>
     <form action="https://formspree.io/f/mdkqlogb" method="POST">
       <input type="email" name="email" placeholder="Your email" required>
-      <textarea name="message" placeholder="Message" rows="4"></textarea>
+      <textarea name="message" rows="4" placeholder="Message"></textarea>
       <button type="submit">Send</button>
     </form>
   </div>
-  <a href="https://x.com/BeetaTech" id="x-contact" target="_blank">X</a>
 </section>
 
-<footer>© Beeta® 2025. All Rights Reserved | Beeta Os is an open-source software licenced under GPL3.0</footer>
+<footer>
+  © Beeta® 2025. All Rights Reserved | Beeta Os is an open-source project liscensed under GPL 3.0
+  <a id="x-link" href="https://x.com/BeetaTech" target="_blank">X</a>
+</footer>
 
 <script>
-// Splash removal
 setTimeout(()=>{document.getElementById('splash').style.display='none'},2500);
-
-/* -------------------- THREE.JS GLOBAL SETUP -------------------- */
-function initWebGLCanvas(id) {
-  const canvas = document.getElementById(id);
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true});
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  
-  // Particles
-  const geometry = new THREE.BufferGeometry();
-  const particles = 1000;
-  const positions = [];
-  for(let i=0;i<particles;i++){
-    positions.push((Math.random()-0.5)*50);
-    positions.push((Math.random()-0.5)*50);
-    positions.push((Math.random()-0.5)*50);
-  }
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
-  const material = new THREE.PointsMaterial({color:0x5ee7ff,size:0.1,transparent:true});
-  const pointCloud = new THREE.Points(geometry, material);
-  scene.add(pointCloud);
-  
-  camera.position.z=20;
-  
-  function animate(){
-    requestAnimationFrame(animate);
-    pointCloud.rotation.y +=0.0005;
-    pointCloud.rotation.x +=0.0005;
-    renderer.render(scene,camera);
-  }
-  animate();
-}
-
-initWebGLCanvas('heroCanvas');
-initWebGLCanvas('ecosystemCanvas');
-initWebGLCanvas('contactCanvas');
-
 </script>
 
 </body>
