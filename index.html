@@ -209,10 +209,18 @@ section{position:relative;width:100%}
   opacity:0;
   transform:translateX(var(--from));
   transition:1s cubic-bezier(.2,.8,.2,1);
+  will-change:transform,opacity;
 }
 .reveal.active{
   opacity:1;
   transform:translateX(0);
+}
+
+/* Mobile Fix */
+@media(max-width:768px){
+  .reveal{
+    transition:0.6s ease-out;
+  }
 }
 
 /* VIDEO FULL */
@@ -407,24 +415,40 @@ footer svg{width:26px;height:26px;fill:#fff}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-setTimeout(()=>splash.remove(),2500)
-const obs=new IntersectionObserver(e=>{
-  e.forEach(x=>x.target.classList.toggle('active',x.isIntersecting))
-},{threshold:.3})
-document.querySelectorAll('.reveal').forEach(r=>obs.observe(r))
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-// Subtle Starfield WebGL Background
+<script>
+setTimeout(function(){
+  var splashEl = document.getElementById('splash');
+  if(splashEl) splashEl.remove();
+}, 2500);
+
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -10% 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(function(r){
+  obs.observe(r);
+});
+
 function initWebGL(){
   const sections = document.querySelectorAll('.animated-bg');
   
-  sections.forEach(section => {
+  sections.forEach(function(section){
     const canvas = document.createElement('canvas');
     canvas.className = 'webgl-canvas';
     section.insertBefore(canvas, section.firstChild);
     
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, section.offsetWidth / section.offsetHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({canvas, alpha: true, antialias: true});
+    const renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true, antialias: true});
     
     renderer.setSize(section.offsetWidth, section.offsetHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -513,7 +537,7 @@ function initWebGL(){
       stars.geometry.attributes.position.needsUpdate = true;
       
       // Floating orbs
-      orbs.forEach((orb, idx) => {
+      orbs.forEach(function(orb, idx){
         orb.mesh.position.y = Math.sin(time * orb.speed + idx) * 2;
         orb.mesh.position.x = Math.cos(time * orb.speed * 0.7 + idx) * 3;
         orb.mesh.rotation.x += 0.002;
@@ -525,7 +549,7 @@ function initWebGL(){
     animate();
     
     // Handle resize
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', function(){
       camera.aspect = section.offsetWidth / section.offsetHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(section.offsetWidth, section.offsetHeight);
