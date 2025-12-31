@@ -14,7 +14,7 @@
 <meta property="og:description" content="Revolutionary Linux OS, premium notebooks, and autonomous electric mobility. Building the future of technology for humanity.">
 <meta property="og:image" content="earth1.jpeg">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://beetatechnologies.pages.dev">
+<meta property="og:url" content="https://beetatech.com">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@BeetaTech">
@@ -247,10 +247,15 @@ section{position:relative;width:100%}
   transform:translateX(0);
 }
 
-/* Mobile Fix */
+/* Mobile Fix - More aggressive */
 @media(max-width:768px){
   .reveal{
-    transition:0.6s ease-out;
+    transition:0.5s ease-out;
+    transform:translateX(calc(var(--from) * 0.3)) !important;
+  }
+  .reveal.active{
+    opacity:1 !important;
+    transform:translateX(0) !important;
   }
 }
 
@@ -436,7 +441,7 @@ footer svg{width:26px;height:26px;fill:#fff}
 </section>
 
 <footer>
-  © 2025 Beeta® . All Rights Reserved | Beeta OS is an open-source software liscensed under GPL-3.0 
+  © Beeta® 2025
   <a href="https://x.com/BeetaTech" target="_blank">
     <svg viewBox="0 0 24 24" fill="currentColor">
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -461,12 +466,27 @@ var obs = new IntersectionObserver(function(entries){
     }
   });
 }, {
-  threshold: 0.15,
-  rootMargin: '0px 0px -10% 0px'
+  threshold: 0.05,
+  rootMargin: '0px 0px -5% 0px'
 });
 
 document.querySelectorAll('.reveal').forEach(function(r){
   obs.observe(r);
+});
+
+// Fallback for mobile - force activate on scroll
+var fallbackTimeout;
+window.addEventListener('scroll', function(){
+  clearTimeout(fallbackTimeout);
+  fallbackTimeout = setTimeout(function(){
+    document.querySelectorAll('.reveal').forEach(function(el){
+      var rect = el.getBoundingClientRect();
+      var windowHeight = window.innerHeight;
+      if(rect.top < windowHeight * 0.8 && rect.bottom > 0){
+        el.classList.add('active');
+      }
+    });
+  }, 50);
 });
 
 function initWebGL(){
