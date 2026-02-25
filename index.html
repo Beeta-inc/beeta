@@ -25,18 +25,68 @@
 <meta name="twitter:description" content="Linux OS, Premium Notebooks & Electric Mobility Platform">
 <meta name="twitter:image" content="logo.jpg">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --neon1:#5ee7ff;
-  --neon2:#9b6cff;
-  --glass:rgba(255,255,255,.08);
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff00e5;
+  --neon-purple: #a855f7;
+  --electric-blue: #0066ff;
+  --deep-space: #020208;
+  --space-gray: #0a0a12;
+  --nebula-purple: #1a0f2e;
+  --glass: rgba(255,255,255,.04);
+  --glass-border: rgba(255,255,255,.08);
+  --glow-cyan: rgba(0,240,255,.6);
+  --glow-magenta: rgba(255,0,229,.4);
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif}
-html,body{background:#05060c;color:#eef1ff;scroll-behavior:smooth;overflow-x:hidden}
 
-/* VIDEO SPLASH SCREEN */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+}
+
+body{
+  background: var(--deep-space);
+  color: #e8edf7;
+  font-family: 'Syne', sans-serif;
+  line-height: 1.6;
+  overflow-x:hidden;
+  position: relative;
+}
+
+/* Animated background grid */
+body::before{
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(90deg, rgba(0,240,255,.02) 1px, transparent 1px),
+    linear-gradient(rgba(0,240,255,.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes gridMove{
+  0%{background-position: 0 0}
+  100%{background-position: 80px 80px}
+}
+
+/* VIDEO SPLASH */
 #splash{
-  position:fixed;inset:0;
+  position:fixed;
+  inset:0;
   background:#000;
   display:flex;
   align-items:center;
@@ -44,6 +94,7 @@ html,body{background:#05060c;color:#eef1ff;scroll-behavior:smooth;overflow-x:hid
   z-index:99999;
   overflow:hidden;
 }
+
 #splash video{
   position:absolute;
   inset:0;
@@ -51,114 +102,287 @@ html,body{background:#05060c;color:#eef1ff;scroll-behavior:smooth;overflow-x:hid
   height:100%;
   object-fit:cover;
 }
+
 #splash.fade-out{
-  animation:fadeOut 1s forwards;
+  animation:fadeOut 1.2s cubic-bezier(.4,0,.2,1) forwards;
 }
+
 @keyframes fadeOut{
   to{opacity:0;visibility:hidden}
 }
 
-/* NAV */
+/* NAVBAR */
 .navbar{
-  position:fixed;top:20px;left:50%;
+  position:fixed;
+  top:30px;
+  left:50%;
   transform:translateX(-50%);
-  padding:14px 34px;
-  display:flex;gap:26px;align-items:center;
-  background:var(--glass);
-  backdrop-filter:blur(18px);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:60px;
+  padding:16px 40px;
+  display:flex;
+  gap:40px;
+  align-items:center;
+  background: rgba(2,2,8,.85);
+  backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid var(--glass-border);
+  border-radius:100px;
   z-index:999;
+  box-shadow: 
+    0 0 40px rgba(0,240,255,.15),
+    inset 0 1px 0 rgba(255,255,255,.1);
+  transition: all .4s cubic-bezier(.4,0,.2,1);
 }
+
+.navbar:hover{
+  box-shadow: 
+    0 0 60px rgba(0,240,255,.25),
+    inset 0 1px 0 rgba(255,255,255,.15);
+  border-color: rgba(0,240,255,.2);
+}
+
 .navbar .logo{
-  height:40px;
+  height:45px;
   width:auto;
-  margin-right:10px;
-  filter:drop-shadow(0 0 10px rgba(94,231,255,.3));
-}
-.navbar a{color:#eef1ff;text-decoration:none;font-weight:600}
-
-/* GLOBAL */
-section{position:relative;width:100%}
-.fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center}
-.image-bg{background-size:cover;background-position:center}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
-.content{position:relative;z-index:2;max-width:1100px;padding:48px;text-align:center}
-
-/* GLASS BOX */
-.box{
-  background:var(--glass);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:28px;
-  padding:50px;
-  backdrop-filter:blur(18px);
+  filter:drop-shadow(0 0 15px var(--glow-cyan));
+  transition: transform .3s ease;
 }
 
-/* BUTTON */
-.glow-btn{
-  margin-top:26px;
-  padding:14px 36px;
-  border-radius:40px;
-  border:none;
-  font-weight:700;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
-  color:#000;
-  cursor:pointer;
-  box-shadow:0 0 25px rgba(94,231,255,.7);
-  transition:.35s;
+.navbar .logo:hover{
+  transform: scale(1.05);
 }
-.glow-btn:hover{transform:translateY(-3px)}
+
+.navbar a{
+  color:#e8edf7;
+  text-decoration:none;
+  font-weight:600;
+  font-size:15px;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color .3s ease;
+  font-family: 'Syne', sans-serif;
+}
+
+.navbar a::after{
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+  transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+
+.navbar a:hover{
+  color: var(--neon-cyan);
+}
+
+.navbar a:hover::after{
+  width: 100%;
+}
 
 /* HERO */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter: brightness(.4) contrast(1.1);
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 50%, rgba(2,2,8,.3), rgba(2,2,8,.9));
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  padding:60px 40px;
+  max-width:1400px;
+  animation: heroFadeIn 1.2s cubic-bezier(.4,0,.2,1) .3s backwards;
+}
+
+@keyframes heroFadeIn{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 .hero h1{
-  font-size:90px;
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(80px, 12vw, 180px);
   font-weight:900;
-  background:linear-gradient(135deg, #5ee7ff 0%, #9b6cff 50%, #5ee7ff 100%);
-  background-size:200% auto;
+  letter-spacing:8px;
+  background: linear-gradient(135deg, 
+    var(--neon-cyan) 0%, 
+    var(--neon-magenta) 50%, 
+    var(--electric-blue) 100%);
+  background-size:300% 300%;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-  animation:gradientShift 4s linear infinite;
-  text-shadow:0 0 80px rgba(94,231,255,0.3);
-  letter-spacing:2px;
+  animation:heroGradient 6s ease infinite;
+  text-shadow: 0 0 80px rgba(0,240,255,.4);
+  margin-bottom: 30px;
+  line-height: 1.1;
 }
 
-.hero p{font-size:24px;margin-top:16px;opacity:.85}
-
-@keyframes gradientShift{
-  0%{background-position:0% center}
-  100%{background-position:200% center}
+@keyframes heroGradient{
+  0%, 100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
 }
 
-/* ECOSYSTEM GRID - ENHANCED */
-.eco-section h2{
-  font-size:56px;
+.hero-tagline{
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight:600;
+  margin-bottom:50px;
+  color: rgba(255,255,255,.85);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Syne', sans-serif;
+}
+
+.hero-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:15px;
+  padding:20px 50px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--electric-blue));
+  color:#000;
+  font-weight:800;
+  font-size:18px;
+  border:none;
+  border-radius:60px;
+  cursor:pointer;
+  font-family: 'Syne', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 40px rgba(0,240,255,.6),
+    0 10px 30px rgba(0,0,0,.4);
+  transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+
+.hero-cta::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple));
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+.hero-cta span{
+  position: relative;
+  z-index: 1;
+}
+
+.hero-cta:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow: 
+    0 0 60px rgba(0,240,255,.8),
+    0 15px 40px rgba(0,0,0,.5);
+}
+
+.hero-cta:hover::before{
+  opacity: 1;
+}
+
+/* SECTION COMMON */
+section{
+  position:relative;
+  width:100%;
+}
+
+.section-spacer{
+  position:relative;
+  min-height:25vh;
+  background: var(--deep-space);
+  overflow:hidden;
+}
+
+/* ECOSYSTEM SECTION */
+.ecosystem{
+  position:relative;
+  padding:140px 60px;
+  background: linear-gradient(180deg, var(--deep-space) 0%, var(--nebula-purple) 100%);
+  overflow:hidden;
+}
+
+.ecosystem::before{
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(0,240,255,.08) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%, 100%{transform: translate(-50%, -50%) scale(1)}
+  50%{transform: translate(-50%, -50%) scale(1.2)}
+}
+
+.ecosystem-content{
+  position:relative;
+  z-index:2;
+  max-width:1400px;
+  margin:0 auto;
+}
+
+.ecosystem h2{
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(50px, 7vw, 90px);
   font-weight:900;
-  background:linear-gradient(135deg,var(--neon1),var(--neon2));
+  text-align:center;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  margin-bottom:20px;
-  animation:fadeInDown 1s ease-out;
+  margin-bottom:80px;
+  letter-spacing: 4px;
+  animation: titleReveal 1s cubic-bezier(.4,0,.2,1) backwards;
 }
 
-.eco-grid{
+@keyframes titleReveal{
+  from{opacity:0;transform:translateY(-30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.ecosystem-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:35px;
-  margin-top:40px;
+  grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+  gap:40px;
+  perspective: 1000px;
 }
 
 .eco-card{
   position:relative;
-  background:linear-gradient(135deg,rgba(94,231,255,.1),rgba(155,108,255,.1));
-  border:2px solid transparent;
-  border-radius:28px;
-  padding:50px 35px;
-  backdrop-filter:blur(18px);
+  background: rgba(10,10,18,.6);
+  border:1px solid var(--glass-border);
+  border-radius:24px;
+  padding:60px 40px;
+  backdrop-filter:blur(20px);
   cursor:pointer;
-  transition:all .4s cubic-bezier(.2,.8,.2,1);
+  transition:all .5s cubic-bezier(.4,0,.2,1);
   overflow:hidden;
-  animation:fadeInScale 0.8s ease-out backwards;
+  animation: cardFloat 0.8s cubic-bezier(.4,0,.2,1) backwards;
+  transform-style: preserve-3d;
 }
 
 .eco-card:nth-child(1){animation-delay:.1s}
@@ -166,81 +390,350 @@ section{position:relative;width:100%}
 .eco-card:nth-child(3){animation-delay:.3s}
 .eco-card:nth-child(4){animation-delay:.4s}
 
+@keyframes cardFloat{
+  from{opacity:0;transform:translateY(60px) rotateX(10deg)}
+  to{opacity:1;transform:translateY(0) rotateX(0)}
+}
+
 .eco-card::before{
   content:'';
   position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,var(--neon1),var(--neon2));
+  inset:-2px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  border-radius:24px;
   opacity:0;
-  transition:opacity .4s;
+  transition:opacity .4s ease;
   z-index:-1;
 }
 
+.eco-card::after{
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,240,255,.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+
 .eco-card:hover{
-  transform:translateY(-12px) scale(1.02);
-  border-color:var(--neon1);
-  box-shadow:0 20px 60px rgba(94,231,255,.3);
+  transform:translateY(-15px) scale(1.02);
+  border-color: var(--neon-cyan);
+  box-shadow: 
+    0 30px 80px rgba(0,0,0,.5),
+    0 0 60px rgba(0,240,255,.3);
 }
 
 .eco-card:hover::before{
-  opacity:.15;
+  opacity:1;
+}
+
+.eco-card:hover::after{
+  opacity:1;
 }
 
 .eco-icon{
-  width:70px;
-  height:70px;
-  margin:0 auto 20px;
-  background:linear-gradient(135deg,var(--neon1),var(--neon2));
-  border-radius:18px;
+  width:90px;
+  height:90px;
+  margin:0 auto 35px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--electric-blue));
+  border-radius:22px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:34px;
-  transition:all .4s;
-  animation:float 3s ease-in-out infinite;
-  color:#000;
+  font-size:42px;
+  transition:all .5s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 10px 40px rgba(0,240,255,.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.eco-icon::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple));
+  opacity: 0;
+  transition: opacity .4s ease;
 }
 
 .eco-icon svg{
-  width:40px;
-  height:40px;
+  width:48px;
+  height:48px;
+  color:#000;
+  position: relative;
+  z-index: 1;
+  transition: transform .5s cubic-bezier(.4,0,.2,1);
 }
 
 .eco-card:hover .eco-icon{
-  transform:rotateY(360deg) scale(1.1);
-  box-shadow:0 10px 40px rgba(94,231,255,.5);
+  transform:rotateY(360deg) scale(1.15);
+  box-shadow: 0 15px 60px rgba(0,240,255,.7);
+}
+
+.eco-card:hover .eco-icon::before{
+  opacity: 1;
 }
 
 .eco-card h3{
-  font-size:24px;
+  font-family: 'Syne', sans-serif;
+  font-size:28px;
   font-weight:800;
   color:#fff;
+  text-align:center;
+  letter-spacing: 1px;
 }
 
-/* ANIMATIONS */
-@keyframes fadeInDown{
-  from{opacity:0;transform:translateY(-30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-@keyframes fadeInScale{
-  from{opacity:0;transform:scale(.8)}
-  to{opacity:1;transform:scale(1)}
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-
-/* SPACER */
-.animated-bg{
+/* PRODUCT SECTIONS */
+.product-section{
   position:relative;
-  min-height:30vh;
-  background:#05060c;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
 }
 
+.product-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter: brightness(.35) contrast(1.2);
+}
+
+.product-overlay{
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 50%, rgba(2,2,8,.4), rgba(2,2,8,.85));
+}
+
+.product-content{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+  padding:70px 60px;
+  background: rgba(10,10,18,.5);
+  backdrop-filter:blur(25px) saturate(180%);
+  border:1px solid var(--glass-border);
+  border-radius:32px;
+  text-align:center;
+  margin: 0 40px;
+  box-shadow: 
+    0 30px 100px rgba(0,0,0,.6),
+    0 0 80px rgba(0,240,255,.15);
+  transition: all .4s ease;
+}
+
+.product-content.reveal{
+  opacity:0;
+  transform:translateX(var(--from));
+  transition:all 1s cubic-bezier(.4,0,.2,1);
+}
+
+.product-content.reveal.active{
+  opacity:1;
+  transform:translateX(0);
+}
+
+.product-content:hover{
+  border-color: rgba(0,240,255,.3);
+  box-shadow: 
+    0 40px 120px rgba(0,0,0,.7),
+    0 0 100px rgba(0,240,255,.25);
+}
+
+.product-content h2{
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(42px, 6vw, 64px);
+  font-weight:900;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:25px;
+  letter-spacing: 3px;
+}
+
+.product-content p{
+  font-size:20px;
+  line-height:1.7;
+  color:rgba(255,255,255,.8);
+  margin-bottom:35px;
+  font-family: 'Syne', sans-serif;
+}
+
+.product-cta{
+  display:inline-block;
+  padding:18px 45px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--electric-blue));
+  color:#000;
+  text-decoration:none;
+  font-weight:800;
+  font-size:16px;
+  border-radius:50px;
+  font-family: 'Syne', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0,240,255,.5);
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+
+.product-cta::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple));
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+.product-cta span{
+  position: relative;
+  z-index: 1;
+}
+
+.product-cta:hover{
+  transform:translateY(-4px) scale(1.05);
+  box-shadow: 0 0 50px rgba(0,240,255,.8);
+}
+
+.product-cta:hover::before{
+  opacity: 1;
+}
+
+/* FORMS */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  margin-top:35px;
+}
+
+input,textarea{
+  padding:18px 28px;
+  border-radius:16px;
+  border:1px solid var(--glass-border);
+  background:rgba(10,10,18,.6);
+  color:#fff;
+  font-size:16px;
+  font-family: 'Syne', sans-serif;
+  backdrop-filter:blur(10px);
+  transition:all .3s ease;
+}
+
+input:focus,textarea:focus{
+  outline:none;
+  border-color:var(--neon-cyan);
+  background:rgba(10,10,18,.8);
+  box-shadow:0 0 30px rgba(0,240,255,.3);
+}
+
+textarea{
+  min-height:140px;
+  resize:vertical;
+}
+
+button.product-cta{
+  cursor:pointer;
+  border:none;
+  width: 100%;
+}
+
+/* VIDEO SECTION */
+.video-section{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.video-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter: brightness(.4);
+}
+
+/* CONTACT */
+.contact-section{
+  position:relative;
+  padding:140px 60px;
+  background: linear-gradient(180deg, var(--nebula-purple) 0%, var(--deep-space) 100%);
+}
+
+.contact-content{
+  position:relative;
+  z-index:2;
+  max-width:800px;
+  margin:0 auto;
+  padding:70px 60px;
+  background:rgba(10,10,18,.6);
+  backdrop-filter:blur(25px);
+  border:1px solid var(--glass-border);
+  border-radius:32px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.6);
+}
+
+.contact-content h2{
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(42px, 6vw, 64px);
+  font-weight:900;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:40px;
+  text-align:center;
+  letter-spacing: 3px;
+}
+
+/* FOOTER */
+footer{
+  padding:50px 40px;
+  text-align:center;
+  background:rgba(2,2,8,.9);
+  border-top:1px solid var(--glass-border);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size:14px;
+  color:rgba(255,255,255,.6);
+}
+
+footer a{
+  color:var(--neon-cyan);
+  transition:.3s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px;
+  background:rgba(0,240,255,.1);
+  border-radius:50%;
+  margin-top:10px;
+}
+
+footer a:hover{
+  color:var(--neon-magenta);
+  background:rgba(0,240,255,.2);
+  transform:scale(1.1);
+}
+
+footer svg{
+  width:24px;
+  height:24px;
+}
+
+/* WEBGL CANVAS */
 .webgl-canvas{
   position:absolute;
   inset:0;
@@ -249,111 +742,92 @@ section{position:relative;width:100%}
   z-index:0;
 }
 
-/* SLIDE ANIMATION */
-.reveal{
-  opacity:0;
-  transform:translateX(var(--from));
-  transition:1s cubic-bezier(.2,.8,.2,1);
-  will-change:transform,opacity;
-}
-.reveal.active{
-  opacity:1;
-  transform:translateX(0);
-}
-
-/* Mobile Fix - More aggressive */
+/* MOBILE */
 @media(max-width:768px){
-  .reveal{
-    transition:0.5s ease-out;
+  .navbar{
+    padding:12px 24px;
+    gap:20px;
+  }
+  
+  .navbar .logo{
+    height:35px;
+  }
+  
+  .navbar a{
+    font-size:14px;
+  }
+  
+  .hero h1{
+    font-size:60px;
+    letter-spacing:4px;
+  }
+  
+  .hero-tagline{
+    font-size:20px;
+  }
+  
+  .ecosystem{
+    padding:80px 30px;
+  }
+  
+  .ecosystem-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+  
+  .product-content{
+    padding:50px 40px;
+    margin:0 20px;
+  }
+  
+  .product-content.reveal{
     transform:translateX(calc(var(--from) * 0.3)) !important;
   }
-  .reveal.active{
+  
+  .product-content.reveal.active{
     opacity:1 !important;
     transform:translateX(0) !important;
   }
 }
-
-/* VIDEO FULL */
-.video-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:0;
-}
-
-/* FORMS */
-form{display:flex;flex-direction:column;gap:16px;margin-top:30px}
-input,textarea{
-  padding:16px 22px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.2);
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  font-size:15px;
-  backdrop-filter:blur(8px);
-  transition:.3s;
-}
-input:focus,textarea:focus{
-  outline:none;
-  border-color:var(--neon1);
-  box-shadow:0 0 20px rgba(94,231,255,.3);
-}
-textarea{min-height:120px;resize:vertical}
-
-/* FOOTER */
-footer{
-  padding:40px 20px;
-  text-align:center;
-  background:rgba(0,0,0,.3);
-  border-top:1px solid rgba(255,255,255,.1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:15px;
-}
-footer a{
-  color:var(--neon1);
-  transition:.3s;
-}
-footer a:hover{color:var(--neon2)}
-footer svg{width:20px;height:20px}
 </style>
 </head>
 <body>
 
-<!-- VIDEO SPLASH SCREEN -->
+<!-- VIDEO SPLASH -->
 <div id="splash">
   <video autoplay muted playsinline>
     <source src="splash.mp4" type="video/mp4">
   </video>
 </div>
 
+<!-- NAVBAR -->
 <nav class="navbar">
-  <img src="logo.jpg" alt="Beeta Technologies Logo" class="logo">
+  <img src="logo.jpg" alt="Beeta Technologies" class="logo">
   <a href="#hero">Home</a>
   <a href="#ecosystem">Products</a>
   <a href="#contact">Contact</a>
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="fullscreen image-bg hero" style="background-image:url('earth1.jpeg')">
-  <div class="overlay"></div>
-  <div class="content">
+<section id="hero" class="hero">
+  <div class="hero-bg" style="background-image:url('earth1.jpeg')"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
     <h1>BEETA</h1>
-    <p>Innovation for humanity</p>
-    <button class="glow-btn" onclick="document.getElementById('ecosystem').scrollIntoView()">Explore Ecosystem</button>
+    <p class="hero-tagline">Innovation for Humanity</p>
+    <button class="hero-cta" onclick="document.getElementById('ecosystem').scrollIntoView()">
+      <span>Explore Ecosystem</span>
+    </button>
   </div>
 </section>
 
-<section class="animated-bg"></section>
+<section class="section-spacer"></section>
 
 <!-- ECOSYSTEM -->
-<section id="ecosystem" class="fullscreen animated-bg eco-section">
-  <div class="content">
+<section id="ecosystem" class="ecosystem">
+  <div class="ecosystem-content">
     <h2>The Beeta Ecosystem</h2>
-    <div class="eco-grid">
+    <div class="ecosystem-grid">
       <div class="eco-card" onclick="document.getElementById('beetaos').scrollIntoView()">
         <div class="eco-icon">
           <svg viewBox="0 0 24 24" fill="currentColor">
@@ -391,84 +865,91 @@ footer svg{width:20px;height:20px}
   </div>
 </section>
 
-<section class="animated-bg"></section>
+<section class="section-spacer"></section>
 
 <!-- BEETA OS -->
-<section id="beetaos" class="fullscreen image-bg" style="background-image:url('beetaos.jpeg')">
-  <div class="overlay"></div>
-  <div class="content box reveal" style="--from:-120%">
+<section id="beetaos" class="product-section">
+  <div class="product-bg" style="background-image:url('beetaos.jpeg')"></div>
+  <div class="product-overlay"></div>
+  <div class="product-content reveal" style="--from:-120%">
     <h2>Beeta OS</h2>
-    <p>An all-in-one Linux OS for gamers, professionals, and everyday users</p>
-    <a class="glow-btn" href="https://osbeeta.netlify.app" target="_blank">Learn More</a>
+    <p>An all-in-one Linux OS for gamers, professionals, and everyday users. Experience the future of open-source computing.</p>
+    <a class="product-cta" href="https://osbeeta.netlify.app" target="_blank">
+      <span>Learn More</span>
+    </a>
   </div>
 </section>
 
-<section class="animated-bg"></section>
+<section class="section-spacer"></section>
 
 <!-- APPS -->
-<section id="apps" class="fullscreen image-bg" style="background-image:url('apps.jpeg')">
-  <div class="overlay"></div>
-  <div class="content box reveal" style="--from:120%">
-    <h2 style="margin-bottom:20px">Apps of Beeta OS</h2>
-    <p style="margin-bottom:10px">Explore our powerful applications</p>
-    <a class="glow-btn" href="https://nbheditor.netlify.app" target="_blank">NBH Editor</a>
+<section id="apps" class="product-section">
+  <div class="product-bg" style="background-image:url('apps.jpeg')"></div>
+  <div class="product-overlay"></div>
+  <div class="product-content reveal" style="--from:120%">
+    <h2>Apps of Beeta OS</h2>
+    <p>Explore our powerful applications designed to enhance your productivity and creativity.</p>
+    <a class="product-cta" href="https://nbheditor.netlify.app" target="_blank">
+      <span>NBH Editor</span>
+    </a>
     <form>
-      <input type="email" placeholder="Your email">
-      <button class="glow-btn">Add BeeCreator to Wishlist</button>
+      <input type="email" placeholder="Your email address" required>
+      <button class="product-cta"><span>Add BeeCreator to Wishlist</span></button>
     </form>
   </div>
 </section>
 
-<section class="animated-bg"></section>
+<section class="section-spacer"></section>
 
 <!-- NOTEBOOKS -->
-<section id="notebooks" class="fullscreen image-bg" style="background-image:url('laptop.jpg')">
-  <div class="overlay"></div>
-  <div class="content box reveal" style="--from:-120%">
+<section id="notebooks" class="product-section">
+  <div class="product-bg" style="background-image:url('laptop.jpg')"></div>
+  <div class="product-overlay"></div>
+  <div class="product-content reveal" style="--from:-120%">
     <h2>Beeta Notebooks</h2>
-    <p>Premium Linux-first laptops optimized for Beeta OS</p>
+    <p>Premium Linux-first laptops optimized for Beeta OS. Engineered for performance, designed for elegance.</p>
     <form>
-      <input type="email" placeholder="Your email">
-      <button class="glow-btn">Subscribe</button>
+      <input type="email" placeholder="Your email address" required>
+      <button class="product-cta"><span>Subscribe for Updates</span></button>
     </form>
   </div>
 </section>
 
-<section class="animated-bg"></section>
+<section class="section-spacer"></section>
 
 <!-- PROTON -->
-<section id="proton" class="fullscreen">
+<section id="proton" class="video-section">
   <video class="video-bg" autoplay muted loop playsinline>
     <source src="car.mp4" type="video/mp4">
   </video>
-  <div class="overlay"></div>
-  <div class="content box reveal" style="--from:120%">
+  <div class="product-overlay"></div>
+  <div class="product-content reveal" style="--from:120%">
     <h2>Beeta Proton</h2>
-    <p>Autonomous electric mobility platform</p>
+    <p>Autonomous electric mobility platform. The future of transportation is here.</p>
     <form>
-      <input type="email" placeholder="Your email">
-      <button class="glow-btn">Subscribe</button>
+      <input type="email" placeholder="Your email address" required>
+      <button class="product-cta"><span>Reserve Your Spot</span></button>
     </form>
   </div>
 </section>
 
-<section class="animated-bg"></section>
+<section class="section-spacer"></section>
 
 <!-- CONTACT -->
-<section id="contact" class="fullscreen animated-bg">
-  <div class="content box">
+<section id="contact" class="contact-section">
+  <div class="contact-content">
     <h2>Contact Beeta</h2>
     <form>
-      <input type="email" placeholder="Your email">
-      <textarea placeholder="Message"></textarea>
-      <button class="glow-btn">Send</button>
+      <input type="email" placeholder="Your email address" required>
+      <textarea placeholder="Your message" required></textarea>
+      <button class="product-cta"><span>Send Message</span></button>
     </form>
   </div>
 </section>
 
 <footer>
-  © 2023-2026 Beeta Technologies,Inc® | Beeta Os is an open-source software liscensed under GPL-3.0 
-  <a href="https://x.com/BeetaTech" target="_blank">
+  <div>© 2023-2026 Beeta Technologies, Inc® | Beeta OS is open-source software licensed under GPL-3.0</div>
+  <a href="https://x.com/BeetaTech" target="_blank" aria-label="Follow us on X">
     <svg viewBox="0 0 24 24" fill="currentColor">
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
     </svg>
@@ -478,29 +959,23 @@ footer svg{width:20px;height:20px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
-// Auto-hide splash after video duration or 4 seconds
+// SPLASH SCREEN
 var splashEl = document.getElementById('splash');
 var splashVideo = splashEl.querySelector('video');
 
-// Listen for video end or use timeout as fallback
-splashVideo.addEventListener('ended', function(){
-  hideSplash();
-});
-
-// Fallback timeout (adjust this to match your video duration)
-setTimeout(function(){
-  hideSplash();
-}, 4000);
+splashVideo.addEventListener('ended', hideSplash);
+setTimeout(hideSplash, 4000);
 
 function hideSplash(){
   if(splashEl){
     splashEl.classList.add('fade-out');
     setTimeout(function(){
       splashEl.remove();
-    }, 1000);
+    }, 1200);
   }
 }
 
+// REVEAL ANIMATION
 var obs = new IntersectionObserver(function(entries){
   entries.forEach(function(entry){
     if(entry.isIntersecting){
@@ -508,15 +983,15 @@ var obs = new IntersectionObserver(function(entries){
     }
   });
 }, {
-  threshold: 0.05,
-  rootMargin: '0px 0px -5% 0px'
+  threshold: 0.1,
+  rootMargin: '0px 0px -10% 0px'
 });
 
 document.querySelectorAll('.reveal').forEach(function(r){
   obs.observe(r);
 });
 
-// Fallback for mobile - force activate on scroll
+// Mobile fallback
 var fallbackTimeout;
 window.addEventListener('scroll', function(){
   clearTimeout(fallbackTimeout);
@@ -531,8 +1006,9 @@ window.addEventListener('scroll', function(){
   }, 50);
 });
 
+// WEBGL BACKGROUND
 function initWebGL(){
-  const sections = document.querySelectorAll('.animated-bg');
+  const sections = document.querySelectorAll('.section-spacer');
 
   sections.forEach(function(section){
     const canvas = document.createElement('canvas');
@@ -547,29 +1023,28 @@ function initWebGL(){
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     camera.position.z = 5;
 
-    // Create subtle starfield
-    const starCount = 600;
+    // Enhanced starfield
+    const starCount = 800;
     const positions = new Float32Array(starCount * 3);
     const colors = new Float32Array(starCount * 3);
     const sizes = new Float32Array(starCount);
 
-    const color1 = new THREE.Color(0x5ee7ff);
-    const color2 = new THREE.Color(0x9b6cff);
+    const color1 = new THREE.Color(0x00f0ff);
+    const color2 = new THREE.Color(0xff00e5);
+    const color3 = new THREE.Color(0x0066ff);
 
     for(let i = 0; i < starCount; i++){
-      // Spread stars in depth
-      positions[i * 3] = (Math.random() - 0.5) * 30;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
+      positions[i * 3] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
 
-      // Gradient colors
-      const mixColor = color1.clone().lerp(color2, Math.random());
+      const rand = Math.random();
+      const mixColor = rand < 0.33 ? color1 : rand < 0.66 ? color2 : color3;
       colors[i * 3] = mixColor.r;
       colors[i * 3 + 1] = mixColor.g;
       colors[i * 3 + 2] = mixColor.b;
 
-      // Varied sizes for depth
-      sizes[i] = Math.random() * 0.05 + 0.02;
+      sizes[i] = Math.random() * 0.08 + 0.02;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -578,10 +1053,10 @@ function initWebGL(){
     geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
     const material = new THREE.PointsMaterial({
-      size: 0.05,
+      size: 0.06,
       vertexColors: true,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.7,
       blending: THREE.AdditiveBlending,
       sizeAttenuation: true
     });
@@ -589,59 +1064,55 @@ function initWebGL(){
     const stars = new THREE.Points(geometry, material);
     scene.add(stars);
 
-    // Add subtle glow orbs
-    const orbCount = 3;
+    // Glowing orbs
+    const orbCount = 4;
     const orbs = [];
 
     for(let i = 0; i < orbCount; i++){
-      const orbGeometry = new THREE.SphereGeometry(0.3, 16, 16);
+      const orbGeometry = new THREE.SphereGeometry(0.4, 20, 20);
+      const colors = [0x00f0ff, 0xff00e5, 0x0066ff, 0xa855f7];
       const orbMaterial = new THREE.MeshBasicMaterial({
-        color: i % 2 === 0 ? 0x5ee7ff : 0x9b6cff,
+        color: colors[i],
         transparent: true,
-        opacity: 0.15,
+        opacity: 0.2,
         blending: THREE.AdditiveBlending
       });
       const orb = new THREE.Mesh(orbGeometry, orbMaterial);
       orb.position.set(
-        (Math.random() - 0.5) * 10,
-        (Math.random() - 0.5) * 10,
-        (Math.random() - 0.5) * 5
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 6
       );
-      orbs.push({mesh: orb, speed: Math.random() * 0.3 + 0.2});
+      orbs.push({mesh: orb, speed: Math.random() * 0.4 + 0.2});
       scene.add(orb);
     }
 
-    // Smooth animation
     let time = 0;
     function animate(){
       requestAnimationFrame(animate);
       time += 0.001;
 
-      // Very subtle rotation
-      stars.rotation.y = time * 0.05;
-      stars.rotation.x = Math.sin(time * 0.3) * 0.05;
+      stars.rotation.y = time * 0.08;
+      stars.rotation.x = Math.sin(time * 0.4) * 0.08;
 
-      // Gentle star twinkle
       const positions = stars.geometry.attributes.position.array;
       for(let i = 0; i < starCount; i++){
-        const offset = Math.sin(time * 2 + i) * 0.002;
+        const offset = Math.sin(time * 3 + i) * 0.003;
         positions[i * 3 + 1] += offset;
       }
       stars.geometry.attributes.position.needsUpdate = true;
 
-      // Floating orbs
       orbs.forEach(function(orb, idx){
-        orb.mesh.position.y = Math.sin(time * orb.speed + idx) * 2;
-        orb.mesh.position.x = Math.cos(time * orb.speed * 0.7 + idx) * 3;
-        orb.mesh.rotation.x += 0.002;
-        orb.mesh.rotation.y += 0.003;
+        orb.mesh.position.y = Math.sin(time * orb.speed + idx) * 2.5;
+        orb.mesh.position.x = Math.cos(time * orb.speed * 0.8 + idx) * 3.5;
+        orb.mesh.rotation.x += 0.003;
+        orb.mesh.rotation.y += 0.004;
       });
 
       renderer.render(scene, camera);
     }
     animate();
 
-    // Handle resize
     window.addEventListener('resize', function(){
       camera.aspect = section.offsetWidth / section.offsetHeight;
       camera.updateProjectionMatrix();
