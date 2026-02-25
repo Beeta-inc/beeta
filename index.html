@@ -10,9 +10,12 @@
 <meta name="author" content="Beeta Technologies">
 <meta name="robots" content="index, follow">
 
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+
 <meta property="og:title" content="Beeta Technologies | Innovation in OS, Devices & Mobility">
 <meta property="og:description" content="Revolutionary Linux OS, premium notebooks, and autonomous electric mobility. Building the future of technology for humanity.">
-<meta property="og:image" content="earth1.jpeg">
+<meta property="og:image" content="logo.jpg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://beetatech.com">
 
@@ -20,7 +23,7 @@
 <meta name="twitter:site" content="@BeetaTech">
 <meta name="twitter:title" content="Beeta Technologies | Future of Tech">
 <meta name="twitter:description" content="Linux OS, Premium Notebooks & Electric Mobility Platform">
-<meta name="twitter:image" content="earth1.jpeg">
+<meta name="twitter:image" content="logo.jpg">
 
 <style>
 :root{
@@ -60,12 +63,18 @@ html,body{background:#05060c;color:#eef1ff;scroll-behavior:smooth;overflow-x:hid
   position:fixed;top:20px;left:50%;
   transform:translateX(-50%);
   padding:14px 34px;
-  display:flex;gap:26px;
+  display:flex;gap:26px;align-items:center;
   background:var(--glass);
   backdrop-filter:blur(18px);
   border:1px solid rgba(255,255,255,.15);
   border-radius:60px;
   z-index:999;
+}
+.navbar .logo{
+  height:40px;
+  width:auto;
+  margin-right:10px;
+  filter:drop-shadow(0 0 10px rgba(94,231,255,.3));
 }
 .navbar a{color:#eef1ff;text-decoration:none;font-weight:600}
 
@@ -322,6 +331,7 @@ footer svg{width:20px;height:20px}
 </div>
 
 <nav class="navbar">
+  <img src="logo.jpg" alt="Beeta Technologies Logo" class="logo">
   <a href="#hero">Home</a>
   <a href="#ecosystem">Products</a>
   <a href="#contact">Contact</a>
