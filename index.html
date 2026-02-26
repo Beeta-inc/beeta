@@ -131,166 +131,46 @@ section{ position:relative; padding:120px 60px; min-height:100vh; }
 .product-content h2{ font-family:'Bebas Neue',sans-serif; font-size:clamp(50px,6vw,80px); margin-bottom:25px; letter-spacing:4px; text-transform:uppercase; }
 .product-content p{ font-size:20px; line-height:1.7; color:var(--text-muted); margin-bottom:40px; }
 
-/* ══════════════════════════════════════════════════════════════════
-   NOTEBOOK SECTION — SCROLL-LOCKED LAPTOP LID ANIMATION
-
-   KEY DESIGN DECISIONS:
-   1. Section is 350vh tall → creates long scroll track
-   2. Inner .nb-sticky is position:sticky top:0 height:100vh →
-      viewport is locked the entire time user scrolls through section
-   3. .laptop-anchor is position:ABSOLUTE, bottom:0, centered →
-      keyboard sits flush at the BOTTOM EDGE of the screen, never moves
-   4. perspective:900px, perspective-origin:50% 100% (bottom center) →
-      the 3D vanishing point is at screen bottom, so lid rotates
-      UPWARD into the visible screen — never goes off screen
-   5. .lid-wrap starts at rotateX(90deg) = flat/closed (folded toward viewer)
-      ends at rotateX(0deg) = upright/open at 90° — like a real laptop
-   ══════════════════════════════════════════════════════════════════ */
-
+/* ══════════════════════════════════════════════
+   NOTEBOOK — CANVAS-BASED SCROLL-LOCKED ANIMATION
+   No 3D transforms. Canvas draws everything.
+   ══════════════════════════════════════════════ */
 .notebook-section{
   position: relative;
-  height: 350vh;
+  height: 100vh;
   background: #000;
-  /* Override the generic section padding */
   padding: 0 !important;
   min-height: unset !important;
 }
-
 .nb-sticky{
-  position: sticky;
-  top: 0;
   width: 100%;
   height: 100vh;
   overflow: hidden;
   background: #000;
+  position: relative;
 }
-
-/* atmospheric glow at bottom behind keyboard */
-.nb-sticky::after{
-  content:''; position:absolute; bottom:0; left:0; right:0; height:280px;
-  background:radial-gradient(ellipse at 50% 100%, rgba(0,60,180,.2) 0%, transparent 70%);
-  pointer-events:none; z-index:1;
+#laptopCanvas{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-
-/* left panel text */
 .nb-text{
   position:absolute; left:60px; top:50%;
   transform:translateY(-50%) translateX(-20px);
-  z-index:20; max-width:320px;
+  z-index:20; max-width:300px;
   opacity:0; transition:opacity .9s ease, transform .9s ease;
   pointer-events:none;
 }
 .nb-text.show{ opacity:1; transform:translateY(-50%) translateX(0); pointer-events:auto; }
 .nb-text h2{
-  font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,4vw,66px);
-  letter-spacing:4px; color:#fff; text-transform:uppercase; line-height:1; margin-bottom:16px;
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(38px,4vw,64px);
+  letter-spacing:4px; color:#fff; text-transform:uppercase; line-height:1; margin-bottom:14px;
 }
-.nb-text p{ font-size:16px; line-height:1.7; color:var(--text-muted); margin-bottom:28px; }
-
-/* ── Laptop anchor: glued to bottom center of viewport ── */
-.laptop-anchor{
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  /* Perspective from the BOTTOM → lid rotates upward into view */
-  perspective: 900px;
-  perspective-origin: 50% 100%;
-}
-
-.laptop-chassis{
-  width: 620px;
-  /* flex column: lid on top, hinge, keyboard at bottom */
-  display: flex;
-  flex-direction: column;
-}
-
-/* THE LID
-   ─────────
-   transform-origin: bottom center  = the hinge point
-   rotateX(90deg)  = CLOSED — lid flat, you see the back (laptop.jpg)
-   rotateX(0deg)   = OPEN  — lid standing up 90°, screen faces you
-   Perspective from bottom ensures it rises UP into the screen
-*/
-.lid-wrap{
-  width: 100%;
-  height: 340px;
-  transform-origin: bottom center;
-  transform: rotateX(90deg);
-  will-change: transform;
-  position: relative;
-  flex-shrink: 0;
-}
-
-/* Screen (inner surface) */
-.nb-screen{
-  position:absolute; inset:0;
-  background:#020309;
-  border:10px solid #0d0d0d; border-bottom-width:3px;
-  border-radius:10px 10px 3px 3px; overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:inset 0 0 80px rgba(0,0,0,.95);
-}
-.nb-screen::before{
-  content:''; position:absolute; inset:0; z-index:0;
-  background:
-    radial-gradient(ellipse at 28% 65%,rgba(0,80,220,.3) 0%,transparent 52%),
-    radial-gradient(ellipse at 74% 30%,rgba(0,255,136,.1) 0%,transparent 46%),
-    #020309;
-}
-.nb-screen::after{
-  content:''; position:absolute; inset:0; z-index:2;
-  background:repeating-linear-gradient(0deg,rgba(0,0,0,.06) 0px,rgba(0,0,0,.06) 1px,transparent 1px,transparent 3px);
-  pointer-events:none;
-}
-
-/* Screen content */
-.nb-ui{
-  position:relative; z-index:3; text-align:center;
-  display:flex; flex-direction:column; align-items:center; gap:14px;
-  opacity:0; transition:opacity .7s ease;
-}
-.nb-ui.show{ opacity:1; }
-.nb-ui img{ width:80px; height:80px; filter:drop-shadow(0 0 24px rgba(0,255,136,.95)); border-radius:12px; }
-.nb-ui-title{ font-family:'Bebas Neue',sans-serif; font-size:44px; letter-spacing:8px; color:var(--primary); text-shadow:0 0 20px rgba(0,255,136,.6); }
-.nb-ui-sub{ font-family:'Audiowide',sans-serif; font-size:10px; letter-spacing:3px; color:rgba(255,255,255,.4); text-transform:uppercase; }
-.nb-cursor{ width:2px; height:16px; background:var(--primary); animation:blink 1s step-end infinite; }
-@keyframes blink{ 50%{opacity:0} }
-
-/* Lid back face (laptop.jpg — outside, visible when closed) */
-.lid-back{ position:absolute; inset:0; border-radius:10px 10px 3px 3px; overflow:hidden; }
-.lid-back img{ width:100%; height:100%; object-fit:cover; object-position:center 20%; display:block; }
-
-/* Hinge bar */
-.hinge-bar{
-  height:6px; flex-shrink:0;
-  background:linear-gradient(90deg,#0a0a0a,#242424 40%,#242424 60%,#0a0a0a);
-  box-shadow:0 2px 8px rgba(0,0,0,.9);
-}
-
-/* Keyboard base */
-.kb-base{
-  position:relative; width:100%; height:190px; flex-shrink:0;
-  background:linear-gradient(175deg,#1a1a1a 0%,#111 65%,#0b0b0b 100%);
-  border:1.5px solid rgba(0,255,136,.12); border-top:none;
-  border-radius:0 0 12px 12px; overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,1);
-}
-.kb-base::before{
-  content:''; position:absolute; top:10px; left:14px; right:14px; bottom:42px;
-  background:
-    repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 30px),
-    repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 16px);
-}
-.kb-base::after{
-  content:''; position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
-  width:126px; height:65px; border:1px solid rgba(0,255,136,.09); border-radius:6px;
-}
-
-/* Scroll hint */
+.nb-text p{ font-size:15px; line-height:1.7; color:var(--text-muted); margin-bottom:24px; }
 .nb-hint{
-  position:absolute; bottom:205px; left:50%; transform:translateX(-50%);
+  position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
   z-index:30; display:flex; flex-direction:column; align-items:center; gap:8px;
   color:rgba(255,255,255,.25); font-size:10px; letter-spacing:3px;
   text-transform:uppercase; font-family:'Audiowide',sans-serif; transition:opacity .4s;
@@ -345,11 +225,7 @@ footer svg{ width:24px; height:24px; }
   section{ padding:80px 30px; }
   .ecosystem-grid{ grid-template-columns:1fr; }
   .product-content{ margin-left:20px; padding:40px 24px; }
-  .laptop-chassis{ width:90vw; }
-  .lid-wrap{ height:200px; }
-  .kb-base{ height:120px; }
-  .nb-text{ left:20px; max-width:260px; font-size:14px; }
-  .nb-hint{ bottom:135px; }
+  .nb-text{ left:20px; max-width:260px; }
 }
 </style>
 </head>
@@ -435,7 +311,10 @@ footer svg{ width:24px; height:24px; }
 <section id="notebooks" class="notebook-section">
   <div class="nb-sticky">
 
-    <!-- left text panel -->
+    <!-- Canvas draws the laptop — keyboard base fixed, lid opens with scroll -->
+    <canvas id="laptopCanvas"></canvas>
+
+    <!-- Left text panel — shown when lid fully open -->
     <div class="nb-text" id="nbText">
       <h2>Beeta Notebooks</h2>
       <p>Premium Linux-first laptops optimized for Beeta OS. Engineered for performance, designed for elegance.</p>
@@ -443,31 +322,6 @@ footer svg{ width:24px; height:24px; }
         <input type="email" placeholder="Your email address" required>
         <button type="submit" class="cta-button">Subscribe for Updates</button>
       </form>
-    </div>
-
-    <!-- laptop anchored to bottom of viewport -->
-    <div class="laptop-anchor">
-      <div class="laptop-chassis">
-
-        <!-- LID: back=laptop.jpg, front=screen -->
-        <div class="lid-wrap" id="nbLid">
-          <div class="lid-back">
-            <img src="laptop.jpg" alt="Beeta Notebook">
-          </div>
-          <div class="nb-screen">
-            <div class="nb-ui" id="nbUI">
-              <img src="logo.jpg" alt="Beeta">
-              <div class="nb-ui-title">BEETA OS</div>
-              <div class="nb-ui-sub">Linux · Performance · Elegance</div>
-              <div class="nb-cursor"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hinge-bar"></div>
-        <div class="kb-base"></div>
-
-      </div>
     </div>
 
     <div class="nb-hint" id="nbHint">
@@ -528,82 +382,280 @@ function hideSplash(){
 }
 
 /* ── REVEAL ── */
-new IntersectionObserver(function(entries){
-  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('active'); });
-},{ threshold:0.2 }).observe || document.querySelectorAll('.reveal').forEach(function(r){
-  new IntersectionObserver(function(entries){
-    if(entries[0].isIntersecting) entries[0].target.classList.add('active');
-  },{ threshold:0.2 }).observe(r);
-});
-// simpler:
 var ro = new IntersectionObserver(function(entries){
   entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('active'); });
 },{ threshold:0.2 });
 document.querySelectorAll('.reveal').forEach(function(r){ ro.observe(r); });
 
-/* ══════════════════════════════════════════════════════════════
-   LAPTOP LID — SCROLL-DRIVEN ANIMATION
+/* ══════════════════════════════════════════════════════════
+   LAPTOP CANVAS + SCROLL LOCK
 
-   The .notebook-section is height:350vh.
-   .nb-sticky is sticky:top:0 height:100vh — viewport locked.
-   .laptop-anchor is absolute bottom:0 — keyboard always at screen bottom.
-   perspective-origin:50% 100% — vanishing point at bottom of screen.
-   This means rotateX rotates the lid UPWARD into visible viewport.
+   Strategy:
+   - Section is normal 100vh height
+   - When user scrolls into it, we FREEZE the page using
+     position:fixed + saved scrollY
+   - We intercept wheel events and feed delta into animProg (0→1)
+   - Canvas draws the lid opening frame by frame
+   - When animProg reaches 1, we unfreeze the page
+   - User can then scroll normally past it
+   ══════════════════════════════════════════════════════════ */
 
-   scrolled = px past section top (negative rect.top)
-   track    = (sectionHeight - windowHeight) * 0.60
-              → animation completes at 60% through the scroll track
-              → user dwells on open laptop for remaining 40%, then exits
+var canvas  = document.getElementById('laptopCanvas');
+var ctx     = canvas.getContext('2d');
+var nbText  = document.getElementById('nbText');
+var nbHint  = document.getElementById('nbHint');
 
-   Lid: rotateX(90deg) closed → rotateX(0deg) open
-   ══════════════════════════════════════════════════════════════ */
+var lidImg  = new Image(); lidImg.src  = 'laptop.jpg';
+var logoImg = new Image(); logoImg.src = 'logo.jpg';
+lidImg.onload  = function(){ drawFrame(animProg); };
+logoImg.onload = function(){ drawFrame(animProg); };
 
-var nbLid  = document.getElementById('nbLid');
-var nbUI   = document.getElementById('nbUI');
-var nbText = document.getElementById('nbText');
-var nbHint = document.getElementById('nbHint');
+var animProg   = 0;
+var targetProg = 0;
+var locked     = false;
+var done       = false;
+var savedY     = 0;
+var cursorOn   = true;
+var raf        = null;
+var touchY0    = 0;
 
-function easeOut(t){ return 1 - Math.pow(1 - t, 2.8); }
+setInterval(function(){ cursorOn = !cursorOn; drawFrame(animProg); }, 530);
 
-function tickLaptop(){
-  var sec = document.getElementById('notebooks');
-  if(!sec || !nbLid) return;
+function resizeCanvas(){
+  canvas.width  = canvas.offsetWidth  * (window.devicePixelRatio||1);
+  canvas.height = canvas.offsetHeight * (window.devicePixelRatio||1);
+  drawFrame(animProg);
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-  var rect     = sec.getBoundingClientRect();
-  var secH     = sec.offsetHeight;      // 350vh
-  var winH     = window.innerHeight;
-  var scrolled = -rect.top;             // px scrolled past top of section
-  var track    = (secH - winH) * 0.60; // animation distance
-
-  var raw  = Math.max(0, Math.min(1, scrolled / track));
-  var prog = easeOut(raw);
-
-  /* Lid angle: 90° closed → 0° open */
-  nbLid.style.transform = 'rotateX(' + (90 - prog * 90) + 'deg)';
-
-  /* Show screen content once lid is 70%+ open */
-  if(prog > 0.70) nbUI.classList.add('show');
-  else            nbUI.classList.remove('show');
-
-  /* Show text panel once lid fully open */
-  if(prog > 0.92) nbText.classList.add('show');
-  else            nbText.classList.remove('show');
-
-  /* Hide scroll hint once user starts scrolling */
-  if(raw > 0.03) nbHint.classList.add('hide');
-  else           nbHint.classList.remove('hide');
+/* ── Lock/Unlock ── */
+function lock(){
+  if(locked) return;
+  locked = true;
+  savedY = window.scrollY;
+  document.body.style.cssText += ';position:fixed;top:-'+savedY+'px;left:0;right:0;overflow:hidden;';
+}
+function unlock(){
+  if(!locked) return;
+  locked = false;
+  document.body.style.position = '';
+  document.body.style.top      = '';
+  document.body.style.left     = '';
+  document.body.style.right    = '';
+  document.body.style.overflow = '';
+  window.scrollTo(0, savedY);
 }
 
-window.addEventListener('scroll', tickLaptop, { passive:true });
-window.addEventListener('resize', tickLaptop);
-tickLaptop();
+/* ── Trigger lock when section enters viewport ── */
+var obs = new IntersectionObserver(function(entries){
+  var e = entries[0];
+  if(e.isIntersecting && !done){
+    lock();
+  }
+  /* If scrolled back above section, reset */
+  if(!e.isIntersecting && e.boundingClientRect.top > 0 && done){
+    done = false; animProg = 0; targetProg = 0;
+    nbText.classList.remove('show');
+    drawFrame(0);
+  }
+}, { threshold: 0.5 });
+obs.observe(document.getElementById('notebooks'));
+
+/* ── Wheel handler ── */
+window.addEventListener('wheel', function(e){
+  if(!locked) return;
+  e.preventDefault();
+
+  targetProg = Math.max(0, Math.min(1, targetProg + e.deltaY / 1200));
+
+  if(targetProg >= 1){
+    targetProg = 1;
+    done = true;
+    scheduleRaf();
+    setTimeout(function(){ unlock(); }, 400);
+  } else if(targetProg <= 0 && e.deltaY < 0){
+    /* Scrolling back up before animation started */
+    unlock();
+    done = false;
+  } else {
+    scheduleRaf();
+  }
+}, { passive: false });
+
+/* ── Touch ── */
+window.addEventListener('touchstart', function(e){ touchY0 = e.touches[0].clientY; }, {passive:true});
+window.addEventListener('touchmove', function(e){
+  if(!locked) return;
+  e.preventDefault();
+  var dy = touchY0 - e.touches[0].clientY;
+  touchY0 = e.touches[0].clientY;
+  targetProg = Math.max(0, Math.min(1, targetProg + dy / 500));
+  if(targetProg >= 1){ targetProg = 1; done = true; setTimeout(function(){ unlock(); }, 400); }
+  scheduleRaf();
+}, { passive: false });
+
+/* ── RAF smooth lerp ── */
+function scheduleRaf(){
+  if(raf) return;
+  raf = requestAnimationFrame(step);
+}
+function step(){
+  raf = null;
+  animProg += (targetProg - animProg) * 0.14;
+  if(Math.abs(targetProg - animProg) > 0.0005){
+    drawFrame(animProg);
+    updateUI(animProg);
+    raf = requestAnimationFrame(step);
+  } else {
+    animProg = targetProg;
+    drawFrame(animProg);
+    updateUI(animProg);
+  }
+}
+function updateUI(p){
+  nbText.classList.toggle('show', p > 0.92);
+  nbHint.classList.toggle('hide', p > 0.04);
+}
+
+/* ── DRAW ── */
+function drawFrame(prog){
+  var W   = canvas.width;
+  var H   = canvas.height;
+  var dpr = window.devicePixelRatio || 1;
+  ctx.clearRect(0,0,W,H);
+
+  /* Laptop dimensions */
+  var lw   = Math.min(580, canvas.offsetWidth * 0.54) * dpr;
+  var baseH= 185 * dpr;
+  var hinH = 6   * dpr;
+  var lidH = 330 * dpr;
+  var lx   = (W - lw) / 2;
+  var baseY= H - baseH;
+  var hinY = baseY - hinH;
+
+  /* ── KEYBOARD BASE ── */
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,.85)'; ctx.shadowBlur = 40*dpr; ctx.shadowOffsetY = 16*dpr;
+  var bg = ctx.createLinearGradient(0,baseY,0,baseY+baseH);
+  bg.addColorStop(0,'#1a1a1a'); bg.addColorStop(.6,'#111'); bg.addColorStop(1,'#0b0b0b');
+  ctx.fillStyle = bg;
+  rr(lx, baseY, lw, baseH, [0,0,12*dpr,12*dpr]); ctx.fill();
+  ctx.restore();
+  ctx.strokeStyle='rgba(0,255,136,.12)'; ctx.lineWidth=1.5*dpr;
+  rr(lx, baseY, lw, baseH, [0,0,12*dpr,12*dpr]); ctx.stroke();
+
+  /* key grid */
+  ctx.save(); rr(lx,baseY,lw,baseH,[0,0,12*dpr,12*dpr]); ctx.clip();
+  ctx.strokeStyle='rgba(255,255,255,.03)'; ctx.lineWidth=1;
+  for(var kx=lx+14*dpr; kx<lx+lw-14*dpr; kx+=30*dpr){
+    ctx.beginPath(); ctx.moveTo(kx,baseY+10*dpr); ctx.lineTo(kx,baseY+baseH-42*dpr); ctx.stroke();
+  }
+  for(var ky=baseY+10*dpr; ky<baseY+baseH-42*dpr; ky+=16*dpr){
+    ctx.beginPath(); ctx.moveTo(lx+14*dpr,ky); ctx.lineTo(lx+lw-14*dpr,ky); ctx.stroke();
+  }
+  /* trackpad */
+  var tpW=120*dpr, tpH=62*dpr, tpX=lx+(lw-120*dpr)/2, tpY=baseY+baseH-12*dpr-tpH;
+  ctx.strokeStyle='rgba(0,255,136,.09)'; ctx.lineWidth=1*dpr;
+  rr(tpX,tpY,tpW,tpH,5*dpr); ctx.stroke();
+  ctx.restore();
+
+  /* ── HINGE ── */
+  var hg = ctx.createLinearGradient(lx,0,lx+lw,0);
+  hg.addColorStop(0,'#0a0a0a'); hg.addColorStop(.4,'#242424'); hg.addColorStop(.6,'#242424'); hg.addColorStop(1,'#0a0a0a');
+  ctx.fillStyle=hg; ctx.fillRect(lx,hinY,lw,hinH);
+
+  /* ── LID ── 
+     prog=0: full height lidH above hinge = closed (shows laptop.jpg)
+     prog=1: height=0 collapsed to hinge line = open (screen visible)
+     We draw from the hinge UP by lidH*(1-prog)
+  */
+  var curLidH = lidH * (1 - prog);
+  var lidTop  = hinY - curLidH;
+
+  if(curLidH > 0.5){
+    ctx.save();
+    rr(lx, lidTop, lw, curLidH, [10*dpr,10*dpr,0,0]); ctx.clip();
+
+    /* laptop.jpg — fades out as lid opens */
+    if(prog < 0.6){
+      var imgAlpha = 1 - (prog/0.6);
+      ctx.globalAlpha = imgAlpha;
+      if(lidImg.complete && lidImg.naturalWidth){
+        /* Show bottom portion of image (near hinge) as lid collapses */
+        var frac  = 1 - prog/0.6;
+        var srcH  = lidImg.naturalHeight;
+        var srcY  = srcH * (1 - frac);
+        ctx.drawImage(lidImg, 0, srcY, lidImg.naturalWidth, srcH*frac, lx, lidTop, lw, curLidH);
+      } else {
+        ctx.fillStyle='#1c1c1c'; ctx.fillRect(lx,lidTop,lw,curLidH);
+      }
+      ctx.globalAlpha=1;
+    }
+
+    /* Screen face fades in */
+    var sAlpha = Math.max(0, (prog - 0.2) / 0.8);
+    ctx.globalAlpha = sAlpha;
+    ctx.fillStyle='#020309'; ctx.fillRect(lx,lidTop,lw,curLidH);
+    var g1=ctx.createRadialGradient(lx+lw*.28,lidTop+curLidH*.65,0,lx+lw*.28,lidTop+curLidH*.65,lw*.5);
+    g1.addColorStop(0,'rgba(0,80,220,.3)'); g1.addColorStop(1,'transparent');
+    ctx.fillStyle=g1; ctx.fillRect(lx,lidTop,lw,curLidH);
+    var g2=ctx.createRadialGradient(lx+lw*.74,lidTop+curLidH*.3,0,lx+lw*.74,lidTop+curLidH*.3,lw*.4);
+    g2.addColorStop(0,'rgba(0,255,136,.1)'); g2.addColorStop(1,'transparent');
+    ctx.fillStyle=g2; ctx.fillRect(lx,lidTop,lw,curLidH);
+    ctx.globalAlpha=1;
+
+    /* Screen border */
+    ctx.globalAlpha=sAlpha;
+    ctx.strokeStyle='#0d0d0d'; ctx.lineWidth=10*dpr;
+    rr(lx,lidTop,lw,curLidH,[10*dpr,10*dpr,0,0]); ctx.stroke();
+    ctx.globalAlpha=1;
+
+    /* Screen content */
+    if(prog > 0.6){
+      var ca = (prog-0.6)/0.4;
+      ctx.globalAlpha = ca;
+      var cx = lx+lw/2, cy = lidTop+curLidH/2;
+      if(logoImg.complete && logoImg.naturalWidth){
+        var ls=64*dpr;
+        ctx.save(); rr(cx-ls/2,cy-ls/2-50*dpr,ls,ls,8*dpr); ctx.clip();
+        ctx.drawImage(logoImg,cx-ls/2,cy-ls/2-50*dpr,ls,ls); ctx.restore();
+      }
+      ctx.shadowColor='rgba(0,255,136,.5)'; ctx.shadowBlur=16*dpr;
+      ctx.fillStyle='#00ff88'; ctx.font='400 '+(34*dpr)+'px "Bebas Neue",sans-serif';
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText('BEETA OS', cx, cy+8*dpr);
+      ctx.shadowBlur=0; ctx.fillStyle='rgba(255,255,255,.4)';
+      ctx.font='400 '+(9*dpr)+'px "Audiowide",sans-serif';
+      ctx.fillText('LINUX · PERFORMANCE · ELEGANCE', cx, cy+32*dpr);
+      if(cursorOn){ ctx.fillStyle='#00ff88'; ctx.fillRect(cx-1*dpr,cy+48*dpr,2*dpr,14*dpr); }
+      ctx.globalAlpha=1; ctx.shadowBlur=0;
+    }
+
+    ctx.restore();
+  }
+
+  /* Ambient glow */
+  var glow=ctx.createRadialGradient(W/2,H,0,W/2,H,W*.4);
+  glow.addColorStop(0,'rgba(0,50,160,.18)'); glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow; ctx.fillRect(0,0,W,H);
+}
+
+function rr(x,y,w,h,r){
+  if(typeof r==='number') r=[r,r,r,r];
+  ctx.beginPath();
+  ctx.moveTo(x+r[0],y); ctx.lineTo(x+w-r[1],y);
+  ctx.arcTo(x+w,y,x+w,y+r[1],r[1]); ctx.lineTo(x+w,y+h-r[2]);
+  ctx.arcTo(x+w,y+h,x+w-r[2],y+h,r[2]); ctx.lineTo(x+r[3],y+h);
+  ctx.arcTo(x,y+h,x,y+h-r[3],r[3]); ctx.lineTo(x,y+r[0]);
+  ctx.arcTo(x,y,x+r[0],y,r[0]); ctx.closePath();
+}
+
+drawFrame(0);
 
 /* ── Forms ── */
 document.querySelectorAll('form').forEach(function(f){
-  f.addEventListener('submit', function(e){
-    e.preventDefault();
-    alert('Thank you! This is a demo form.');
-  });
+  f.addEventListener('submit',function(e){ e.preventDefault(); alert('Thank you! Demo form.'); });
 });
 </script>
 </body>
