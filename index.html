@@ -742,6 +742,134 @@ footer svg{
   z-index:0;
 }
 
+/* APP CARDS */
+.apps-grid{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  margin-top:35px;
+}
+
+.app-card{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  padding:24px 30px;
+  background: rgba(10,10,18,.7);
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  text-decoration:none;
+  backdrop-filter:blur(15px);
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  overflow:hidden;
+}
+
+.app-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg, rgba(0,240,255,.06), rgba(255,0,229,.04));
+  opacity:0;
+  transition:opacity .4s ease;
+}
+
+.app-card:hover{
+  transform:translateY(-5px) scale(1.01);
+  border-color:var(--neon-cyan);
+  box-shadow:0 20px 60px rgba(0,0,0,.5), 0 0 50px rgba(0,240,255,.25);
+}
+
+.app-card:hover::before{
+  opacity:1;
+}
+
+.app-card--featured{
+  border-color:rgba(0,240,255,.25);
+  box-shadow:0 0 30px rgba(0,240,255,.12);
+}
+
+.app-card--featured:hover{
+  border-color:var(--neon-magenta);
+  box-shadow:0 20px 60px rgba(0,0,0,.5), 0 0 60px rgba(255,0,229,.3);
+}
+
+.app-icon{
+  width:60px;
+  height:60px;
+  min-width:60px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--electric-blue));
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 8px 30px rgba(0,240,255,.35);
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  z-index:1;
+}
+
+.app-icon--meet{
+  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple));
+  box-shadow:0 8px 30px rgba(255,0,229,.35);
+}
+
+.app-icon svg{
+  width:30px;
+  height:30px;
+  color:#000;
+}
+
+.app-card:hover .app-icon{
+  transform:scale(1.1) rotate(-5deg);
+  box-shadow:0 12px 40px rgba(0,240,255,.55);
+}
+
+.app-card:hover .app-icon--meet{
+  box-shadow:0 12px 40px rgba(255,0,229,.55);
+}
+
+.app-info{
+  flex:1;
+  text-align:left;
+  position:relative;
+  z-index:1;
+}
+
+.app-info h3{
+  font-family:'Syne',sans-serif;
+  font-size:20px;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:4px;
+  letter-spacing:.5px;
+}
+
+.app-info p{
+  font-size:14px;
+  color:rgba(255,255,255,.55);
+  margin:0;
+  font-family:'Syne',sans-serif;
+}
+
+.app-arrow{
+  font-size:22px;
+  color:var(--neon-cyan);
+  font-weight:800;
+  position:relative;
+  z-index:1;
+  transition:transform .3s ease;
+  font-family:'Orbitron',monospace;
+}
+
+.app-arrow--meet{
+  color:var(--neon-magenta);
+}
+
+.app-card:hover .app-arrow{
+  transform:translateX(6px);
+}
+
 /* MOBILE */
 @media(max-width:768px){
   .navbar{
@@ -888,14 +1016,33 @@ footer svg{
   <div class="product-overlay"></div>
   <div class="product-content reveal" style="--from:120%">
     <h2>Apps of Beeta OS</h2>
-    <p>Explore our powerful applications designed to enhance your productivity and creativity.</p>
-    <a class="product-cta" href="https://nbheditor.netlify.app" target="_blank">
-      <span>NBH Editor</span>
-    </a>
-    <form>
-      <input type="email" placeholder="Your email address" required>
-      <button class="product-cta"><span>Add BeeCreator to Wishlist</span></button>
-    </form>
+    <p>Explore our powerful applications designed to enhance your productivity and connectivity.</p>
+    <div class="apps-grid">
+      <a class="app-card" href="https://nbheditor.netlify.app" target="_blank">
+        <div class="app-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+          </svg>
+        </div>
+        <div class="app-info">
+          <h3>NBH Editor</h3>
+          <p>Powerful code &amp; text editor</p>
+        </div>
+        <div class="app-arrow">→</div>
+      </a>
+      <a class="app-card app-card--featured" href="https://themeet.pages.dev" target="_blank">
+        <div class="app-icon app-icon--meet">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+          </svg>
+        </div>
+        <div class="app-info">
+          <h3>The Meet</h3>
+          <p>Specialised video calling</p>
+        </div>
+        <div class="app-arrow app-arrow--meet">→</div>
+      </a>
+    </div>
   </div>
 </section>
 
