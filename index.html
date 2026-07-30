@@ -1048,7 +1048,7 @@ button.product-cta{
 /* CONTACT */
 .contact-section{
   position:relative;
-  padding:140px 60px;
+  padding:140px 24px;
   background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-secondary) 100%);
 }
 
@@ -1058,23 +1058,29 @@ button.product-cta{
   max-width:800px;
   margin:0 auto;
   padding:70px 60px;
-  background:rgba(10,10,18,.6);
-  backdrop-filter:blur(25px);
-  border:1px solid var(--glass-border);
+  background: var(--color-glass);
+  backdrop-filter:blur(30px) saturate(180%);
+  border:1px solid var(--color-border);
   border-radius:32px;
-  box-shadow: 0 30px 100px rgba(0,0,0,.6);
+  box-shadow: var(--shadow-premium);
+  transition: var(--transition-smooth);
+}
+
+.contact-content:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: 0 40px 100px -15px rgba(0,0,0,0.8), var(--glow-primary);
 }
 
 .contact-content h2{
-  font-family: 'Orbitron', monospace;
-  font-size: clamp(42px, 6vw, 64px);
-  font-weight:900;
-  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight:800;
+  background: var(--gradient-text);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   margin-bottom:40px;
   text-align:center;
-  letter-spacing: 3px;
+  letter-spacing: -1px;
 }
 
 /* FOOTER - MULTI COLUMN SITEMAP */
@@ -1386,12 +1392,12 @@ footer{
   align-items:center;
   gap:24px;
   padding:24px 30px;
-  background: rgba(10,10,18,.7);
-  border:1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.02);
+  border:1px solid var(--color-border);
   border-radius:20px;
   text-decoration:none;
   backdrop-filter:blur(15px);
-  transition:all .4s cubic-bezier(.4,0,.2,1);
+  transition: var(--transition-smooth);
   position:relative;
   overflow:hidden;
 }
@@ -1400,15 +1406,16 @@ footer{
   content:'';
   position:absolute;
   inset:0;
-  background: linear-gradient(135deg, rgba(0,240,255,.06), rgba(255,0,229,.04));
+  background: linear-gradient(135deg, rgba(59,130,246,.04), rgba(168,85,247,.04));
   opacity:0;
-  transition:opacity .4s ease;
+  transition: opacity 0.5s ease;
 }
 
 .app-card:hover{
-  transform:translateY(-5px) scale(1.01);
-  border-color:var(--neon-cyan);
-  box-shadow:0 20px 60px rgba(0,0,0,.5), 0 0 50px rgba(0,240,255,.25);
+  transform:translateY(-5px);
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: var(--shadow-premium), var(--glow-primary);
 }
 
 .app-card:hover::before{
@@ -1416,48 +1423,47 @@ footer{
 }
 
 .app-card--featured{
-  border-color:rgba(0,240,255,.25);
-  box-shadow:0 0 30px rgba(0,240,255,.12);
+  border-color: rgba(249, 115, 22, 0.2);
 }
 
 .app-card--featured:hover{
-  border-color:var(--neon-magenta);
-  box-shadow:0 20px 60px rgba(0,0,0,.5), 0 0 60px rgba(255,0,229,.3);
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-premium), var(--glow-secondary);
 }
 
 .app-icon{
   width:60px;
   height:60px;
   min-width:60px;
-  background: linear-gradient(135deg, var(--neon-cyan), var(--electric-blue));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   border-radius:16px;
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 8px 30px rgba(0,240,255,.35);
-  transition:all .4s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
+  transition: var(--transition-smooth);
   position:relative;
   z-index:1;
 }
 
 .app-icon--meet{
-  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple));
-  box-shadow:0 8px 30px rgba(255,0,229,.35);
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);
 }
 
 .app-icon svg{
   width:30px;
   height:30px;
-  color:#000;
+  color:#fff;
 }
 
 .app-card:hover .app-icon{
-  transform:scale(1.1) rotate(-5deg);
-  box-shadow:0 12px 40px rgba(0,240,255,.55);
+  transform:scale(1.08);
+  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
 }
 
 .app-card:hover .app-icon--meet{
-  box-shadow:0 12px 40px rgba(255,0,229,.55);
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.4);
 }
 
 .app-info{
@@ -1468,84 +1474,235 @@ footer{
 }
 
 .app-info h3{
-  font-family:'Syne',sans-serif;
+  font-family: var(--font-sans);
   font-size:20px;
-  font-weight:800;
-  color:#fff;
+  font-weight:700;
+  color: var(--color-text-primary);
   margin-bottom:4px;
-  letter-spacing:.5px;
 }
 
 .app-info p{
   font-size:14px;
-  color:rgba(255,255,255,.55);
+  color: var(--color-text-secondary);
   margin:0;
-  font-family:'Syne',sans-serif;
+  font-family: var(--font-sans);
 }
 
 .app-arrow{
   font-size:22px;
-  color:var(--neon-cyan);
-  font-weight:800;
+  color: var(--color-primary);
+  font-weight:700;
   position:relative;
   z-index:1;
-  transition:transform .3s ease;
-  font-family:'Orbitron',monospace;
+  transition: var(--transition-smooth);
+  font-family: var(--font-sans);
 }
 
 .app-arrow--meet{
-  color:var(--neon-magenta);
+  color: var(--color-secondary);
 }
 
 .app-card:hover .app-arrow{
   transform:translateX(6px);
 }
 
-/* MOBILE */
+/* MOBILE & RESPONSIVE LAYOUT OPTIMIZATIONS (FLAWLESS COHESION) */
+@media(max-width: 992px) {
+  .bento-card--large, .bento-card--medium {
+    grid-column: span 12;
+    min-height: auto;
+  }
+
+  .developer-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
 @media(max-width:768px){
-  .navbar{
-    padding:12px 24px;
-    gap:20px;
+  .navbar {
+    top: 12px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    width: calc(100% - 24px);
+  }
+
+  .navbar-links {
+    display: none; /* Hide links on mobile to prevent clipping */
   }
   
-  .navbar .logo{
-    height:35px;
+  .navbar-actions {
+    gap: 8px;
   }
   
-  .navbar a{
-    font-size:14px;
+  .btn-nav {
+    padding: 8px 16px;
+    font-size: 13px;
   }
   
-  .hero h1{
-    font-size:60px;
-    letter-spacing:4px;
+  .btn-nav-secondary {
+    display: none; /* Hide secondary action to keep mobile navbar clean */
   }
   
-  .hero-tagline{
-    font-size:20px;
+  .hero {
+    padding-top: 100px;
+    min-height: 85vh;
   }
   
-  .ecosystem{
-    padding:80px 30px;
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 54px);
+    letter-spacing: -1px;
+    line-height: 1.15;
   }
   
-  .ecosystem-grid{
-    grid-template-columns:1fr;
-    gap:30px;
+  .hero-tagline {
+    font-size: 16px;
+    margin-bottom: 30px;
   }
   
-  .product-content{
-    padding:50px 40px;
-    margin:0 20px;
+  .btn-hero {
+    padding: 14px 28px;
+    font-size: 15px;
+    width: 100%;
+    justify-content: center;
   }
   
-  .product-content.reveal{
-    transform:translateX(calc(var(--from) * 0.3)) !important;
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
   }
   
-  .product-content.reveal.active{
-    opacity:1 !important;
-    transform:translateX(0) !important;
+  .ecosystem {
+    padding: 80px 16px;
+  }
+
+  .bento-card {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .bento-card-stats {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .developer-section {
+    padding: 80px 16px;
+  }
+
+  .playground-card {
+    border-radius: 16px;
+  }
+
+  .playground-code-area {
+    padding: 16px;
+    font-size: 13px;
+    min-height: 200px;
+  }
+
+  .playground-action {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .playground-output {
+    text-align: center;
+  }
+
+  .product-section {
+    padding: 80px 16px;
+    min-height: auto;
+  }
+
+  .product-content {
+    padding: 30px 24px;
+    border-radius: 24px;
+  }
+
+  .product-content h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .product-content p {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .product-feature-list {
+    margin-bottom: 24px;
+  }
+
+  .product-feature-item {
+    font-size: 14px;
+  }
+
+  .product-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  form {
+    margin-top: 20px;
+  }
+
+  form div {
+    flex-direction: column !important;
+  }
+
+  form input {
+    width: 100%;
+  }
+
+  .testimonials-section {
+    padding: 80px 16px;
+  }
+
+  .testimonial-card {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .compliance-section {
+    padding: 80px 16px;
+  }
+
+  .compliance-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .compliance-card {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .contact-section {
+    padding: 80px 16px;
+  }
+
+  .contact-content {
+    padding: 40px 20px;
+    border-radius: 24px;
+    margin: 0;
+  }
+
+  footer {
+    padding: 60px 16px 30px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr !important;
+    gap: 30px;
   }
 }
 </style>
@@ -1601,64 +1758,64 @@ footer{
 
 <!-- LOGO CAROUSEL -->
 <section class="logo-carousel-section">
-  <div class="logo-carousel-title">Powering the next generation of deep tech innovation</div>
+  <div class="logo-carousel-title">Sovereign Standards &amp; Verified Open-Source Compliance</div>
   <div class="logo-carousel-container">
     <div class="logo-carousel-track">
-      <!-- Item 1 -->
+      <!-- Item 1: Linux Certified -->
+      <div class="logo-carousel-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.55 4.24a1.79 1.79 0 0 0-2.5 1.55v12.42a1.79 1.79 0 0 0 2.5 1.55l8.95-5.15a1.79 1.79 0 0 0 0-3.1z"/></svg>
+        <span>Linux Certified</span>
+      </div>
+      <!-- Item 2: GPL-3.0 Licensed -->
+      <div class="logo-carousel-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M14.5 15a4 4 0 1 1 0-6"/></svg>
+        <span>GPL-3.0 Licensed</span>
+      </div>
+      <!-- Item 3: OSI Approved -->
+      <div class="logo-carousel-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg>
+        <span>OSI Approved</span>
+      </div>
+      <!-- Item 4: GNU Compliant -->
       <div class="logo-carousel-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        <span>Aether Grid</span>
+        <span>GNU Compliant</span>
       </div>
-      <!-- Item 2 -->
+      <!-- Item 5: Open Hardware Standard -->
       <div class="logo-carousel-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 22 22 22"/></svg>
-        <span>Apex Lab</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        <span>Open Hardware Standard</span>
       </div>
-      <!-- Item 3 -->
-      <div class="logo-carousel-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
-        <span>Krypton OS</span>
-      </div>
-      <!-- Item 4 -->
-      <div class="logo-carousel-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2.5 3.19-2.5 5.5s1 4.24 2.5 5.5M19.5 16.5c1.5 1.26 2.5 3.19 2.5 5.5s-1 4.24-2.5 5.5M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-        <span>Zenith Corp</span>
-      </div>
-      <!-- Item 5 -->
+      <!-- Item 6: Sovereign OS Standard -->
       <div class="logo-carousel-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span>Sovereign Guard</span>
-      </div>
-      <!-- Item 6 -->
-      <div class="logo-carousel-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-        <span>Stratus AI</span>
+        <span>Sovereign OS Compliant</span>
       </div>
 
       <!-- Duplicates for Infinite Loop -->
       <div class="logo-carousel-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.55 4.24a1.79 1.79 0 0 0-2.5 1.55v12.42a1.79 1.79 0 0 0 2.5 1.55l8.95-5.15a1.79 1.79 0 0 0 0-3.1z"/></svg>
+        <span>Linux Certified</span>
+      </div>
+      <div class="logo-carousel-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M14.5 15a4 4 0 1 1 0-6"/></svg>
+        <span>GPL-3.0 Licensed</span>
+      </div>
+      <div class="logo-carousel-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg>
+        <span>OSI Approved</span>
+      </div>
+      <div class="logo-carousel-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        <span>Aether Grid</span>
+        <span>GNU Compliant</span>
       </div>
       <div class="logo-carousel-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 22 22 22"/></svg>
-        <span>Apex Lab</span>
-      </div>
-      <div class="logo-carousel-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
-        <span>Krypton OS</span>
-      </div>
-      <div class="logo-carousel-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2.5 3.19-2.5 5.5s1 4.24 2.5 5.5M19.5 16.5c1.5 1.26 2.5 3.19 2.5 5.5s-1 4.24-2.5 5.5M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-        <span>Zenith Corp</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        <span>Open Hardware Standard</span>
       </div>
       <div class="logo-carousel-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span>Sovereign Guard</span>
-      </div>
-      <div class="logo-carousel-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-        <span>Stratus AI</span>
+        <span>Sovereign OS Compliant</span>
       </div>
     </div>
   </div>
