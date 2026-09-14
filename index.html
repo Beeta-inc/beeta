@@ -32,25 +32,34 @@
 <style>
 :root{
   --color-bg: #030712;
-  --color-bg-secondary: #0b0f19;
+  --color-bg-secondary: #080d1a;
   --color-primary: #3b82f6; /* Premium Blue */
   --color-secondary: #f97316; /* Transition Amber/Orange */
   --color-accent: #a855f7; /* Nebula Purple */
+  --color-cyan: #06b6d4; /* Quantum Cyan */
+  --color-emerald: #10b981; /* Hyper Green */
   --color-text-primary: #f9fafb;
   --color-text-secondary: #9ca3af;
   --color-text-muted: #6b7280;
   --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.16);
-  --color-glass: rgba(10, 15, 30, 0.7);
+  --color-border-hover: rgba(255, 255, 255, 0.25);
+  --color-glass: rgba(10, 15, 30, 0.65);
+  --color-glass-card: rgba(15, 23, 42, 0.55);
   --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Syne', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  --shadow-premium: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-  --glow-primary: 0 0 35px rgba(59, 130, 246, 0.25);
-  --glow-secondary: 0 0 35px rgba(249, 115, 22, 0.2);
-  --gradient-blue-orange: linear-gradient(90deg, #3b82f6 0%, #f97316 100%);
-  --gradient-text: linear-gradient(135deg, #f9fafb 0%, #9ca3af 100%);
+  --shadow-premium: 0 20px 50px -10px rgba(0, 0, 0, 0.7);
+  --glow-primary: 0 0 40px rgba(59, 130, 246, 0.35);
+  --glow-secondary: 0 0 40px rgba(249, 115, 22, 0.3);
+  --glow-hyper: 0 0 50px rgba(168, 85, 247, 0.35);
+  --gradient-blue-orange: linear-gradient(135deg, #3b82f6 0%, #a855f7 50%, #f97316 100%);
+  --gradient-hyper: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #a855f7 100%);
+  --gradient-text: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #94a3b8 100%);
+  --gradient-shimmer: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+
+  --mouse-x: 50%;
+  --mouse-y: 50%;
 }
 
 *{
@@ -62,6 +71,7 @@
 html{
   scroll-behavior:smooth;
   overflow-x:hidden;
+  background: var(--color-bg);
 }
 
 body{
@@ -73,23 +83,85 @@ body{
   position: relative;
 }
 
-/* Animated background grid - subtle and professional-grade */
+/* Ambient dynamic light torch following cursor */
+#ambient-light {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.08), rgba(168, 85, 247, 0.04) 40%, transparent 80%);
+  transition: opacity 0.3s ease;
+}
+
+/* Animated background grid with glowing ambient pulse */
 body::before{
   content: '';
   position: fixed;
   inset: 0;
   background: 
-    linear-gradient(90deg, rgba(59, 130, 246, .015) 1px, transparent 1px),
-    linear-gradient(rgba(59, 130, 246, .015) 1px, transparent 1px);
-  background-size: 100px 100px;
-  animation: gridMove 40s linear infinite;
+    linear-gradient(90deg, rgba(59, 130, 246, .025) 1px, transparent 1px),
+    linear-gradient(rgba(59, 130, 246, .025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 30s linear infinite;
   pointer-events: none;
   z-index: 0;
 }
 
 @keyframes gridMove{
   0%{background-position: 0 0}
-  100%{background-position: 100px 100px}
+  100%{background-position: 80px 80px}
+}
+
+/* Dynamic ambient aura background glow spheres */
+.ambient-aurora {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.aurora-blob {
+  position: absolute;
+  filter: blur(120px);
+  opacity: 0.22;
+  border-radius: 50%;
+  animation: floatAurora 20s ease-in-out infinite alternate;
+}
+
+.aurora-blob--1 {
+  width: 600px;
+  height: 600px;
+  background: #3b82f6;
+  top: -100px;
+  left: 10%;
+}
+
+.aurora-blob--2 {
+  width: 500px;
+  height: 500px;
+  background: #a855f7;
+  top: 40%;
+  right: -50px;
+  animation-delay: -7s;
+}
+
+.aurora-blob--3 {
+  width: 550px;
+  height: 550px;
+  background: #f97316;
+  bottom: -100px;
+  left: 30%;
+  animation-delay: -14s;
+}
+
+@keyframes floatAurora {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 40px) scale(1.1); }
+  100% { transform: translate(-40px, 80px) scale(0.95); }
 }
 
 /* VIDEO SPLASH */
@@ -548,7 +620,7 @@ section{
   margin: 0 auto;
 }
 
-/* Bento Grid */
+/* Bento Grid & Specular Lighting Cards */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -558,40 +630,59 @@ section{
 
 .bento-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-glass-card);
+  backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--color-border);
-  border-radius: 24px;
+  border-radius: 28px;
   padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: var(--transition-smooth);
+  transition: transform 0.2s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   overflow: hidden;
   text-decoration: none;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
+/* Dynamic specular cursor spotlight on card */
 .bento-card::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(255,255,255,0.06), transparent 40%);
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(600px circle at var(--card-x, 50%) var(--card-y, 50%), rgba(255, 255, 255, 0.35), rgba(59, 130, 246, 0.2) 30%, transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.4s ease;
+}
+
+.bento-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(500px circle at var(--card-x, 50%) var(--card-y, 50%), rgba(59, 130, 246, 0.08), rgba(168, 85, 247, 0.05) 40%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
   pointer-events: none;
 }
 
-.bento-card:hover::before {
+.bento-card:hover::before,
+.bento-card:hover::after {
   opacity: 1;
 }
 
 .bento-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-border-hover);
-  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 
     0 30px 60px -15px rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    0 0 30px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .bento-card--large {
@@ -1710,6 +1801,14 @@ footer{
 </head>
 <body>
 
+<!-- AMBIENT REALTIME LIGHTING & AURORA -->
+<div id="ambient-light"></div>
+<div class="ambient-aurora">
+  <div class="aurora-blob aurora-blob--1"></div>
+  <div class="aurora-blob aurora-blob--2"></div>
+  <div class="aurora-blob aurora-blob--3"></div>
+</div>
+
 <!-- VIDEO SPLASH -->
 <div id="splash">
   <video autoplay muted playsinline>
@@ -1848,7 +1947,7 @@ footer{
         <div class="bento-card-footer">
           <div class="bento-card-stats">
             <div class="bento-stat-item">
-              <span class="bento-stat-val">100k+</span>
+              <span class="bento-stat-val" data-target="100000" data-suffix="k+">100k+</span>
               <span class="bento-stat-lbl">Active Users</span>
             </div>
             <div class="bento-stat-item">
@@ -2180,6 +2279,90 @@ console.log(`Sandbox created. ID: ${sandbox.id}`);</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
+// GLOBAL CURSOR LIGHTING & CARD SPECULAR TRACKER
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+let targetX = mouseX;
+let targetY = mouseY;
+
+window.addEventListener('mousemove', function(e) {
+  targetX = e.clientX;
+  targetY = e.clientY;
+});
+
+window.addEventListener('touchmove', function(e) {
+  if (e.touches.length > 0) {
+    targetX = e.touches[0].clientX;
+    targetY = e.touches[0].clientY;
+  }
+});
+
+function updateCursorLighting() {
+  mouseX += (targetX - mouseX) * 0.15;
+  mouseY += (targetY - mouseY) * 0.15;
+
+  document.documentElement.style.setProperty('--mouse-x', mouseX + 'px');
+  document.documentElement.style.setProperty('--mouse-y', mouseY + 'px');
+
+  // Update card relative coordinates for localized specular spotlight
+  document.querySelectorAll('.bento-card, .product-content, .playground-card, .app-card, .testimonial-card, .compliance-card').forEach(function(card) {
+    const rect = card.getBoundingClientRect();
+    const x = mouseX - rect.left;
+    const y = mouseY - rect.top;
+    card.style.setProperty('--card-x', x + 'px');
+    card.style.setProperty('--card-y', y + 'px');
+  });
+
+  requestAnimationFrame(updateCursorLighting);
+}
+requestAnimationFrame(updateCursorLighting);
+
+// 3D TILT PHYSICS FOR BENTO CARDS & CARDS
+document.querySelectorAll('.bento-card, .app-card, .compliance-card, .testimonial-card').forEach(function(card) {
+  card.addEventListener('mousemove', function(e) {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg rotation
+    const rotateY = ((x - centerX) / centerX) * 8;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+  });
+
+  card.addEventListener('mouseleave', function() {
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+  });
+});
+
+// ANIMATED COUNTERS FOR STATS
+function animateCounters() {
+  const statElements = document.querySelectorAll('.bento-stat-val[data-target]');
+  statElements.forEach(function(el) {
+    if (el.classList.contains('counted')) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('counted');
+      const target = parseInt(el.getAttribute('data-target'), 10);
+      const suffix = el.getAttribute('data-suffix') || '';
+      let current = 0;
+      const increment = Math.ceil(target / 40);
+      const timer = setInterval(function() {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.innerText = current.toLocaleString() + suffix;
+      }, 30);
+    }
+  });
+}
+window.addEventListener('scroll', animateCounters);
+window.addEventListener('load', animateCounters);
+
 // INTERACTIVE CODE PLAYGROUND
 function switchTab(event, lang) {
   // Reset tabs
@@ -2339,8 +2522,11 @@ function initWebGL(){
       requestAnimationFrame(animate);
       time += 0.001;
 
-      stars.rotation.y = time * 0.08;
-      stars.rotation.x = Math.sin(time * 0.4) * 0.08;
+      // Interactive parallax & rotation based on mouse cursor position
+      const targetRotY = time * 0.08 + (mouseX / window.innerWidth - 0.5) * 0.3;
+      const targetRotX = Math.sin(time * 0.4) * 0.08 + (mouseY / window.innerHeight - 0.5) * 0.3;
+      stars.rotation.y += (targetRotY - stars.rotation.y) * 0.05;
+      stars.rotation.x += (targetRotX - stars.rotation.x) * 0.05;
 
       const positions = stars.geometry.attributes.position.array;
       for(let i = 0; i < starCount; i++){
@@ -2350,8 +2536,8 @@ function initWebGL(){
       stars.geometry.attributes.position.needsUpdate = true;
 
       orbs.forEach(function(orb, idx){
-        orb.mesh.position.y = Math.sin(time * orb.speed + idx) * 2.5;
-        orb.mesh.position.x = Math.cos(time * orb.speed * 0.8 + idx) * 3.5;
+        orb.mesh.position.y = Math.sin(time * orb.speed + idx) * 2.5 + (mouseY / window.innerHeight - 0.5) * 0.5;
+        orb.mesh.position.x = Math.cos(time * orb.speed * 0.8 + idx) * 3.5 + (mouseX / window.innerWidth - 0.5) * 0.5;
         orb.mesh.rotation.x += 0.003;
         orb.mesh.rotation.y += 0.004;
       });
